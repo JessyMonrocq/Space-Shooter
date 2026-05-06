@@ -194,7 +194,7 @@ Material:
     - _PlanetBaseColor: {r: 0.9558824, g: 0, b: 0, a: 0}
     - _PlanetRimColor: {r: 0, g: 0, b: 0, a: 0}
     - _PlanetSecondColor: {r: 0.50735295, g: 0.10818557, b: 0.10818557, a: 0}
-    - _RimColor: {r: 1, g: 0.18396229, b: 0.9193271, a: 1}
+    - _RimColor: {r: 0, g: 0, b: 0, a: 1}
     - _SecondColor: {r: 0.39511245, g: 0.85294116, b: 0.8163149, a: 0}
     - _Second_Color: {r: 0.14413927, g: 0.4042835, b: 0.45588237, a: 0}
     - _Size: {r: 0, g: 0, b: 0, a: 0}

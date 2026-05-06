@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5131633875735980158
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5326333260181770658}
+  - component: {fileID: 3926233797333901119}
+  m_Layer: 0
+  m_Name: InputManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5326333260181770658
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5131633875735980158}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3926233797333901119
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5131633875735980158}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bdbcd94b9f768ac49b5dfcf9182c8cba, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  spaceshipForwardMoveAction: {fileID: -1856329886089158745, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipHorizontalMoveAction: {fileID: -6349072104690065100, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipVerticalMoveAction: {fileID: -1981895563696206236, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipPitchAction: {fileID: -7280525287485168268, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipYawAction: {fileID: -1997127497137168779, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipRollAction: {fileID: -1285293555315646902, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipBoostAction: {fileID: 3263668022202308127, guid: 052faaac586de48259a63d0c4782560b, type: 3}

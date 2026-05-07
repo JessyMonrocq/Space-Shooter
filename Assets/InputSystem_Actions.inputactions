@@ -8,7 +8,7 @@
             "actions": [
                 {
                     "name": "ForwardMove",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "4cb2dd77-1ace-4f1e-ac08-060973cdeab0",
                     "expectedControlType": "Axis",
                     "processors": "",
@@ -17,7 +17,7 @@
                 },
                 {
                     "name": "HorizontalMove",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "6edbabb3-87a9-44d2-a19b-5a4a89f5d07b",
                     "expectedControlType": "Axis",
                     "processors": "",
@@ -26,7 +26,7 @@
                 },
                 {
                     "name": "VerticalMove",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "32ca7e4b-d9fb-48ce-9106-7f1649e61ebd",
                     "expectedControlType": "Axis",
                     "processors": "",
@@ -35,7 +35,7 @@
                 },
                 {
                     "name": "Pitch",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "9168a70d-a694-4f84-87af-44d7464f8167",
                     "expectedControlType": "Axis",
                     "processors": "",
@@ -44,7 +44,7 @@
                 },
                 {
                     "name": "Yaw",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "694ce9c5-a01f-4497-89f1-a75a0de13f3e",
                     "expectedControlType": "Axis",
                     "processors": "",
@@ -53,7 +53,7 @@
                 },
                 {
                     "name": "Roll",
-                    "type": "Value",
+                    "type": "PassThrough",
                     "id": "ddd209fc-b67d-4358-8848-075eceae6989",
                     "expectedControlType": "Axis",
                     "processors": "",
@@ -62,58 +62,80 @@
                 },
                 {
                     "name": "Boost",
-                    "type": "Button",
+                    "type": "PassThrough",
                     "id": "134be009-24c1-4b9f-b343-6e3168b61e4c",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
                 {
-                    "name": "",
-                    "id": "ce1a40e0-1791-4131-bfbf-7141e8a95ed4",
+                    "name": "Gamepad",
+                    "id": "8c29f818-210a-4a0e-8f1d-e8e390511493",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ForwardMove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "d741f440-95da-4588-b6ba-6e08d28fbbfc",
+                    "path": "<Gamepad>/leftTrigger",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "ForwardMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "1d2c4e74-b0fd-4841-9bd1-324e6fb2639b",
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "ForwardMove",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "f70a7307-301a-48ca-8243-d9c51ee4c64c",
-                    "path": "<Gamepad>/leftTrigger",
+                    "name": "Keyboard",
+                    "id": "f42de4ed-ae08-4612-acc9-e27c866af92e",
+                    "path": "1DAxis",
                     "interactions": "",
-                    "processors": "Clamp(max=0.5),Invert",
+                    "processors": "",
                     "groups": "",
                     "action": "ForwardMove",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "907114f8-3863-4db7-b6a4-0976d705b425",
+                    "name": "negative",
+                    "id": "6b986d4a-1642-4d7c-a9b1-229aa9df56f7",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "ForwardMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "807cac9a-473d-415f-a20e-5f76ce75c735",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "ForwardMove",
                     "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "823019e6-9d8e-4dc1-8419-066886a4c966",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "Clamp(max=0.5),Invert",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "ForwardMove",
-                    "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -127,26 +149,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "9d99fe4c-f418-4680-bfd1-d8d160e94198",
-                    "path": "<Keyboard>/a",
+                    "name": "Keyboard",
+                    "id": "9c203bf4-dd71-4ffb-b50d-c777466d9439",
+                    "path": "1DAxis",
                     "interactions": "",
-                    "processors": "Invert",
-                    "groups": ";Keyboard&Mouse",
+                    "processors": "",
+                    "groups": "",
                     "action": "HorizontalMove",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "802fc191-492f-4095-bb16-871c7d93dfe8",
+                    "name": "negative",
+                    "id": "7021e57e-6774-468b-a743-f0a1e5c1fa5e",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "HorizontalMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "48898ceb-f3b3-400a-88f7-b00137660d38",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "HorizontalMove",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -160,26 +193,37 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "8b2b3f32-3a57-454c-91db-298e198614f5",
+                    "name": "Keyboard",
+                    "id": "6e72ed64-01b8-4dd4-b7f6-7bfa51d39c21",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "VerticalMove",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "negative",
+                    "id": "c884c0c8-6534-468f-b410-a8043d2bdfce",
+                    "path": "<Keyboard>/leftCtrl",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "VerticalMove",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "7afbb6f2-7702-42c5-8471-7f509ffd831b",
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "VerticalMove",
                     "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "f32d8ccb-3a94-46c8-be8b-f5ceabb67bca",
-                    "path": "<Keyboard>/leftCtrl",
-                    "interactions": "",
-                    "processors": "Invert",
-                    "groups": ";Keyboard&Mouse",
-                    "action": "VerticalMove",
-                    "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
@@ -226,48 +270,70 @@
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "7b61e073-3543-47a4-9592-16b35fc44274",
-                    "path": "<Gamepad>/rightShoulder",
+                    "name": "Gamepad",
+                    "id": "d9bba9d8-434b-4311-b271-65bcf8a3e053",
+                    "path": "1DAxis",
                     "interactions": "",
-                    "processors": "Invert",
-                    "groups": ";Gamepad",
+                    "processors": "",
+                    "groups": "",
                     "action": "Roll",
-                    "isComposite": false,
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "530fb331-2812-45cf-8869-04136c1e8ff8",
+                    "name": "negative",
+                    "id": "f9109633-79d6-41d9-ad9d-28a91ae52f6a",
+                    "path": "<Gamepad>/rightShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Roll",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "positive",
+                    "id": "c653fe1b-8cb5-4420-b273-6a59ac3895cb",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
                     "action": "Roll",
                     "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "Keyboard",
+                    "id": "fde3ce1e-07df-4974-9fa6-3d9ec571ec62",
+                    "path": "1DAxis",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Roll",
+                    "isComposite": true,
                     "isPartOfComposite": false
                 },
                 {
-                    "name": "",
-                    "id": "9801d6ed-47a3-4153-9347-4f335c2ff7b1",
+                    "name": "negative",
+                    "id": "f64b2167-1006-430a-9746-ebe4a45f5689",
                     "path": "<Keyboard>/e",
                     "interactions": "",
-                    "processors": "Invert",
+                    "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Roll",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "7892b020-756f-4500-8d39-725247131b24",
+                    "name": "positive",
+                    "id": "74f32b46-f1bc-40f1-9738-8b60d217627a",
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "Roll",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",

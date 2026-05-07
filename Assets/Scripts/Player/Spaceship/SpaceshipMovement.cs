@@ -7,11 +7,38 @@ public class SpaceshipMovement : MonoBehaviour
     #region Inspector Fields
     private Rigidbody spaceshipRigidbody;
 
+    public float CurrentForwardSpeed => currentForwardSpeed;
+
     [Header("Movement Settings")]
-    [SerializeField] private float forwardSpeed = 100f;
-    [SerializeField] private float translationSpeed = 5f;
-    [SerializeField] private float rotationSpeed = 0.1f;
-    [SerializeField] private float rollSpeed = 0.1f;
+    [Header("Forward Movement")]
+    [SerializeField] private float forwardMaxSpeed = 100f;
+    [Tooltip("Acceleration : Time in seconds for the spaceship to reach max forward speed")]
+    [SerializeField] private float forwardAccelerationTime = 1f;
+    [Tooltip("Deceleration : Time in seconds for the spaceship to slow down back to zero")]
+    [SerializeField] private float forwardDecelerationTime = 1f;
+    [SerializeField] private float brakingDecelerationMultiplier = 2f;
+
+    [Header("Translation Movement")]
+    [SerializeField] private float translationMaxSpeed = 5f;
+    [SerializeField] private float translationAccelerationTime = 1f;
+
+    [Header("Rotation Movement")]
+    [SerializeField] private float rotationMaxSpeed = 0.1f;
+    [SerializeField] private float rotationAccelerationTime = 0.05f;
+
+    [Header("Roll Movement")]
+    [SerializeField] private float rollMaxSpeed = 0.1f;
+    [SerializeField] private float rollAccelerationTime = 0.05f;
+
+    [Header("Inertia Settings")]
+    [SerializeField] private float inertiaEffectMultiplier = 1.5f;
+
+    private float currentForwardSpeed;
+    private float currentTranslationSpeed;
+    private float currentRotationSpeed;
+    private float currentRollSpeed;
+
+    private float forwardInertiaRatio;
 
     private float forwardMoveInput;
     private float horizontalMoveInput;
@@ -30,20 +57,49 @@ public class SpaceshipMovement : MonoBehaviour
     private void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
+
+        currentForwardSpeed = 0f;
+        currentTranslationSpeed = 0f;
+        currentRotationSpeed = 0f;
+        currentRollSpeed = 0f;
+
+        forwardInertiaRatio = 0f;
     }
 
     private void OnDisable()
     {
-        
+
     }
     #endregion
 
     #region Input Events
-    
+
     #endregion
 
     #region Update Method
     private void Update()
+    {
+        ReadInputValues();
+    }
+
+    private void FixedUpdate()
+    {
+        ApplyForwardMovement();
+
+        float inertiaMultiplier = 1f / (1f + forwardInertiaRatio * inertiaEffectMultiplier);
+
+        spaceshipRigidbody.AddForce(spaceshipRigidbody.transform.TransformDirection(Vector3.right) * horizontalMoveInput * translationMaxSpeed * inertiaMultiplier, ForceMode.VelocityChange);
+        spaceshipRigidbody.AddForce(spaceshipRigidbody.transform.TransformDirection(Vector3.up) * verticalMoveInput * translationMaxSpeed * inertiaMultiplier, ForceMode.VelocityChange);
+
+        spaceshipRigidbody.AddTorque(spaceshipRigidbody.transform.right * rotationMaxSpeed * pitchInput * inertiaMultiplier, ForceMode.VelocityChange);
+        spaceshipRigidbody.AddTorque(spaceshipRigidbody.transform.up * rotationMaxSpeed * yawInput * inertiaMultiplier, ForceMode.VelocityChange);
+
+        spaceshipRigidbody.AddTorque(spaceshipRigidbody.transform.forward * rollMaxSpeed * rollInput * inertiaMultiplier, ForceMode.VelocityChange);
+    }
+    #endregion
+
+    #region Private Methods
+    private void ReadInputValues()
     {
         forwardMoveInput = InputManager.Instance.SpaceshipForwardMove.ReadValue<float>();
         horizontalMoveInput = InputManager.Instance.SpaceshipHorizontalMove.ReadValue<float>();
@@ -53,16 +109,37 @@ public class SpaceshipMovement : MonoBehaviour
         rollInput = InputManager.Instance.SpaceshipRoll.ReadValue<float>();
     }
 
-    private void FixedUpdate()
+    private void ApplyForwardMovement()
     {
-        spaceshipRigidbody.AddForce(spaceshipRigidbody.transform.TransformDirection(Vector3.forward) * forwardMoveInput * forwardSpeed, ForceMode.VelocityChange);
-        spaceshipRigidbody.AddForce(spaceshipRigidbody.transform.TransformDirection(Vector3.right) * horizontalMoveInput * translationSpeed, ForceMode.VelocityChange);
-        spaceshipRigidbody.AddForce(spaceshipRigidbody.transform.TransformDirection(Vector3.up) * verticalMoveInput * translationSpeed, ForceMode.VelocityChange);
+        bool isAccelerating = false;
+        bool isBraking = false;
+        float targetSpeed = forwardMoveInput * forwardMaxSpeed;
+        if (Mathf.Approximately(targetSpeed, 0f))
+        {
+            isAccelerating = false;
+            isBraking = false;
+        }
+        else if ((targetSpeed > 0 && currentForwardSpeed < 0) || (targetSpeed < 0 && currentForwardSpeed > 0))
+        {
+            isAccelerating = false;
+            isBraking = true;
+        }
+        else
+        {
+            isAccelerating = true;
+            isBraking = false;
+        }
 
-        spaceshipRigidbody.AddTorque(spaceshipRigidbody.transform.right * rotationSpeed * pitchInput, ForceMode.VelocityChange);
-        spaceshipRigidbody.AddTorque(spaceshipRigidbody.transform.up * rotationSpeed * yawInput, ForceMode.VelocityChange);
+        float decelerationTime = isBraking ? forwardDecelerationTime / brakingDecelerationMultiplier : forwardDecelerationTime;
+        currentForwardSpeed = Mathf.MoveTowards(currentForwardSpeed, isAccelerating ? targetSpeed : 0f, (forwardMaxSpeed / (isAccelerating ? forwardAccelerationTime : decelerationTime)) * Time.deltaTime);
+        spaceshipRigidbody.AddForce(spaceshipRigidbody.transform.TransformDirection(Vector3.forward) * currentForwardSpeed, ForceMode.VelocityChange);
+    
+        forwardInertiaRatio = Mathf.Abs(currentForwardSpeed) / forwardMaxSpeed;
+    }
 
-        spaceshipRigidbody.AddTorque(spaceshipRigidbody.transform.forward * rollSpeed * rollInput, ForceMode.VelocityChange);
+    private void ApplyTranslationMovement()
+    {
+
     }
     #endregion
 }

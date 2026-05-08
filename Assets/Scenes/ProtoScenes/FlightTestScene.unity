@@ -93,7 +93,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: e7d499a9fab5e6942bc4d38c52278d86, type: 2}
+  m_LightingDataAsset: {fileID: 112000000, guid: 107d016cad516704ea0d04d9e216d21e, type: 2}
   m_LightingSettings: {fileID: 4890085278179872738, guid: 1ec6455ca49506548be1ecb6ceea074c, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -6967,6 +6967,10 @@ PrefabInstance:
     - target: {fileID: 8334639625619475842, guid: a5d1d9f030f193c4ab6da8deaf860191, type: 3}
       propertyPath: m_Name
       value: Spaceship
+      objectReference: {fileID: 0}
+    - target: {fileID: 8334639625619475842, guid: a5d1d9f030f193c4ab6da8deaf860191, type: 3}
+      propertyPath: m_IsActive
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

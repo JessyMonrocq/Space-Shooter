@@ -2,6 +2,9 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
+/// <summary>
+/// This script handles the spaceship boost mechanic, increasing thrust and inertia while moving forward automatically
+/// </summary>
 public class SpaceshipBoost : MonoBehaviour
 {
     public UnityEvent<bool> OnSpaceshipBoost;
@@ -39,19 +42,58 @@ public class SpaceshipBoost : MonoBehaviour
         InputManager.Instance.SpaceshipBoost.started -= OnBoostStarted;
     }
 
+    private void Update()
+    {
+        HandleBoostEnergy();
+    }
+
     private void OnBoostStarted(InputAction.CallbackContext context)
     {
         if (canBoost && !isBoosting)
         {
-            // Boost
             isBoosting = true;
         }
         else if (canBoost && isBoosting)
         {
-            // Interrupt Boost
+            canBoost = false;
+            boostCooldownTimer = 0f;
             isBoosting = false;
         }
 
         OnSpaceshipBoost?.Invoke(isBoosting);
+    }
+
+    private void HandleBoostEnergy()
+    {
+        if (isBoosting)
+        {
+            currentBoostEnergy -= boostEnergyConsumption * Time.deltaTime;
+            if (currentBoostEnergy <= 0f)
+            {
+                isBoosting = false;
+                canBoost = false;
+                boostCooldownTimer = 0f;
+                currentBoostEnergy = 0f;
+                OnSpaceshipBoost?.Invoke(isBoosting);
+            }
+            return;
+        }
+
+        if (!canBoost)
+        {
+            boostCooldownTimer += Time.deltaTime;
+            if (boostCooldownTimer >= boostCooldownDuration)
+            {
+                boostCooldownTimer = 0f;
+                canBoost = true;
+            }
+            return;
+        }
+
+        if (currentBoostEnergy < boostEnergyCapacity)
+        {
+            currentBoostEnergy += boostRechargeRate * Time.deltaTime;
+            currentBoostEnergy = Mathf.Min(currentBoostEnergy, boostEnergyCapacity);
+        }
     }
 }

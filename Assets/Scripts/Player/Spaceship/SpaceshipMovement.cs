@@ -26,6 +26,7 @@ public class SpaceshipMovement : MonoBehaviour
     [SerializeField, Range(0f, 2f)] private float inertiaTranslationDampenerMultiplier = 1f;
     [SerializeField, Range(0f, 2f)] private float inertiaTorqueDampenerMultiplier = 1f;
     [SerializeField, Range(0f, 1f)] private float inertiaRollDampenerMultiplier = 0.5f;
+    [SerializeField, Range(0.001f, 1f)] private float inertiaRecoverySpeed = 0.05f;
 
     [Header("Flight Assist Settings")]
     [SerializeField] float flightAssistStrength = 2f;
@@ -54,6 +55,9 @@ public class SpaceshipMovement : MonoBehaviour
     private float inertiaTorqueDampener;
     private float inertiaTranslationDampener;
     private float inertiaRollDampener;
+    private float targetInertiaTorqueDampener;
+    private float targetInertiaTranslationDampener;
+    private float targetRollDampener;
 
     private float boostThrustMultiplier;
     private float boostInertiaMultiplier;
@@ -66,22 +70,7 @@ public class SpaceshipMovement : MonoBehaviour
         spaceshipRB = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
 
-        thrustInput = 0f;
-        horizontalThrustInput = 0f;
-        verticalThrustInput = 0f;
-        pitchInput = 0f;
-        yawInput = 0f;
-        rollInput = 0f;
-        glide = 0f;
-        horizontalGlide = 0f;
-        verticalGlide = 0f;
-        inertiaTorqueDampener = 0f;
-        inertiaTranslationDampener = 0f;
-        inertiaRollDampener = 0f;
-
-        boostInertia = 1f;
-
-        movementState = MovementState.FlightMode;
+        InitializeParameters();
     }
 
     private void Update()
@@ -124,6 +113,31 @@ public class SpaceshipMovement : MonoBehaviour
     #endregion
 
     #region Private Methods
+    private void InitializeParameters()
+    {
+        thrustInput = 0f;
+        horizontalThrustInput = 0f;
+        verticalThrustInput = 0f;
+        pitchInput = 0f;
+        yawInput = 0f;
+        rollInput = 0f;
+
+        glide = 0f;
+        horizontalGlide = 0f;
+        verticalGlide = 0f;
+
+        inertiaTorqueDampener = 0f;
+        inertiaTranslationDampener = 0f;
+        inertiaRollDampener = 0f;
+        targetInertiaTorqueDampener = 1f;
+        targetInertiaTranslationDampener = 1f;
+        targetRollDampener = 1f;
+
+        boostInertia = 1f;
+
+        movementState = MovementState.FlightMode;
+    }
+
     private void ReadInputValues()
     {
         thrustInput = InputManager.Instance.SpaceshipForwardMove.ReadValue<float>();
@@ -137,17 +151,23 @@ public class SpaceshipMovement : MonoBehaviour
     private void UpdateInertiaDampeners()
     {
         float currentThrust;
-        if (Mathf.Approximately(thrustInput, 0f))
+        if (Mathf.Approximately(thrustInput, 0f) && movementState == MovementState.FlightMode)
         {
             currentThrust = glide;
         }
         else
         {
-            currentThrust = thrust;
+            bool isFlightMode = movementState == MovementState.FlightMode;
+            currentThrust = thrust * (isFlightMode ? thrustInput : 1f);
         }
-        inertiaTorqueDampener = 1f / (1f + (currentThrust * inertiaTorqueDampenerMultiplier / 100f));
-        inertiaTranslationDampener = 1f / (1f + (currentThrust * inertiaTranslationDampenerMultiplier / 100f));
-        inertiaRollDampener = 1f / (1f + (currentThrust * inertiaRollDampenerMultiplier / 100f));
+
+        targetInertiaTorqueDampener = 1f / (1f + (currentThrust * inertiaTorqueDampenerMultiplier / 100f));
+        targetInertiaTranslationDampener = 1f / (1f + (currentThrust * inertiaTranslationDampenerMultiplier / 100f));
+        targetRollDampener = 1f / (1f + (currentThrust * inertiaRollDampenerMultiplier / 100f));
+
+        inertiaTorqueDampener = Mathf.MoveTowards(inertiaTorqueDampener, targetInertiaTorqueDampener, inertiaRecoverySpeed);
+        inertiaTranslationDampener = Mathf.MoveTowards(inertiaTranslationDampener, targetInertiaTranslationDampener, inertiaRecoverySpeed);
+        inertiaRollDampener = Mathf.MoveTowards(inertiaRollDampener, targetRollDampener, inertiaRecoverySpeed);
     }
 
     private void ApplyTranslationForces()

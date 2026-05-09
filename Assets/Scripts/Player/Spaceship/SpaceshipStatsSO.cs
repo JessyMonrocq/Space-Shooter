@@ -34,6 +34,8 @@ public class SpaceshipStatsSO : ScriptableObject
     [SerializeField, Range(0f, 2f)] private float inertiaTorqueDampenerMultiplier = 1f;
     [Tooltip("Inertia Roll Dampener Multiplier : defines the impact of spaceship thrust on spinning speed (higher values => slower spinning at high speed)")]
     [SerializeField, Range(0f, 1f)] private float inertiaRollDampenerMultiplier = 0.5f;
+    [Tooltip("Inertia Recovery Speed : defines the speed at which the inertia dampener values revert back to default")]
+    [SerializeField, Range(0.001f, 1f)] private float inertiaRecoverySpeed = 0.05f;
 
     [Header("Flight Assist Settings")]
     [Tooltip("Flight Assist Strength : reduces the amount of momentum kept when moving forward and turning (higher value => tighter turning/less drifting)")]

@@ -591,8 +591,8 @@ MonoBehaviour:
   boostThrustMultiplier: 2.5
   boostEnergyCapacity: 150
   boostEnergyConsumption: 15
-  boostCooldownDuration: 1
-  boostRechargeRate: 1
+  boostCooldownDuration: 2
+  boostRechargeRate: 20
   boostInertiaMultiplier: 0.33
 --- !u!54 &7521189018694233219
 Rigidbody:

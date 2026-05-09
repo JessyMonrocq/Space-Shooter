@@ -62,7 +62,7 @@
                 },
                 {
                     "name": "Boost",
-                    "type": "PassThrough",
+                    "type": "Button",
                     "id": "134be009-24c1-4b9f-b343-6e3168b61e4c",
                     "expectedControlType": "",
                     "processors": "",

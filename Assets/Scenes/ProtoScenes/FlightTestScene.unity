@@ -6966,11 +6966,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8334639625619475842, guid: a5d1d9f030f193c4ab6da8deaf860191, type: 3}
       propertyPath: m_Name
-      value: Spaceship
-      objectReference: {fileID: 0}
-    - target: {fileID: 8334639625619475842, guid: a5d1d9f030f193c4ab6da8deaf860191, type: 3}
-      propertyPath: m_IsActive
-      value: 1
+      value: SpaceshipPlayer
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

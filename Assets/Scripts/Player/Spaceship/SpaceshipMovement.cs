@@ -30,6 +30,14 @@ public class SpaceshipMovement : MonoBehaviour
     [Header("Flight Assist Settings")]
     [SerializeField] float flightAssistStrength = 2f;
 
+    public enum MovementState
+    {
+        FlightMode,
+        BoostMode
+    }
+
+    private MovementState movementState;
+
     private Rigidbody spaceshipRB;
 
     private float thrustInput;
@@ -46,6 +54,10 @@ public class SpaceshipMovement : MonoBehaviour
     private float inertiaTorqueDampener;
     private float inertiaTranslationDampener;
     private float inertiaRollDampener;
+
+    private float boostThrustMultiplier;
+    private float boostInertiaMultiplier;
+    private float boostInertia;
     #endregion
 
     #region Unity Methods
@@ -53,6 +65,23 @@ public class SpaceshipMovement : MonoBehaviour
     {
         spaceshipRB = GetComponent<Rigidbody>();
         Cursor.lockState = CursorLockMode.Locked;
+
+        thrustInput = 0f;
+        horizontalThrustInput = 0f;
+        verticalThrustInput = 0f;
+        pitchInput = 0f;
+        yawInput = 0f;
+        rollInput = 0f;
+        glide = 0f;
+        horizontalGlide = 0f;
+        verticalGlide = 0f;
+        inertiaTorqueDampener = 0f;
+        inertiaTranslationDampener = 0f;
+        inertiaRollDampener = 0f;
+
+        boostInertia = 1f;
+
+        movementState = MovementState.FlightMode;
     }
 
     private void Update()
@@ -66,6 +95,31 @@ public class SpaceshipMovement : MonoBehaviour
         ApplyTranslationForces();
         ApplyRotationForces();
         ApplyFlightAssistMethod();
+    }
+    #endregion
+
+    #region Public Methods
+    public void SetBoostValues(float thrustMult, float inertiaMult)
+    {
+        boostThrustMultiplier = thrustMult;
+        boostInertiaMultiplier = inertiaMult;
+    }
+
+    public void SetBoostMode(bool state)
+    {
+        if (movementState == MovementState.FlightMode && state)
+        {
+            movementState = MovementState.BoostMode;
+            boostInertia = boostInertiaMultiplier;
+            return;
+        }
+
+        if (movementState == MovementState.BoostMode && !state)
+        {
+            movementState = MovementState.FlightMode;
+            boostInertia = 1f;
+            return;
+        }
     }
     #endregion
 
@@ -98,51 +152,66 @@ public class SpaceshipMovement : MonoBehaviour
 
     private void ApplyTranslationForces()
     {
-        // Thrust
-        if (Mathf.Approximately(thrustInput, 0f))
+        // Thrust : FlightMode
+        if (movementState == MovementState.FlightMode)
         {
-            spaceshipRB.AddRelativeForce(Vector3.forward * glide * Time.fixedDeltaTime, ForceMode.VelocityChange);
-            glide *= thrustGlideReduction;
+            if (Mathf.Approximately(thrustInput, 0f))
+            {
+                spaceshipRB.AddRelativeForce(Vector3.forward * glide * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                glide *= thrustGlideReduction;
+            }
+            else
+            {
+                spaceshipRB.AddRelativeForce(Vector3.forward * thrustInput * thrust * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                glide = thrust;
+            }
         }
+        // Thrust : BoostMode
         else
         {
-            spaceshipRB.AddRelativeForce(Vector3.forward * thrustInput * thrust * Time.fixedDeltaTime, ForceMode.VelocityChange);
-            glide = thrust;
+            spaceshipRB.AddRelativeForce(Vector3.forward * boostThrustMultiplier * thrust * Time.fixedDeltaTime, ForceMode.VelocityChange);
         }
 
         // Horizontal Thrust
+        float horizontalForce = 0f;
         if (Mathf.Approximately(horizontalThrustInput, 0f))
         {
-            spaceshipRB.AddRelativeForce(Vector3.right * horizontalGlide * inertiaTranslationDampener * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            horizontalForce = horizontalGlide * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
             horizontalGlide *= horizontalGlideReduction;
         }
         else
         {
-            spaceshipRB.AddRelativeForce(Vector3.right * horizontalThrustInput * horizontalThrust * inertiaTranslationDampener * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            horizontalForce = horizontalThrustInput * horizontalThrust * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
             horizontalGlide = horizontalThrust * horizontalThrustInput;
         }
+        spaceshipRB.AddRelativeForce(Vector3.right * horizontalForce);
 
         // Vertical Thrust
+        float verticalForce = 0f;
         if (Mathf.Approximately(verticalThrustInput, 0f))
         {
-            spaceshipRB.AddRelativeForce(Vector3.up * verticalGlide * inertiaTranslationDampener * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            verticalForce = verticalGlide * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
             verticalGlide *= verticalGlideReduction;
         }
         else
         {
-            spaceshipRB.AddRelativeForce(Vector3.up * verticalThrustInput * verticalThrust * inertiaTranslationDampener * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            verticalForce = verticalThrustInput * verticalThrust * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
             verticalGlide = verticalThrust * verticalThrustInput;
         }
+        spaceshipRB.AddRelativeForce(Vector3.up * verticalForce);
     }
 
     private void ApplyRotationForces()
     {
         // Pitch
-        spaceshipRB.AddRelativeTorque(Vector3.right * Mathf.Clamp(pitchInput, -1f, 1f) * pitchTorque * inertiaTorqueDampener * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        float pitchForce = Mathf.Clamp(pitchInput, -1f, 1f) * pitchTorque * inertiaTorqueDampener * boostInertia * Time.fixedDeltaTime;
+        spaceshipRB.AddRelativeTorque(Vector3.right * pitchForce, ForceMode.VelocityChange);
         // Yaw
-        spaceshipRB.AddRelativeTorque(Vector3.up * Mathf.Clamp(yawInput, -1f, 1f) * yawTorque * inertiaTorqueDampener * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        float yawForce = Mathf.Clamp(yawInput, -1f, 1f) * yawTorque * inertiaTorqueDampener * boostInertia * Time.fixedDeltaTime;
+        spaceshipRB.AddRelativeTorque(Vector3.up * yawForce, ForceMode.VelocityChange);
         // Roll
-        spaceshipRB.AddRelativeTorque(Vector3.back * Mathf.Clamp(rollInput, -1f, 1f) * rollTorque * inertiaRollDampener * Time.fixedDeltaTime, ForceMode.VelocityChange);
+        float rollForce = Mathf.Clamp(rollInput, -1f, 1f) * rollTorque * inertiaRollDampener * boostInertia * Time.fixedDeltaTime;
+        spaceshipRB.AddRelativeTorque(Vector3.back * rollForce, ForceMode.VelocityChange);
     }
 
     private void ApplyFlightAssistMethod()

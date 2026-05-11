@@ -213,7 +213,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 1
+  m_Time: 0.5
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -364,7 +364,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 1
+  m_Time: 0.5
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -545,6 +545,7 @@ MonoBehaviour:
   inertiaTranslationDampenerMultiplier: 1
   inertiaTorqueDampenerMultiplier: 1
   inertiaRollDampenerMultiplier: 0.33
+  inertiaRecoverySpeed: 0.05
   flightAssistStrength: 3
 --- !u!114 &2203237552061900511
 MonoBehaviour:
@@ -558,42 +559,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7f61196156fa8408195eb937de2c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipBoost
-  OnSpaceshipBoost:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9108206588495319129}
-        m_TargetAssemblyTypeName: SpaceshipMovement, Assembly-CSharp
-        m_MethodName: SetBoostMode
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnBoostInitialize:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 9108206588495319129}
-        m_TargetAssemblyTypeName: SpaceshipMovement, Assembly-CSharp
-        m_MethodName: SetBoostValues
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
   boostThrustMultiplier: 2.5
   boostEnergyCapacity: 150
   boostEnergyConsumption: 15
   boostCooldownDuration: 2
   boostRechargeRate: 20
   boostInertiaMultiplier: 0.33
+  dodgeThrust: 50
+  dodgeDuration: 0.25
+  dodgeEnergyConsumption: 25
+  dodgeCooldownDuration: 1
 --- !u!54 &7521189018694233219
 Rigidbody:
   m_ObjectHideFlags: 0

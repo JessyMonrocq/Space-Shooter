@@ -1,14 +1,18 @@
+using System;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.InputSystem;
 
 /// <summary>
 /// This script handles the spaceship boost mechanic, increasing thrust and inertia while moving forward automatically
+/// As well as the dodge mechanic, using boost energy to quickly shifts in the translation direction
 /// </summary>
 public class SpaceshipBoost : MonoBehaviour
 {
-    public UnityEvent<bool> OnSpaceshipBoost;
-    public UnityEvent<float, float> OnBoostInitialize;
+    public event Action<bool> OnSpaceshipBoost;
+    public event Action OnSpaceshipDodge;
+    public event Action<float, float> InitializeBoost;
+    public event Action<float, float> InitializeDodge;
 
     [Header("Boost Settings")]
     [SerializeField] private float boostThrustMultiplier = 2.5f;
@@ -18,33 +22,47 @@ public class SpaceshipBoost : MonoBehaviour
     [SerializeField] private float boostRechargeRate = 1f;
     [SerializeField, Range(0.001f, 0.999f)] private float boostInertiaMultiplier = 1f;
 
+    [Header("Dodge Settings")]
+    [SerializeField] private float dodgeThrust = 50f;
+    [SerializeField] private float dodgeDuration = 0.25f;
+    [SerializeField] private float dodgeEnergyConsumption = 25f;
+    [SerializeField] private float dodgeCooldownDuration = 1f;
+
     private float currentBoostEnergy;
     private float boostCooldownTimer;
+    private float dodgeCooldownTimer;
 
     private bool isBoosting;
     private bool canBoost;
+    private bool canDodge;
 
     private void Start()
     {
         currentBoostEnergy = boostEnergyCapacity;
         boostCooldownTimer = 0f;
+        dodgeCooldownTimer = 0f;
 
         isBoosting = false;
         canBoost = true;
+        canDodge = true;
 
         InputManager.Instance.SpaceshipBoost.started += OnBoostStarted;
+        InputManager.Instance.SpaceshipDodge.started += OnDodgeStarted;
 
-        OnBoostInitialize?.Invoke(boostThrustMultiplier, boostInertiaMultiplier);
+        InitializeBoost?.Invoke(boostThrustMultiplier, boostInertiaMultiplier);
+        InitializeDodge?.Invoke(dodgeThrust, dodgeDuration);
     }
 
     private void OnDisable()
     {
         InputManager.Instance.SpaceshipBoost.started -= OnBoostStarted;
+        InputManager.Instance.SpaceshipDodge.started -= OnDodgeStarted;
     }
 
     private void Update()
     {
         HandleBoostEnergy();
+        HandleDodgeCooldown();
     }
 
     private void OnBoostStarted(InputAction.CallbackContext context)
@@ -61,6 +79,24 @@ public class SpaceshipBoost : MonoBehaviour
         }
 
         OnSpaceshipBoost?.Invoke(isBoosting);
+    }
+
+    private void OnDodgeStarted(InputAction.CallbackContext context)
+    {
+        if (!canDodge)
+        {
+            return;
+        }
+
+        if (currentBoostEnergy < dodgeEnergyConsumption)
+        {
+            return;
+        }
+
+
+        canDodge = false;
+        currentBoostEnergy -= dodgeEnergyConsumption;
+        OnSpaceshipDodge.Invoke();
     }
 
     private void HandleBoostEnergy()
@@ -94,6 +130,19 @@ public class SpaceshipBoost : MonoBehaviour
         {
             currentBoostEnergy += boostRechargeRate * Time.deltaTime;
             currentBoostEnergy = Mathf.Min(currentBoostEnergy, boostEnergyCapacity);
+        }
+    }
+
+    private void HandleDodgeCooldown()
+    {
+        if (!canDodge)
+        {
+            dodgeCooldownTimer += Time.deltaTime;
+            if (dodgeCooldownTimer >= dodgeCooldownDuration)
+            {
+                dodgeCooldownTimer = 0f;
+                canDodge = true;
+            }
         }
     }
 }

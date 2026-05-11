@@ -14,6 +14,7 @@ public class InputManager : MonoBehaviour
     [SerializeField] private InputActionReference spaceshipYawAction;
     [SerializeField] private InputActionReference spaceshipRollAction;
     [SerializeField] private InputActionReference spaceshipBoostAction;
+    [SerializeField] private InputActionReference spaceshipDodgeAction;
 
     public InputAction SpaceshipForwardMove => spaceshipForwardMoveAction.action;
     public InputAction SpaceshipHorizontalMove => spaceshipHorizontalMoveAction.action;
@@ -22,6 +23,7 @@ public class InputManager : MonoBehaviour
     public InputAction SpaceshipYaw => spaceshipYawAction.action;
     public InputAction SpaceshipRoll => spaceshipRollAction.action;
     public InputAction SpaceshipBoost => spaceshipBoostAction.action;
+    public InputAction SpaceshipDodge => spaceshipDodgeAction.action;
     #endregion
 
     private void Awake()
@@ -44,6 +46,7 @@ public class InputManager : MonoBehaviour
         SetInputState(SpaceshipYaw, state);
         SetInputState(SpaceshipRoll, state);
         SetInputState(SpaceshipBoost, state);
+        SetInputState(SpaceshipDodge, state);
     }
 
 

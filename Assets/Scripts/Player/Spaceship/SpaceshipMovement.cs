@@ -62,6 +62,13 @@ public class SpaceshipMovement : MonoBehaviour
     private float boostThrustMultiplier;
     private float boostInertiaMultiplier;
     private float boostInertia;
+
+    private Vector3 dodgeDirection;
+    private float dodgeThrust;
+    private float dodgeDuration;
+    private float dodgeTimer;
+
+    private bool isDodging;
     #endregion
 
     #region Unity Methods
@@ -83,7 +90,15 @@ public class SpaceshipMovement : MonoBehaviour
         UpdateInertiaDampeners();
         ApplyTranslationForces();
         ApplyRotationForces();
-        ApplyFlightAssistMethod();
+
+        if (isDodging)
+        {
+            HandleDodging();
+        }
+        else
+        {
+            ApplyFlightAssistMethod();
+        }
     }
     #endregion
 
@@ -92,6 +107,12 @@ public class SpaceshipMovement : MonoBehaviour
     {
         boostThrustMultiplier = thrustMult;
         boostInertiaMultiplier = inertiaMult;
+    }
+
+    public void SetDodgeValues(float thrust, float duration)
+    {
+        dodgeThrust = thrust;
+        dodgeDuration = duration;
     }
 
     public void SetBoostMode(bool state)
@@ -108,6 +129,18 @@ public class SpaceshipMovement : MonoBehaviour
             movementState = MovementState.FlightMode;
             boostInertia = 1f;
             return;
+        }
+    }
+
+    public void Dodge()
+    {
+        isDodging = true;
+        dodgeTimer = 0f;
+        Vector3 direction = (horizontalThrustInput * Vector3.right + verticalThrustInput * Vector3.up).normalized;
+
+        if (direction.sqrMagnitude >= 0.01f)
+        {
+            dodgeDirection = direction;
         }
     }
     #endregion
@@ -134,6 +167,10 @@ public class SpaceshipMovement : MonoBehaviour
         targetRollDampener = 1f;
 
         boostInertia = 1f;
+
+        dodgeDirection = Vector3.right;
+        dodgeTimer = 0f;
+        isDodging = false;
 
         movementState = MovementState.FlightMode;
     }
@@ -192,33 +229,36 @@ public class SpaceshipMovement : MonoBehaviour
             spaceshipRB.AddRelativeForce(Vector3.forward * boostThrustMultiplier * thrust * Time.fixedDeltaTime, ForceMode.VelocityChange);
         }
 
-        // Horizontal Thrust
-        float horizontalForce = 0f;
-        if (Mathf.Approximately(horizontalThrustInput, 0f))
+        if (!isDodging)
         {
-            horizontalForce = horizontalGlide * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
-            horizontalGlide *= horizontalGlideReduction;
-        }
-        else
-        {
-            horizontalForce = horizontalThrustInput * horizontalThrust * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
-            horizontalGlide = horizontalThrust * horizontalThrustInput;
-        }
-        spaceshipRB.AddRelativeForce(Vector3.right * horizontalForce);
+            // Horizontal Thrust
+            float horizontalForce = 0f;
+            if (Mathf.Approximately(horizontalThrustInput, 0f))
+            {
+                horizontalForce = horizontalGlide * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
+                horizontalGlide *= horizontalGlideReduction;
+            }
+            else
+            {
+                horizontalForce = horizontalThrustInput * horizontalThrust * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
+                horizontalGlide = horizontalThrust * horizontalThrustInput;
+            }
+            spaceshipRB.AddRelativeForce(Vector3.right * horizontalForce);
 
-        // Vertical Thrust
-        float verticalForce = 0f;
-        if (Mathf.Approximately(verticalThrustInput, 0f))
-        {
-            verticalForce = verticalGlide * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
-            verticalGlide *= verticalGlideReduction;
+            // Vertical Thrust
+            float verticalForce = 0f;
+            if (Mathf.Approximately(verticalThrustInput, 0f))
+            {
+                verticalForce = verticalGlide * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
+                verticalGlide *= verticalGlideReduction;
+            }
+            else
+            {
+                verticalForce = verticalThrustInput * verticalThrust * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
+                verticalGlide = verticalThrust * verticalThrustInput;
+            }
+            spaceshipRB.AddRelativeForce(Vector3.up * verticalForce);
         }
-        else
-        {
-            verticalForce = verticalThrustInput * verticalThrust * inertiaTranslationDampener * boostInertia * Time.fixedDeltaTime;
-            verticalGlide = verticalThrust * verticalThrustInput;
-        }
-        spaceshipRB.AddRelativeForce(Vector3.up * verticalForce);
     }
 
     private void ApplyRotationForces()
@@ -240,6 +280,18 @@ public class SpaceshipMovement : MonoBehaviour
         localVelocity.x = Mathf.Lerp(localVelocity.x, horizontalThrustInput * horizontalThrust, flightAssistStrength * Time.fixedDeltaTime);
         localVelocity.y = Mathf.Lerp(localVelocity.y, verticalThrustInput * verticalThrust, flightAssistStrength * Time.fixedDeltaTime);
         spaceshipRB.linearVelocity = transform.TransformDirection(localVelocity);
+    }
+
+    private void HandleDodging()
+    {
+        dodgeTimer += Time.fixedDeltaTime;
+        float thrustMultiplier = Mathf.Max(horizontalThrust, verticalThrust);
+        spaceshipRB.AddRelativeForce(dodgeDirection * dodgeThrust * thrustMultiplier, ForceMode.Impulse);
+        if (dodgeTimer >= dodgeDuration)
+        {
+            dodgeTimer = 0f;
+            isDodging = false;
+        }
     }
     #endregion
 }

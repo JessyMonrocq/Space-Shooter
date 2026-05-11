@@ -5,6 +5,7 @@ public class SpaceshipManager : MonoBehaviour
     [SerializeField] private SpaceshipStatsSO spaceshipStatisticsSO;
     [SerializeField] private SpaceshipMovement spaceshipMovement;
     [SerializeField] private SpaceshipBoost spaceshipBoost;
+    [SerializeField] private SpaceshipCamera spaceshipCamera;
 
     private void Awake()
     {
@@ -12,6 +13,7 @@ public class SpaceshipManager : MonoBehaviour
         spaceshipBoost.InitializeDodge += spaceshipMovement.SetDodgeValues;
 
         spaceshipBoost.OnSpaceshipBoost += spaceshipMovement.SetBoostMode;
+        spaceshipBoost.OnSpaceshipBoost += spaceshipCamera.SetBoostCameraSettings;
         spaceshipBoost.OnSpaceshipDodge += spaceshipMovement.Dodge;
     }
 
@@ -21,6 +23,7 @@ public class SpaceshipManager : MonoBehaviour
         spaceshipBoost.InitializeDodge -= spaceshipMovement.SetDodgeValues;
 
         spaceshipBoost.OnSpaceshipBoost -= spaceshipMovement.SetBoostMode;
+        spaceshipBoost.OnSpaceshipBoost -= spaceshipCamera.SetBoostCameraSettings;
         spaceshipBoost.OnSpaceshipDodge -= spaceshipMovement.Dodge;
     }
 }

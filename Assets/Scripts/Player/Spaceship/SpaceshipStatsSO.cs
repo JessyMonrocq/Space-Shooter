@@ -3,8 +3,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "SpaceshipStatsSO", menuName = "Scriptable Objects/SpaceshipStatsSO")]
 public class SpaceshipStatsSO : ScriptableObject
 {
-    [Header("Movement Settings")]
-    [Space(10)]
     [Header("Speed Settings")]
     [Tooltip("Thrust : defines the spaceship max speed")]
     [SerializeField] private float thrust = 250f;
@@ -18,6 +16,8 @@ public class SpaceshipStatsSO : ScriptableObject
     [SerializeField] private float pitchTorque = 5f;
     [Tooltip("Roll Torque : defines the spaceship roll rotation speed (spinning rotation)")]
     [SerializeField] private float rollTorque = 5f;
+    [Tooltip("Backward Thrust Reduction : defines how much the backward thrust speed is reduced (lower values = slower speed)")]
+    [SerializeField, Range(0f, 1f)] private float backwardThrustReduction = 0.5f;
 
     [Header("Glide Settings")]
     [Tooltip("Thrust Glide Reduction : defines the spaceship gliding amount when thrust has stopped (higher values = more gliding)")]
@@ -45,9 +45,9 @@ public class SpaceshipStatsSO : ScriptableObject
     [Header("Boost Settings")]
     [Tooltip("Boost Thrust Multiplier : defines the boost speed gain (when boost activated => Speed = Thrust x BTM)")]
     [SerializeField] private float boostThrustMultiplier = 2.5f;
-    [Tooltip("Boost Duration : defines the maximum capacity of the boost energy")]
+    [Tooltip("Boost Energy Capacity : defines the maximum capacity of the boost energy")]
     [SerializeField] private float boostEnergyCapacity = 150f;
-    [Tooltip("Boost Duration : defines the rate at which boost energy is consumed (energy/seconds)")]
+    [Tooltip("Boost Energy Consumption : defines the rate at which boost energy is consumed (energy/seconds)")]
     [SerializeField] private float boostEnergyConsumption = 15f;
     [Tooltip("Boost Cooldown Duration : defines how long until the boost can recharge (seconds)")]
     [SerializeField] private float boostCooldownDuration = 1f;
@@ -55,6 +55,16 @@ public class SpaceshipStatsSO : ScriptableObject
     [SerializeField] private float boostRechargeRate = 1f;
     [Tooltip("Boost Inertia Mulitplier : defines the impact of the boost on the spaceship's inertia settings")]
     [SerializeField] private float boostInertiaMultiplier = 1f;
+
+    [Header("Dodge Settings")]
+    [Tooltip("Dodge Thrust : defines the speed of the dodge movement")]
+    [SerializeField] private float dodgeThrust = 50f;
+    [Tooltip("Dodge Duration : defines the duration of the dodge movement (seconds)")]
+    [SerializeField] private float dodgeDuration = 0.25f;
+    [Tooltip("Dodge Energy Consumption : defines the amount of energy consumed by the dodge")]
+    [SerializeField] private float dodgeEnergyConsumption = 25f;
+    [Tooltip("Dodge Cooldown Duration : defines how long until the dodge can be performed again (seconds)")]
+    [SerializeField] private float dodgeCooldownDuration = 1f;
 
     [Space(30)]
     [Header("Weapons Settings")]
@@ -83,11 +93,13 @@ public class SpaceshipStatsSO : ScriptableObject
     [Space(30)]
     [Header("Camera Settings")]
     [Tooltip("Camera Distance : defines the distance at which the camera is positionned behind the spaceship at rest")]
-    [SerializeField] private float cameraDistance = 30f;
+    [SerializeField] private float cameraDistance = 25f;
+    [Tooltip("Camera Vertical Arm Length : defines the height/vertical offset of the camera")]
+    [SerializeField] private float cameraVerticalArmLength = 5f;
     [Tooltip("Camera Position Dampening : defines the camera position dampening amount (follow intensity)")]
     [SerializeField] private Vector3 cameraPositionDampening = Vector3.zero;
     [Tooltip("Camera Rotation Dampening : defines the camera rotation dampening amount (follow intensity)")]
-    [SerializeField] private Vector3 cameraRotationDampening = Vector3.zero;
+    [SerializeField] private float cameraRotationDampening = 0f;
 
     [Space(30)]
     [Header("Cargo Settings")]

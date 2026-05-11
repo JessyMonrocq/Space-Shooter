@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6358910809856858706}
   - component: {fileID: 8802968097130307853}
   - component: {fileID: 4435381045562102822}
-  - component: {fileID: 2711632786482375255}
+  - component: {fileID: 5331834506815741798}
   m_Layer: 0
   m_Name: CinemachineCamera
   m_TagString: Untagged
@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 2356471493412552323}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 3, z: -25}
+  m_LocalPosition: {x: 0, y: 5, z: -25}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -92,7 +92,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineThirdPersonFollow
   Damping: {x: 0.1, y: 0.1, z: 0.4}
   ShoulderOffset: {x: 0, y: 0, z: 0}
-  VerticalArmLength: 3
+  VerticalArmLength: 5
   CameraSide: 0
   CameraDistance: 25
   AvoidObstacles:
@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineRotateWithFollowTarget
   Damping: 0.1
---- !u!114 &2711632786482375255
+--- !u!114 &5331834506815741798
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -126,12 +126,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 2356471493412552323}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 44d70cc20219cd84593f67d248eafe36, type: 3}
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineCameraOffset
-  Offset: {x: 0, y: 1.5, z: 0}
-  ApplyAfter: 1
-  PreserveComposition: 0
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
+  NoiseProfile: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 1
+  FrequencyGain: 1
+  m_NoiseOffsets: {x: 0, y: 0, z: 0}
 --- !u!1 &2612694611097848466
 GameObject:
   m_ObjectHideFlags: 0
@@ -158,7 +160,7 @@ Transform:
   m_GameObject: {fileID: 2612694611097848466}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4, y: 0.239, z: -3.328}
+  m_LocalPosition: {x: -7.76, y: -0.801, z: -3.786}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -213,7 +215,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 0.5
+  m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -309,7 +311,7 @@ Transform:
   m_GameObject: {fileID: 4038716792828519940}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4, y: 0.239, z: -3.328}
+  m_LocalPosition: {x: 7.76, y: -0.801, z: -3.786}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -364,7 +366,7 @@ TrailRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Time: 0.5
+  m_Time: 0.1
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -480,6 +482,7 @@ GameObject:
   - component: {fileID: 3937083272702328729}
   - component: {fileID: 9108206588495319129}
   - component: {fileID: 2203237552061900511}
+  - component: {fileID: 3299223988622501656}
   - component: {fileID: 7521189018694233219}
   - component: {fileID: 1169549870250825343}
   m_Layer: 0
@@ -521,6 +524,7 @@ MonoBehaviour:
   spaceshipStatisticsSO: {fileID: 0}
   spaceshipMovement: {fileID: 9108206588495319129}
   spaceshipBoost: {fileID: 2203237552061900511}
+  spaceshipCamera: {fileID: 3299223988622501656}
 --- !u!114 &9108206588495319129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -539,6 +543,7 @@ MonoBehaviour:
   yawTorque: 5
   pitchTorque: 6
   rollTorque: 8
+  backwardThrustReduction: 0.5
   thrustGlideReduction: 0.8
   horizontalGlideReduction: 0.1
   verticalGlideReduction: 0.1
@@ -569,6 +574,32 @@ MonoBehaviour:
   dodgeDuration: 0.25
   dodgeEnergyConsumption: 25
   dodgeCooldownDuration: 1
+--- !u!114 &3299223988622501656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334639625619475842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8bf5cae684e05554ab845570babc580a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceshipCamera
+  spaceshipCamera: {fileID: 6358910809856858706}
+  followComponent: {fileID: 8802968097130307853}
+  rotateComponent: {fileID: 4435381045562102822}
+  noiseComponent: {fileID: 5331834506815741798}
+  defaultNoiseSettings: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
+  boostNoiseSettings: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  defaultNoiseAmplitude: 0.5
+  defaultNoiseFrequency: 0.5
+  boostNoiseAmplitude: 3
+  boostNoiseFrequency: 1
+  cameraDistance: 25
+  cameraVerticalArmLength: 5
+  cameraPositionDampening: {x: 0.1, y: 0.1, z: 0.25}
+  cameraRotationDampening: 0.1
 --- !u!54 &7521189018694233219
 Rigidbody:
   m_ObjectHideFlags: 0

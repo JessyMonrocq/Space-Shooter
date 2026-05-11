@@ -9,6 +9,7 @@ using UnityEngine.InputSystem;
 /// </summary>
 public class SpaceshipBoost : MonoBehaviour
 {
+    #region Inspector Fields
     public event Action<bool> OnSpaceshipBoost;
     public event Action OnSpaceshipDodge;
     public event Action<float, float> InitializeBoost;
@@ -35,7 +36,9 @@ public class SpaceshipBoost : MonoBehaviour
     private bool isBoosting;
     private bool canBoost;
     private bool canDodge;
+    #endregion
 
+    #region Unity Methods
     private void Start()
     {
         currentBoostEnergy = boostEnergyCapacity;
@@ -53,7 +56,7 @@ public class SpaceshipBoost : MonoBehaviour
         InitializeDodge?.Invoke(dodgeThrust, dodgeDuration);
     }
 
-    private void OnDisable()
+    private void OnDestroy()
     {
         InputManager.Instance.SpaceshipBoost.started -= OnBoostStarted;
         InputManager.Instance.SpaceshipDodge.started -= OnDodgeStarted;
@@ -64,7 +67,9 @@ public class SpaceshipBoost : MonoBehaviour
         HandleBoostEnergy();
         HandleDodgeCooldown();
     }
+    #endregion
 
+    #region Private Methods
     private void OnBoostStarted(InputAction.CallbackContext context)
     {
         if (canBoost && !isBoosting)
@@ -145,4 +150,5 @@ public class SpaceshipBoost : MonoBehaviour
             }
         }
     }
+    #endregion
 }

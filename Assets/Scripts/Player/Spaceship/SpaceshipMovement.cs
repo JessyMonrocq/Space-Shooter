@@ -16,6 +16,7 @@ public class SpaceshipMovement : MonoBehaviour
     [SerializeField] private float yawTorque = 5f;
     [SerializeField] private float pitchTorque = 5f;
     [SerializeField] private float rollTorque = 5f;
+    [SerializeField, Range(0f, 1f)] private float backwardThrustReduction = 0.5f;
 
     [Header("Glide Settings")]
     [SerializeField, Range(0.001f, 0.999f)] private float thrustGlideReduction = 0.9f;
@@ -195,7 +196,7 @@ public class SpaceshipMovement : MonoBehaviour
         else
         {
             bool isFlightMode = movementState == MovementState.FlightMode;
-            currentThrust = thrust * (isFlightMode ? thrustInput : 1f);
+            currentThrust = thrust * (isFlightMode ? Mathf.Abs(thrustInput) : 1f);
         }
 
         targetInertiaTorqueDampener = 1f / (1f + (currentThrust * inertiaTorqueDampenerMultiplier / 100f));
@@ -212,6 +213,7 @@ public class SpaceshipMovement : MonoBehaviour
         // Thrust : FlightMode
         if (movementState == MovementState.FlightMode)
         {
+            float thrustInputClamp = Mathf.Clamp(thrustInput, -backwardThrustReduction, 1f);
             if (Mathf.Approximately(thrustInput, 0f))
             {
                 spaceshipRB.AddRelativeForce(Vector3.forward * glide * Time.fixedDeltaTime, ForceMode.VelocityChange);
@@ -219,7 +221,7 @@ public class SpaceshipMovement : MonoBehaviour
             }
             else
             {
-                spaceshipRB.AddRelativeForce(Vector3.forward * thrustInput * thrust * Time.fixedDeltaTime, ForceMode.VelocityChange);
+                spaceshipRB.AddRelativeForce(Vector3.forward * thrustInputClamp * thrust * Time.fixedDeltaTime, ForceMode.VelocityChange);
                 glide = thrust;
             }
         }

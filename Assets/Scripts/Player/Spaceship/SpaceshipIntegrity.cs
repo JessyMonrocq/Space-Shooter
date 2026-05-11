@@ -4,8 +4,8 @@ using UnityEngine;
 public class SpaceshipIntegrity : HealthComponent
 {
     [Header("Damage Settings")]
-    [SerializeField] private int collisionDamageToShieldMultiplier = 1;
-    [SerializeField] private int collisionDamageToHullMultiplier = 2;
+    [SerializeField] private float collisionDamageToShieldMultiplier = 0.33f;
+    [SerializeField] private float collisionDamageToHullMultiplier = 0.5f;
     [SerializeField] private float collisionCooldownDuration = 1f;
 
     private Rigidbody spaceshipRB;
@@ -61,7 +61,16 @@ public class SpaceshipIntegrity : HealthComponent
     {
         if (collisionCooldownDone)
         {
-            Debug.Log($"Collision detected at speed {collisionSpeed}");
+            Debug.Log("Speed : " + collisionSpeed);
+            if (CurrentShield > 0)
+            {
+                Debug.Log("Damage : " + (int)(collisionSpeed * collisionDamageToShieldMultiplier));
+                TakeDamage((int)(collisionSpeed * collisionDamageToShieldMultiplier));
+            }
+            else
+            {
+                TakeDamage((int)(collisionSpeed * collisionDamageToHullMultiplier));
+            }
             collisionCooldownDone = false;
         }
     }

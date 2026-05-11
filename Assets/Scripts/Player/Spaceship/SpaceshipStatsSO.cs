@@ -90,6 +90,14 @@ public class SpaceshipStatsSO : ScriptableObject
     [Tooltip("Hull Max HP : defines the spaceship's hull maximum Health Points (HP)")]
     [SerializeField] private int hullMaxHP = 100;
 
+    [Header("Damage Settings")]
+    [Tooltip("Collision Damage To Shield Multiplier : defines the damage dealt to the shield from colliding into an object")]
+    [SerializeField] private float collisionDamageToShieldMultiplier = 0.33f;
+    [Tooltip("Collision Damage To Hull Multiplier : defines the damage dealt to the hull from colliding into an object")]
+    [SerializeField] private float collisionDamageToHullMultiplier = 0.5f;
+    [Tooltip("Collision Cooldown Duration : defines the delay until damage from colliding is registered again (not gameplay relevant)")]
+    [SerializeField] private float collisionCooldownDuration = 1f;
+
     [Space(30)]
     [Header("Camera Settings")]
     [Tooltip("Camera Distance : defines the distance at which the camera is positionned behind the spaceship at rest")]

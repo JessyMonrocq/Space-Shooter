@@ -29,6 +29,9 @@ public class SpaceshipBoost : MonoBehaviour
     [SerializeField] private float dodgeEnergyConsumption = 25f;
     [SerializeField] private float dodgeCooldownDuration = 1f;
 
+    public float CurrentBoostEnergy { get { return currentBoostEnergy; } }
+    public float EnergyCapacity { get { return boostEnergyCapacity; } }
+
     private float currentBoostEnergy;
     private float boostCooldownTimer;
     private float dodgeCooldownTimer;

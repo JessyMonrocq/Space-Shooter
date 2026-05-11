@@ -6,6 +6,7 @@ public class SpaceshipManager : MonoBehaviour
     [SerializeField] private SpaceshipMovement spaceshipMovement;
     [SerializeField] private SpaceshipBoost spaceshipBoost;
     [SerializeField] private SpaceshipCamera spaceshipCamera;
+    [SerializeField] private SpaceshipIntegrity spaceshipIntegrity;
 
     private void Awake()
     {

@@ -133,7 +133,7 @@ MonoBehaviour:
   PivotOffset: {x: 0, y: 0, z: 0}
   AmplitudeGain: 1
   FrequencyGain: 1
-  m_NoiseOffsets: {x: 0, y: 0, z: 0}
+  m_NoiseOffsets: {x: -372.69702, y: -989.73364, z: -819.22314}
 --- !u!1 &2612694611097848466
 GameObject:
   m_ObjectHideFlags: 0
@@ -483,6 +483,7 @@ GameObject:
   - component: {fileID: 9108206588495319129}
   - component: {fileID: 2203237552061900511}
   - component: {fileID: 3299223988622501656}
+  - component: {fileID: 5282514046870798146}
   - component: {fileID: 7521189018694233219}
   - component: {fileID: 1169549870250825343}
   m_Layer: 0
@@ -525,6 +526,7 @@ MonoBehaviour:
   spaceshipMovement: {fileID: 9108206588495319129}
   spaceshipBoost: {fileID: 2203237552061900511}
   spaceshipCamera: {fileID: 3299223988622501656}
+  spaceshipIntegrity: {fileID: 5282514046870798146}
 --- !u!114 &9108206588495319129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -537,7 +539,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2111917e743d0e24d9abebf0b73ffbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipController
-  thrust: 250
+  thrust: 200
   horizontalThrust: 50
   verticalThrust: 50
   yawTorque: 5
@@ -564,7 +566,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7f61196156fa8408195eb937de2c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipBoost
-  boostThrustMultiplier: 2.5
+  boostThrustMultiplier: 2
   boostEnergyCapacity: 150
   boostEnergyConsumption: 15
   boostCooldownDuration: 2
@@ -598,8 +600,27 @@ MonoBehaviour:
   boostNoiseFrequency: 1
   cameraDistance: 25
   cameraVerticalArmLength: 5
-  cameraPositionDampening: {x: 0.1, y: 0.1, z: 0.25}
+  cameraPositionDampening: {x: 0.1, y: 0.1, z: 0.33}
   cameraRotationDampening: 0.1
+--- !u!114 &5282514046870798146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334639625619475842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a43a2ec0a0af7e34482f14023fa97308, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceshipIntegrity
+  shieldMaxCapacity: 50
+  shieldCooldown: 1
+  shieldRechargeRate: 1
+  hullMaxHP: 100
+  collisionDamageToShieldMultiplier: 1
+  collisionDamageToHullMultiplier: 2
+  collisionCooldownDuration: 1
 --- !u!54 &7521189018694233219
 Rigidbody:
   m_ObjectHideFlags: 0

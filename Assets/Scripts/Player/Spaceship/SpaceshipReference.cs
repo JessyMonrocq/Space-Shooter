@@ -9,4 +9,11 @@ public class SpaceshipReference : MonoBehaviour
     [SerializeField] private SpaceshipStatsSO spaceshipStats;
     [SerializeField] private Mesh collisionMesh;
     [SerializeField] private MeshRenderer meshRenderer;
+    [SerializeField] private ParticleSystem[] boosterParticleSystems;
+
+    public string SpaceshipName { get { return spaceshipName; } }
+    public SpaceshipStatsSO SpaceshipStats { get { return spaceshipStats; } }
+    public Mesh CollisionMesh { get { return collisionMesh; } }
+    public MeshRenderer MeshRenderer { get { return meshRenderer; } }
+    public ParticleSystem[] BoosterParticleSystem { get { return boosterParticleSystems; } }
 }

@@ -8,35 +8,32 @@ using UnityEngine;
 public class SpaceshipMovement : MonoBehaviour
 {
     #region Inspector Fields
-    [Header("Movement Settings")]
-    [Header("Speed Settings")]
-    [SerializeField] private float thrust = 250f;
-    [SerializeField] private float horizontalThrust = 50f;
-    [SerializeField] private float verticalThrust = 50f;
-    [SerializeField] private float yawTorque = 5f;
-    [SerializeField] private float pitchTorque = 5f;
-    [SerializeField] private float rollTorque = 5f;
-    [SerializeField, Range(0f, 1f)] private float backwardThrustReduction = 0.5f;
+    private float thrust = 250f;
+    private float horizontalThrust = 50f;
+    private float verticalThrust = 50f;
+    private float yawTorque = 5f;
+    private float pitchTorque = 5f;
+    private float rollTorque = 5f;
+    private float backwardThrustReduction = 0.5f;
 
-    [Header("Glide Settings")]
-    [SerializeField, Range(0.001f, 0.999f)] private float thrustGlideReduction = 0.9f;
-    [SerializeField, Range(0.001f, 0.999f)] private float horizontalGlideReduction = 0.111f;
-    [SerializeField, Range(0.001f, 0.999f)] private float verticalGlideReduction = 0.111f;
+    private float thrustGlideReduction = 0.9f;
+    private float horizontalGlideReduction = 0.111f;
+    private float verticalGlideReduction = 0.111f;
 
-    [Header("Inertia Dampener Settings")]
-    [SerializeField, Range(0f, 2f)] private float inertiaTranslationDampenerMultiplier = 1f;
-    [SerializeField, Range(0f, 2f)] private float inertiaTorqueDampenerMultiplier = 1f;
-    [SerializeField, Range(0f, 1f)] private float inertiaRollDampenerMultiplier = 0.5f;
-    [SerializeField, Range(0.001f, 1f)] private float inertiaRecoverySpeed = 0.05f;
+    private float inertiaTranslationDampenerMultiplier = 1f;
+    private float inertiaTorqueDampenerMultiplier = 1f;
+    private float inertiaRollDampenerMultiplier = 0.5f;
+    private float inertiaRecoverySpeed = 0.05f;
 
-    [Header("Flight Assist Settings")]
-    [SerializeField] float flightAssistStrength = 2f;
+    float flightAssistStrength = 2f;
 
     public enum MovementState
     {
         FlightMode,
         BoostMode
     }
+
+    public float CurrentSpeed { get { return currentSpeed; } }
 
     private MovementState movementState;
 
@@ -48,6 +45,8 @@ public class SpaceshipMovement : MonoBehaviour
     private float pitchInput;
     private float yawInput;
     private float rollInput;
+
+    private float currentSpeed;
 
     private float glide;
     private float horizontalGlide;
@@ -84,6 +83,8 @@ public class SpaceshipMovement : MonoBehaviour
     private void Update()
     {
         ReadInputValues();
+
+        currentSpeed = Vector3.Dot(transform.forward, spaceshipRB.linearVelocity);
     }
 
     private void FixedUpdate()
@@ -104,16 +105,29 @@ public class SpaceshipMovement : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void SetBoostValues(float thrustMult, float inertiaMult)
+    public void InitializeMovementValues(SpaceshipStatsSO spaceshipStats)
     {
-        boostThrustMultiplier = thrustMult;
-        boostInertiaMultiplier = inertiaMult;
-    }
+        thrust = spaceshipStats.thrust;
+        horizontalThrust = spaceshipStats.horizontalThrust;
+        verticalThrust = spaceshipStats.verticalThrust;
+        yawTorque = spaceshipStats.yawTorque;
+        pitchTorque = spaceshipStats.pitchTorque;
+        rollTorque = spaceshipStats.rollTorque;
+        backwardThrustReduction = spaceshipStats.backwardThrustReduction;
+        thrustGlideReduction = spaceshipStats.thrustGlideReduction;
+        horizontalGlideReduction = spaceshipStats.horizontalGlideReduction;
+        verticalGlideReduction = spaceshipStats.verticalGlideReduction;
+        inertiaTranslationDampenerMultiplier = spaceshipStats.inertiaTranslationDampenerMultiplier;
+        inertiaTorqueDampenerMultiplier = spaceshipStats.inertiaTorqueDampenerMultiplier;
+        inertiaRollDampenerMultiplier = spaceshipStats.inertiaRollDampenerMultiplier;
+        inertiaRecoverySpeed = spaceshipStats.inertiaRecoverySpeed;
+        flightAssistStrength = spaceshipStats.flightAssistStrength;
 
-    public void SetDodgeValues(float thrust, float duration)
-    {
-        dodgeThrust = thrust;
-        dodgeDuration = duration;
+        boostThrustMultiplier = spaceshipStats.boostThrustMultiplier;
+        boostInertiaMultiplier = spaceshipStats.boostInertiaMultiplier;
+
+        dodgeThrust = spaceshipStats.dodgeThrust;
+        dodgeDuration = spaceshipStats.dodgeDuration;
     }
 
     public void SetBoostMode(bool state)

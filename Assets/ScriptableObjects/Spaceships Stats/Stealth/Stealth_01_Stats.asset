@@ -1,0 +1,63 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5e2b81b82e73dd42a8aac4b5264cb37, type: 3}
+  m_Name: Stealth_01_Stats
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceshipStatsSO
+  thrust: 250
+  horizontalThrust: 50
+  verticalThrust: 50
+  yawTorque: 5
+  pitchTorque: 5
+  rollTorque: 5
+  backwardThrustReduction: 0.5
+  thrustGlideReduction: 0.9
+  horizontalGlideReduction: 0.1
+  verticalGlideReduction: 0.1
+  inertiaTranslationDampenerMultiplier: 1
+  inertiaTorqueDampenerMultiplier: 1
+  inertiaRollDampenerMultiplier: 0.5
+  inertiaRecoverySpeed: 0.05
+  flightAssistStrength: 2
+  boostThrustMultiplier: 2.5
+  boostEnergyCapacity: 150
+  boostEnergyConsumption: 15
+  boostCooldownDuration: 1
+  boostRechargeRate: 15
+  boostInertiaMultiplier: 1
+  dodgeThrust: 50
+  dodgeDuration: 0.25
+  dodgeEnergyConsumption: 25
+  dodgeCooldownDuration: 1
+  weaponsFireRate: 1
+  weaponsDamage: 1
+  weaponsMaxAmmo: 100
+  weaponsCooldownDuration: 1
+  weaponsReloadSpeed: 1
+  shieldMaxCapacity: 100
+  shieldCooldown: 1
+  shieldRechargeRate: 1
+  hullMaxHP: 100
+  collisionDamageToShieldMultiplier: 0.33
+  collisionDamageToHullMultiplier: 0.5
+  collisionCooldownDuration: 1
+  cameraDistance: 30
+  cameraVerticalArmLength: 5
+  cameraPositionDampening: {x: 0.1, y: 0.1, z: 0.2}
+  cameraRotationDampening: 0.1
+  defaultNoiseSettings: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
+  boostNoiseSettings: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
+  defaultNoiseAmplitude: 0.5
+  defaultNoiseFrequency: 0.5
+  boostNoiseAmplitude: 3
+  boostNoiseFrequency: 1
+  minSpeedThreshold: 0.1
+  maxCargoSpace: 0

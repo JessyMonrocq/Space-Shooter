@@ -9,25 +9,44 @@ public class SpaceshipCamera : MonoBehaviour
     [SerializeField] private CinemachineThirdPersonFollow followComponent;
     [SerializeField] private CinemachineRotateWithFollowTarget rotateComponent;
 
+    private float cameraDistance = 25f;
+    private float cameraVerticalArmLength = 5f;
+    private Vector3 cameraPositionDampening = Vector3.zero;
+    private float cameraRotationDampening = 0f;
+
     [Header("Cinemachine Noise Settings")]
     [SerializeField] private CinemachineBasicMultiChannelPerlin noiseComponent;
-    [SerializeField] private NoiseSettings defaultNoiseSettings;
-    [SerializeField] private NoiseSettings boostNoiseSettings;
-    [SerializeField] private float defaultNoiseAmplitude = 0.5f;
-    [SerializeField] private float defaultNoiseFrequency = 0.5f;
-    [SerializeField] private float boostNoiseAmplitude = 1.0f;
-    [SerializeField] private float boostNoiseFrequency = 1.0f;
 
-    [Header("Camera Settings")]
-    [SerializeField] private float cameraDistance = 25f;
-    [SerializeField] private float cameraVerticalArmLength = 5f;
-    [SerializeField] private Vector3 cameraPositionDampening = Vector3.zero;
-    [SerializeField] private float cameraRotationDampening = 0f;
+    private NoiseSettings defaultNoiseSettings;
+    private NoiseSettings boostNoiseSettings;
+    private float defaultNoiseAmplitude = 0.5f;
+    private float defaultNoiseFrequency = 0.5f;
+    private float boostNoiseAmplitude = 1.0f;
+    private float boostNoiseFrequency = 1.0f;
     #endregion
 
     #region Unity Methods
-    private void Start()
+    private void Update()
     {
+        // Reduce dampening when boosting (and at full speed)
+    }
+    #endregion
+
+    #region Public Methods
+    public void InitializeCameraValues(SpaceshipStatsSO spaceshipStats)
+    {
+        cameraDistance = spaceshipStats.cameraDistance;
+        cameraVerticalArmLength = spaceshipStats.cameraVerticalArmLength;
+        cameraPositionDampening = spaceshipStats.cameraPositionDampening;
+        cameraRotationDampening = spaceshipStats.cameraRotationDampening;
+
+        defaultNoiseSettings = spaceshipStats.defaultNoiseSettings;
+        boostNoiseSettings = spaceshipStats.boostNoiseSettings;
+        defaultNoiseAmplitude = spaceshipStats.defaultNoiseAmplitude;
+        defaultNoiseFrequency = spaceshipStats.defaultNoiseFrequency;
+        boostNoiseAmplitude = spaceshipStats.boostNoiseAmplitude;
+        boostNoiseFrequency = spaceshipStats.boostNoiseFrequency;
+
         followComponent.CameraDistance = cameraDistance;
         followComponent.VerticalArmLength = cameraVerticalArmLength;
         followComponent.Damping = cameraPositionDampening;
@@ -39,14 +58,7 @@ public class SpaceshipCamera : MonoBehaviour
         noiseComponent.FrequencyGain = defaultNoiseFrequency;
     }
 
-    private void Update()
-    {
-        // Reduce dampening when boosting (and at full speed)
-    }
-    #endregion
-
-    #region Public Methods
-    public void SetBoostCameraSettings(bool isBoosting)
+    public void SetBoostMode(bool isBoosting)
     {
         noiseComponent.NoiseProfile = isBoosting ? boostNoiseSettings : defaultNoiseSettings;
         noiseComponent.AmplitudeGain = isBoosting ? boostNoiseAmplitude : defaultNoiseAmplitude;

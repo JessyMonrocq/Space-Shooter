@@ -11,9 +11,6 @@ public class SpaceshipHUD : MonoBehaviour
     public float CurrentShield { set { currentShield = value; } }
     public float CurrentHealth { set { currentHealth = value; } }
     public float CurrentEnergy { set { currentEnergy = value; } }
-    public float MaxShield { set { maxShield = value; } }
-    public float MaxHealth { set { maxHealth = value; } }
-    public float MaxEnergy { set { maxEnergy = value; } }
 
     private float currentShield;
     private float currentHealth;
@@ -23,7 +20,7 @@ public class SpaceshipHUD : MonoBehaviour
     private float maxHealth;
     private float maxEnergy;
 
-    private void Start()
+    private void Awake()
     {
         currentShield = 1;
         currentHealth = 1;
@@ -39,5 +36,12 @@ public class SpaceshipHUD : MonoBehaviour
         shieldBar.value = currentShield / maxShield;
         healthBar.value = currentHealth / maxHealth;
         energyBar.value = currentEnergy / maxEnergy;
+    }
+
+    public void InitializeHUDValues(SpaceshipStatsSO spaceshipStats)
+    {
+        maxShield = spaceshipStats.shieldMaxCapacity;
+        maxHealth = spaceshipStats.hullMaxHP;
+        maxEnergy = spaceshipStats.boostEnergyCapacity;
     }
 }

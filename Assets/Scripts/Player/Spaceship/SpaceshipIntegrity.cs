@@ -3,16 +3,18 @@ using UnityEngine;
 
 public class SpaceshipIntegrity : HealthComponent
 {
-    [Header("Damage Settings")]
-    [SerializeField] private float collisionDamageToShieldMultiplier = 0.33f;
-    [SerializeField] private float collisionDamageToHullMultiplier = 0.5f;
-    [SerializeField] private float collisionCooldownDuration = 1f;
+    #region Inspector Fields
+    private float collisionDamageToShieldMultiplier = 0.33f;
+    private float collisionDamageToHullMultiplier = 0.5f;
+    private float collisionCooldownDuration = 1f;
 
     private Rigidbody spaceshipRB;
 
     private float collisionCooldownTimer;
     private bool collisionCooldownDone;
+    #endregion
 
+    #region Unity Methods
     protected override void Start()
     {
         base.Start();
@@ -56,15 +58,25 @@ public class SpaceshipIntegrity : HealthComponent
 
         HandleCollision(impactSpeed);
     }
+    #endregion
 
+    #region Public Methods
+    public void InitializeIntegrityValues(SpaceshipStatsSO spaceshipStats)
+    {
+        MaxHealth = spaceshipStats.shieldMaxCapacity;
+        MaxShield = spaceshipStats.hullMaxHP;
+        CurrentHealth = MaxHealth;
+        CurrentShield = MaxShield;
+    }
+    #endregion
+
+    #region Private Methods
     private void HandleCollision(int collisionSpeed)
     {
         if (collisionCooldownDone)
         {
-            Debug.Log("Speed : " + collisionSpeed);
             if (CurrentShield > 0)
             {
-                Debug.Log("Damage : " + (int)(collisionSpeed * collisionDamageToShieldMultiplier));
                 TakeDamage((int)(collisionSpeed * collisionDamageToShieldMultiplier));
             }
             else
@@ -74,4 +86,5 @@ public class SpaceshipIntegrity : HealthComponent
             collisionCooldownDone = false;
         }
     }
+    #endregion
 }

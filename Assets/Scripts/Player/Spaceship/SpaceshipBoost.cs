@@ -12,22 +12,15 @@ public class SpaceshipBoost : MonoBehaviour
     #region Inspector Fields
     public event Action<bool> OnSpaceshipBoost;
     public event Action OnSpaceshipDodge;
-    public event Action<float, float> InitializeBoost;
-    public event Action<float, float> InitializeDodge;
 
-    [Header("Boost Settings")]
-    [SerializeField] private float boostThrustMultiplier = 2.5f;
-    [SerializeField] private float boostEnergyCapacity = 150f;
-    [SerializeField] private float boostEnergyConsumption = 15f;
-    [SerializeField] private float boostCooldownDuration = 1f;
-    [SerializeField] private float boostRechargeRate = 1f;
-    [SerializeField, Range(0.001f, 0.999f)] private float boostInertiaMultiplier = 1f;
+    private float boostThrustMultiplier = 2.5f;
+    private float boostEnergyCapacity = 150f;
+    private float boostEnergyConsumption = 15f;
+    private float boostCooldownDuration = 1f;
+    private float boostRechargeRate = 1f;
 
-    [Header("Dodge Settings")]
-    [SerializeField] private float dodgeThrust = 50f;
-    [SerializeField] private float dodgeDuration = 0.25f;
-    [SerializeField] private float dodgeEnergyConsumption = 25f;
-    [SerializeField] private float dodgeCooldownDuration = 1f;
+    private float dodgeEnergyConsumption = 25f;
+    private float dodgeCooldownDuration = 1f;
 
     public float CurrentBoostEnergy { get { return currentBoostEnergy; } }
     public float EnergyCapacity { get { return boostEnergyCapacity; } }
@@ -54,9 +47,6 @@ public class SpaceshipBoost : MonoBehaviour
 
         InputManager.Instance.SpaceshipBoost.started += OnBoostStarted;
         InputManager.Instance.SpaceshipDodge.started += OnDodgeStarted;
-
-        InitializeBoost?.Invoke(boostThrustMultiplier, boostInertiaMultiplier);
-        InitializeDodge?.Invoke(dodgeThrust, dodgeDuration);
     }
 
     private void OnDestroy()
@@ -69,6 +59,20 @@ public class SpaceshipBoost : MonoBehaviour
     {
         HandleBoostEnergy();
         HandleDodgeCooldown();
+    }
+    #endregion
+
+    #region Public Methods
+    public void InitializeBoostValues(SpaceshipStatsSO spaceshipStats)
+    {
+        boostThrustMultiplier = spaceshipStats.boostThrustMultiplier;
+        boostEnergyCapacity = spaceshipStats.boostEnergyCapacity;
+        boostEnergyConsumption = spaceshipStats.boostEnergyConsumption;
+        boostCooldownDuration = spaceshipStats.boostCooldownDuration;
+        boostRechargeRate = spaceshipStats.boostRechargeRate;
+
+        dodgeEnergyConsumption = spaceshipStats.dodgeEnergyConsumption;
+        dodgeCooldownDuration = spaceshipStats.dodgeCooldownDuration;
     }
     #endregion
 

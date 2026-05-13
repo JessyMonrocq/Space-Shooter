@@ -48,10 +48,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipReference
   spaceshipName: 
-  spaceshipStats: {fileID: 0}
+  spaceshipStats: {fileID: 11400000, guid: bc80aad5b41d44849ab1ee9fdbf13dd2, type: 2}
   collisionMesh: {fileID: 4300000, guid: d5f294878c4f6c345b77b37d1c6d3cce, type: 3}
   meshRenderer: {fileID: 3831187322151434153}
-  boosterParticleSystems:
+  thrusterParticleSystems:
   - {fileID: 6268836744397211859}
   - {fileID: 2928813430567845471}
   - {fileID: 3373735947615909553}

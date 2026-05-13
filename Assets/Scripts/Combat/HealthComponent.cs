@@ -8,9 +8,9 @@ public class HealthComponent : MonoBehaviour, IDamageable
     [SerializeField] private float shieldRechargeRate = 1f;
     [SerializeField] private int hullMaxHP = 100;
 
-    public int MaxShield => shieldMaxCapacity;
+    public int MaxShield { get; set; }
     public int CurrentShield { get; set; }
-    public int MaxHealth => hullMaxHP;
+    public int MaxHealth { get; set; }
     public int CurrentHealth { get; set; }
     public bool IsAlive => CurrentHealth > 0;
 

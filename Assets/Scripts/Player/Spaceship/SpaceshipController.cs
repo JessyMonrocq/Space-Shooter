@@ -6,16 +6,19 @@ public class SpaceshipController : MonoBehaviour
     [Header("Spaceship Scripts References")]
     [SerializeField] private SpaceshipMovement spaceshipMovement;
     [SerializeField] private SpaceshipBoost spaceshipBoost;
-    [SerializeField] private SpaceshipCamera spaceshipCamera;
     [SerializeField] private SpaceshipIntegrity spaceshipIntegrity;
     [SerializeField] private SpaceshipHUD spaceshipHUD;
     [SerializeField] private SpaceshipVFX spaceshipVFX;
 
     [Header("Others")]
-    [SerializeField] private GameObject spaceshipModelParent;
+    [SerializeField] private GameObject spaceshipReferenceParent;
 
+    [HideInInspector]
+    public SpaceshipCamera SpaceshipCamera { get => spaceshipCamera; set => spaceshipCamera = value; }
+    [HideInInspector]
     public SpaceshipReference SpaceshipReferencePrefab;
 
+    private SpaceshipCamera spaceshipCamera;
     private SpaceshipReference spaceshipReference;
     private SpaceshipStatsSO spaceshipStats;
     #endregion
@@ -24,7 +27,6 @@ public class SpaceshipController : MonoBehaviour
     private void Awake()
     {
         spaceshipBoost.OnSpaceshipBoost += spaceshipMovement.SetBoostMode;
-        spaceshipBoost.OnSpaceshipBoost += spaceshipCamera.SetBoostMode;
         spaceshipBoost.OnSpaceshipDodge += spaceshipMovement.Dodge;
     }
 
@@ -49,22 +51,26 @@ public class SpaceshipController : MonoBehaviour
     public void InitializeSpaceship()
     {
         spaceshipStats = SpaceshipReferencePrefab.SpaceshipStats;
-        if (spaceshipModelParent.GetComponentInChildren<SpaceshipReference>() != null)
+        if (spaceshipReferenceParent.GetComponentInChildren<SpaceshipReference>() != null)
         {
-            foreach (Transform child in spaceshipModelParent.transform)
+            foreach (Transform child in spaceshipReferenceParent.transform)
             {
                 Destroy(child.gameObject);
             }
         }
 
-        spaceshipReference = Instantiate(SpaceshipReferencePrefab, spaceshipModelParent.transform);
+        spaceshipReference = Instantiate(SpaceshipReferencePrefab, spaceshipReferenceParent.transform);
 
         spaceshipMovement.InitializeMovementValues(spaceshipStats);
         spaceshipBoost.InitializeBoostValues(spaceshipStats);
-        spaceshipCamera.InitializeCameraValues(spaceshipStats);
         spaceshipHUD.InitializeHUDValues(spaceshipStats);
         spaceshipVFX.InitializeVFXValues(spaceshipStats);
         spaceshipVFX.InitializeBoostParticles(spaceshipReference.ThrusterParticleSystem);
+
+        spaceshipCamera.InitializeCameraValues(spaceshipStats);
+        spaceshipCamera.SetCameraTarget(transform);
+
+        spaceshipBoost.OnSpaceshipBoost += spaceshipCamera.SetBoostMode;
     }
     #endregion
 }

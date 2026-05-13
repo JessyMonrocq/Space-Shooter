@@ -18,12 +18,14 @@ MonoBehaviour:
   yawTorque: 5
   pitchTorque: 5
   rollTorque: 5
+  backwardThrustReduction: 0.5
   thrustGlideReduction: 0.9
   horizontalGlideReduction: 0.1
   verticalGlideReduction: 0.1
   inertiaTranslationDampenerMultiplier: 1
   inertiaTorqueDampenerMultiplier: 1
   inertiaRollDampenerMultiplier: 0.5
+  inertiaRecoverySpeed: 0.05
   flightAssistStrength: 2
   boostThrustMultiplier: 2.5
   boostEnergyCapacity: 150
@@ -31,6 +33,10 @@ MonoBehaviour:
   boostCooldownDuration: 1
   boostRechargeRate: 1
   boostInertiaMultiplier: 1
+  dodgeThrust: 50
+  dodgeDuration: 0.25
+  dodgeEnergyConsumption: 25
+  dodgeCooldownDuration: 1
   weaponsFireRate: 1
   weaponsDamage: 1
   weaponsMaxAmmo: 100
@@ -40,7 +46,17 @@ MonoBehaviour:
   shieldCooldown: 1
   shieldRechargeRate: 1
   hullMaxHP: 100
-  cameraDistance: 30
-  cameraPositionDampening: {x: 0, y: 0, z: 0}
-  cameraRotationDampening: {x: 0, y: 0, z: 0}
+  collisionDamageToShieldMultiplier: 0.33
+  collisionDamageToHullMultiplier: 0.5
+  collisionCooldownDuration: 1
+  cameraPositionOffset: {x: 0, y: 5, z: -25}
+  cameraPositionDampTime: 0.1
+  cameraRotationDampTime: 0.1
+  defaultNoiseSettings: {fileID: 0}
+  boostNoiseSettings: {fileID: 0}
+  defaultNoiseAmplitude: 0.5
+  defaultNoiseFrequency: 0.5
+  boostNoiseAmplitude: 1
+  boostNoiseFrequency: 1
+  minSpeedThreshold: 0.1
   maxCargoSpace: 0

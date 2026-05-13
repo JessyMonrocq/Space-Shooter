@@ -101,14 +101,13 @@ public class SpaceshipStatsSO : ScriptableObject
 
     [Space(30)]
     [Header("Camera Settings")]
-    [Tooltip("Camera Distance : defines the distance at which the camera is positionned behind the spaceship at rest")]
-    public float cameraDistance = 25f;
-    [Tooltip("Camera Vertical Arm Length : defines the height/vertical offset of the camera")]
-    public float cameraVerticalArmLength = 5f;
-    [Tooltip("Camera Position Dampening : defines the camera position dampening amount (follow intensity)")]
-    public Vector3 cameraPositionDampening = Vector3.zero;
-    [Tooltip("Camera Rotation Dampening : defines the camera rotation dampening amount (follow intensity)")]
-    public float cameraRotationDampening = 0f;
+    [Tooltip("Camera Position Offset : defines the position offset of the camera relative to the spaceship")]
+    public Vector3 cameraPositionOffset;
+    [Tooltip("Camera Position Damp Time : defines the camera position dampening time (follow intensity)")]
+    public float cameraPositionDampTime = 0.1f;
+    [Tooltip("Camera Rotation Damp Time : defines the camera rotation dampening smoothness (follow intensity)")]
+    public float cameraRotationDampSmoothness = 8f;
+
     [Tooltip("Default Noise Settings : defines the noise settings for the camera default state (flight)")]
     public NoiseSettings defaultNoiseSettings;
     [Tooltip("Boost Noise Settings : defines the noise settings for the camera boost state")]

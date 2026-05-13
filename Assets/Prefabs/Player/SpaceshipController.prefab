@@ -307,7 +307,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &2689357249435942992
 Transform:
   m_ObjectHideFlags: 0
@@ -330,7 +330,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2356471493412552323}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f9dfa5b682dcd46bda6128250e975f58, type: 3}
   m_Name: 
@@ -373,7 +373,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2356471493412552323}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 625c14eee3ad46c99df7c7c891ef668a, type: 3}
   m_Name: 
@@ -399,7 +399,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2356471493412552323}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4afa82ae3200b82408d605c3dbdd1e38, type: 3}
   m_Name: 
@@ -412,7 +412,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2356471493412552323}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
   m_Name: 
@@ -644,7 +644,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2833582110888713025}
   m_Layer: 0
-  m_Name: Model
+  m_Name: Reference
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1021,7 +1021,7 @@ GameObject:
   - component: {fileID: 7521189018694233219}
   - component: {fileID: 1169549870250825343}
   m_Layer: 0
-  m_Name: SpaceshipPlayer
+  m_Name: SpaceshipController
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1059,11 +1059,12 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipManager
   spaceshipMovement: {fileID: 9108206588495319129}
   spaceshipBoost: {fileID: 2203237552061900511}
-  spaceshipCamera: {fileID: 3299223988622501656}
+  spaceshipCamera: {fileID: 0}
   spaceshipIntegrity: {fileID: 5282514046870798146}
   spaceshipHUD: {fileID: 2915070685939292554}
   spaceshipVFX: {fileID: 8959570743445006322}
-  spaceshipModelParent: {fileID: 4632579416993663095}
+  spaceshipReferenceParent: {fileID: 4632579416993663095}
+  SpaceshipReferencePrefab: {fileID: 0}
 --- !u!114 &9108206588495319129
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1076,21 +1077,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2111917e743d0e24d9abebf0b73ffbb8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipController
-  thrust: 200
-  horizontalThrust: 50
-  verticalThrust: 50
-  yawTorque: 5
-  pitchTorque: 6
-  rollTorque: 8
-  backwardThrustReduction: 0.5
-  thrustGlideReduction: 0.8
-  horizontalGlideReduction: 0.1
-  verticalGlideReduction: 0.1
-  inertiaTranslationDampenerMultiplier: 1
-  inertiaTorqueDampenerMultiplier: 1
-  inertiaRollDampenerMultiplier: 0.33
-  inertiaRecoverySpeed: 0.05
-  flightAssistStrength: 3
 --- !u!114 &2203237552061900511
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1103,16 +1089,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9b7f61196156fa8408195eb937de2c5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipBoost
-  boostThrustMultiplier: 2
-  boostEnergyCapacity: 150
-  boostEnergyConsumption: 15
-  boostCooldownDuration: 2
-  boostRechargeRate: 20
-  boostInertiaMultiplier: 0.33
-  dodgeThrust: 50
-  dodgeDuration: 0.25
-  dodgeEnergyConsumption: 25
-  dodgeCooldownDuration: 1
 --- !u!114 &3299223988622501656
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1120,7 +1096,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8334639625619475842}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8bf5cae684e05554ab845570babc580a, type: 3}
   m_Name: 
@@ -1129,16 +1105,6 @@ MonoBehaviour:
   followComponent: {fileID: 8802968097130307853}
   rotateComponent: {fileID: 4435381045562102822}
   noiseComponent: {fileID: 5331834506815741798}
-  defaultNoiseSettings: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
-  boostNoiseSettings: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
-  defaultNoiseAmplitude: 0.5
-  defaultNoiseFrequency: 0.5
-  boostNoiseAmplitude: 3
-  boostNoiseFrequency: 1
-  cameraDistance: 25
-  cameraVerticalArmLength: 5
-  cameraPositionDampening: {x: 0.1, y: 0.1, z: 0.2}
-  cameraRotationDampening: 0.1
 --- !u!114 &5282514046870798146
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1155,9 +1121,6 @@ MonoBehaviour:
   shieldCooldown: 1
   shieldRechargeRate: 1
   hullMaxHP: 150
-  collisionDamageToShieldMultiplier: 0.25
-  collisionDamageToHullMultiplier: 0.33
-  collisionCooldownDuration: 1
 --- !u!114 &2915070685939292554
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1185,9 +1148,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f06b40581dde24db8feea1b000d0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipVFX
-  thrusterParticleSystems: []
-  minSpeedThreshold: 0.1
-  maxSpeed: 250
 --- !u!54 &7521189018694233219
 Rigidbody:
   m_ObjectHideFlags: 0

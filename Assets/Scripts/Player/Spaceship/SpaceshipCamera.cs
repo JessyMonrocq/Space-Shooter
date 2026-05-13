@@ -6,16 +6,12 @@ public class SpaceshipCamera : MonoBehaviour
     #region Inspector Fields
     [Header("Cinemachine Camera Settings")]
     [SerializeField] private CinemachineCamera spaceshipCamera;
-    [SerializeField] private CinemachineThirdPersonFollow followComponent;
-    [SerializeField] private CinemachineRotateWithFollowTarget rotateComponent;
-
-    private float cameraDistance = 25f;
-    private float cameraVerticalArmLength = 5f;
-    private Vector3 cameraPositionDampening = Vector3.zero;
-    private float cameraRotationDampening = 0f;
-
-    [Header("Cinemachine Noise Settings")]
     [SerializeField] private CinemachineBasicMultiChannelPerlin noiseComponent;
+
+    private Transform followTarget;
+    private Vector3 cameraPositionOffset;
+    private float cameraPositionDampTime = 0.1f;
+    private float cameraRotationDampSmoothness = 8f;
 
     private NoiseSettings defaultNoiseSettings;
     private NoiseSettings boostNoiseSettings;
@@ -23,22 +19,39 @@ public class SpaceshipCamera : MonoBehaviour
     private float defaultNoiseFrequency = 0.5f;
     private float boostNoiseAmplitude = 1.0f;
     private float boostNoiseFrequency = 1.0f;
+
+    private bool isReady;
+
+    private Vector3 currentVelocity;
     #endregion
 
     #region Unity Methods
-    private void Update()
+    private void Awake()
     {
-        // Reduce dampening when boosting (and at full speed)
+        isReady = false;
+    }
+
+    private void LateUpdate()
+    {
+        if (!isReady)
+        {
+            return;
+        }
+
+        Vector3 desiredPosition = followTarget.position + followTarget.TransformDirection(cameraPositionOffset);
+        spaceshipCamera.transform.position = Vector3.SmoothDamp(spaceshipCamera.transform.position, desiredPosition, ref currentVelocity, cameraPositionDampTime);
+
+        Quaternion desiredRotation = followTarget.rotation;
+        spaceshipCamera.transform.rotation = Quaternion.Slerp(spaceshipCamera.transform.rotation, desiredRotation, Time.deltaTime * cameraRotationDampSmoothness);
     }
     #endregion
 
     #region Public Methods
     public void InitializeCameraValues(SpaceshipStatsSO spaceshipStats)
     {
-        cameraDistance = spaceshipStats.cameraDistance;
-        cameraVerticalArmLength = spaceshipStats.cameraVerticalArmLength;
-        cameraPositionDampening = spaceshipStats.cameraPositionDampening;
-        cameraRotationDampening = spaceshipStats.cameraRotationDampening;
+        cameraPositionOffset = spaceshipStats.cameraPositionOffset;
+        cameraPositionDampTime = spaceshipStats.cameraPositionDampTime;
+        cameraRotationDampSmoothness = spaceshipStats.cameraRotationDampSmoothness;
 
         defaultNoiseSettings = spaceshipStats.defaultNoiseSettings;
         boostNoiseSettings = spaceshipStats.boostNoiseSettings;
@@ -47,15 +60,17 @@ public class SpaceshipCamera : MonoBehaviour
         boostNoiseAmplitude = spaceshipStats.boostNoiseAmplitude;
         boostNoiseFrequency = spaceshipStats.boostNoiseFrequency;
 
-        followComponent.CameraDistance = cameraDistance;
-        followComponent.VerticalArmLength = cameraVerticalArmLength;
-        followComponent.Damping = cameraPositionDampening;
-
-        rotateComponent.Damping = cameraRotationDampening;
-
         noiseComponent.NoiseProfile = defaultNoiseSettings;
         noiseComponent.AmplitudeGain = defaultNoiseAmplitude;
         noiseComponent.FrequencyGain = defaultNoiseFrequency;
+    }
+
+    public void SetCameraTarget(Transform target)
+    {
+        followTarget = target;
+        spaceshipCamera.transform.position = followTarget.position + followTarget.TransformDirection(cameraPositionOffset);
+        spaceshipCamera.transform.rotation = followTarget.rotation;
+        isReady = true;
     }
 
     public void SetBoostMode(bool isBoosting)

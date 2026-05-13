@@ -49,10 +49,9 @@ MonoBehaviour:
   collisionDamageToShieldMultiplier: 0.33
   collisionDamageToHullMultiplier: 0.5
   collisionCooldownDuration: 1
-  cameraDistance: 30
-  cameraVerticalArmLength: 5
-  cameraPositionDampening: {x: 0.1, y: 0.1, z: 0.2}
-  cameraRotationDampening: 0.1
+  cameraPositionOffset: {x: 0, y: 5, z: -25}
+  cameraPositionDampTime: 0.1
+  cameraRotationDampTime: 8
   defaultNoiseSettings: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
   boostNoiseSettings: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}
   defaultNoiseAmplitude: 0.5

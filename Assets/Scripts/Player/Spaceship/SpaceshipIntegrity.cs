@@ -4,6 +4,8 @@ using UnityEngine;
 public class SpaceshipIntegrity : HealthComponent
 {
     #region Inspector Fields
+    public event Action OnSpaceshipImpact;
+
     private float collisionDamageToShieldMultiplier = 0.33f;
     private float collisionDamageToHullMultiplier = 0.5f;
     private float collisionCooldownDuration = 1f;
@@ -84,6 +86,8 @@ public class SpaceshipIntegrity : HealthComponent
                 TakeDamage((int)(collisionSpeed * collisionDamageToHullMultiplier));
             }
             collisionCooldownDone = false;
+
+            OnSpaceshipImpact?.Invoke();
         }
     }
     #endregion

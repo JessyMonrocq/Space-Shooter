@@ -28,6 +28,8 @@ public class SpaceshipController : MonoBehaviour
     {
         spaceshipBoost.OnSpaceshipBoost += spaceshipMovement.SetBoostMode;
         spaceshipBoost.OnSpaceshipDodge += spaceshipMovement.Dodge;
+
+        spaceshipIntegrity.OnSpaceshipImpact += spaceshipBoost.InterruptBoost;
     }
 
     private void OnDestroy()
@@ -35,6 +37,8 @@ public class SpaceshipController : MonoBehaviour
         spaceshipBoost.OnSpaceshipBoost -= spaceshipMovement.SetBoostMode;
         spaceshipBoost.OnSpaceshipBoost -= spaceshipCamera.SetBoostMode;
         spaceshipBoost.OnSpaceshipDodge -= spaceshipMovement.Dodge;
+
+        spaceshipIntegrity.OnSpaceshipImpact -= spaceshipBoost.InterruptBoost;
     }
 
     private void Update()
@@ -44,6 +48,8 @@ public class SpaceshipController : MonoBehaviour
         spaceshipHUD.CurrentEnergy = spaceshipBoost.CurrentBoostEnergy;
 
         spaceshipVFX.CurrentSpeed = spaceshipMovement.CurrentSpeed;
+
+        spaceshipReference.IsIdle = spaceshipMovement.CurrentSpeed <= 0.1f;
     }
     #endregion
 

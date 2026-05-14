@@ -74,6 +74,17 @@ public class SpaceshipBoost : MonoBehaviour
         dodgeEnergyConsumption = spaceshipStats.dodgeEnergyConsumption;
         dodgeCooldownDuration = spaceshipStats.dodgeCooldownDuration;
     }
+
+    public void InterruptBoost()
+    {
+        if (isBoosting)
+        {
+            isBoosting = false;
+            canBoost = false;
+            boostCooldownTimer = 0f;
+            OnSpaceshipBoost?.Invoke(isBoosting);
+        }
+    }
     #endregion
 
     #region Private Methods

@@ -69,6 +69,7 @@ public class SpaceshipController : MonoBehaviour
 
         spaceshipMovement.InitializeMovementValues(spaceshipStats);
         spaceshipBoost.InitializeBoostValues(spaceshipStats);
+        spaceshipIntegrity.InitializeIntegrityValues(spaceshipStats);
         spaceshipHUD.InitializeHUDValues(spaceshipStats);
         spaceshipVFX.InitializeVFXValues(spaceshipStats);
         spaceshipVFX.InitializeBoostParticles(spaceshipReference.ThrusterParticleSystem);

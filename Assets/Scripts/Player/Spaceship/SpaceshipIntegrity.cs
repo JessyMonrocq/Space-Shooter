@@ -19,8 +19,6 @@ public class SpaceshipIntegrity : HealthComponent
     #region Unity Methods
     protected override void Start()
     {
-        base.Start();
-
         spaceshipRB = GetComponent<Rigidbody>();
 
         collisionCooldownTimer = 0f;
@@ -65,8 +63,8 @@ public class SpaceshipIntegrity : HealthComponent
     #region Public Methods
     public void InitializeIntegrityValues(SpaceshipStatsSO spaceshipStats)
     {
-        MaxHealth = spaceshipStats.shieldMaxCapacity;
-        MaxShield = spaceshipStats.hullMaxHP;
+        MaxHealth = spaceshipStats.hullMaxHP;
+        MaxShield = spaceshipStats.shieldMaxCapacity;
         CurrentHealth = MaxHealth;
         CurrentShield = MaxShield;
     }

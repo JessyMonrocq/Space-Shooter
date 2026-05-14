@@ -3,10 +3,10 @@ using UnityEngine;
 public class HealthComponent : MonoBehaviour, IDamageable
 {
     [Header("Health Component Settings")]
-    [SerializeField] private int shieldMaxCapacity = 50;
-    [SerializeField] private float shieldCooldown = 1f;
-    [SerializeField] private float shieldRechargeRate = 1f;
-    [SerializeField] private int hullMaxHP = 100;
+    private int shieldMaxCapacity;
+    private float shieldCooldown;
+    private float shieldRechargeRate;
+    private int hullMaxHP;
 
     public int MaxShield { get; set; }
     public int CurrentShield { get; set; }

@@ -4,9 +4,9 @@ using UnityEngine.UI;
 public class SpaceshipHUD : MonoBehaviour
 {
     [Header("HUD Settings")]
-    [SerializeField] private Slider shieldBar;
-    [SerializeField] private Slider healthBar;
-    [SerializeField] private Slider energyBar;
+    [SerializeField] private CustomSlider shieldBar;
+    [SerializeField] private CustomSlider healthBar;
+    [SerializeField] private CustomSlider energyBar;
 
     public float CurrentShield { set { currentShield = value; } }
     public float CurrentHealth { set { currentHealth = value; } }
@@ -33,9 +33,9 @@ public class SpaceshipHUD : MonoBehaviour
 
     private void LateUpdate()
     {
-        shieldBar.value = currentShield / maxShield;
-        healthBar.value = currentHealth / maxHealth;
-        energyBar.value = currentEnergy / maxEnergy;
+        shieldBar.SliderValue(currentShield / maxShield);
+        healthBar.SliderValue(currentHealth / maxHealth);
+        energyBar.SliderValue(currentEnergy / maxEnergy);
     }
 
     public void InitializeHUDValues(SpaceshipStatsSO spaceshipStats)

@@ -1,7 +1,8 @@
+using TreeEditor;
 using UnityEngine;
 
-[RequireComponent (typeof(Mesh))]
-[RequireComponent (typeof(MeshRenderer))]
+[RequireComponent(typeof(Mesh))]
+[RequireComponent(typeof(MeshRenderer))]
 public class SpaceshipReference : MonoBehaviour
 {
     [Header("Spaceship References")]
@@ -16,4 +17,43 @@ public class SpaceshipReference : MonoBehaviour
     public Mesh CollisionMesh { get { return collisionMesh; } }
     public MeshRenderer MeshRenderer { get { return meshRenderer; } }
     public ParticleSystem[] ThrusterParticleSystem { get { return thrusterParticleSystems; } }
+
+    [Header("Spaceship Idle Animation")]
+    [SerializeField] private float idleAnimAmplitude = 0.15f;
+    [SerializeField] private float idleAnimFrequency = 1.5f;
+    [SerializeField] private float smoothTime = 0.2f;
+
+    public bool IsIdle { get { return isIdle; } set { isIdle = value; } }
+    private bool isIdle;
+
+    private Vector3 currentIdleOffset;
+    private Vector3 currentVelocity;
+
+    private void Start()
+    {
+        isIdle = true;
+    }
+
+    private void Update()
+    {
+        IdleAnimation();
+    }
+
+    private void IdleAnimation()
+    {
+        Vector3 targetOffset = Vector3.zero;
+
+        if (isIdle)
+        {
+            float hover = Mathf.Sin(Time.time * idleAnimFrequency) * idleAnimAmplitude;
+            targetOffset = new Vector3(0f, hover, 0f);
+        }
+
+        currentIdleOffset = Vector3.SmoothDamp(currentIdleOffset, targetOffset, ref currentVelocity, smoothTime);
+        if (!isIdle && currentIdleOffset.magnitude < 0.01f)
+        {
+            currentIdleOffset = Vector3.zero;
+        }
+        transform.localPosition = currentIdleOffset;
+    }
 }

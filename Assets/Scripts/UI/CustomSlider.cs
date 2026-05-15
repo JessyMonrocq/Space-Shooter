@@ -11,6 +11,7 @@ public class CustomSlider : MonoBehaviour
 #if UNITY_EDITOR
     private void OnValidate()
     {
+        slidingOffset = slideToLeft ? slidingOffset : -slidingOffset;
         float PosX = (sliderValue * slidingOffset) - slidingOffset;
         sliderFill.localPosition = new Vector3(PosX, 0f, 0f);
     }
@@ -18,6 +19,7 @@ public class CustomSlider : MonoBehaviour
 
     public void SliderValue(float val)
     {
+        slidingOffset = slideToLeft ? slidingOffset : -slidingOffset;
         sliderValue = val;
         float PosX = (sliderValue * slidingOffset) - slidingOffset;
         sliderFill.localPosition = new Vector3(PosX, 0f, 0f);

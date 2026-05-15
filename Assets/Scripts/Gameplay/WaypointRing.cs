@@ -16,7 +16,6 @@ public class WaypointRing : MonoBehaviour
     [SerializeField] private float ringScaleMult = 1.1f;
     [SerializeField] private float ringScaleDuration = 1f;
 
-    public bool IsActive { set { isActive = value; } }
     private bool isActive;
 
     private MaterialPropertyBlock materialPropertyBlock;
@@ -51,6 +50,14 @@ public class WaypointRing : MonoBehaviour
     }
     #endregion
 
+    #region Public Methods
+    public void SetRingState(bool state)
+    {
+        isActive = state;
+        SetRingEmission();
+    }
+    #endregion
+
     #region Private Methods
     private void SetRingEmission()
     {
@@ -66,7 +73,8 @@ public class WaypointRing : MonoBehaviour
         }
         else
         {
-            ringTransform.DOScale(Vector3.one, 1f);
+            ringTransform.DOKill();
+            ringTransform.DOScale(Vector3.one, 1f).SetEase(Ease.OutElastic);
         }
     }
     #endregion

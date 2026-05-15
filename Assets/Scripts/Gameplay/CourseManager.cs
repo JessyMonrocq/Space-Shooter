@@ -2,6 +2,7 @@ using DG.Tweening;
 using System.Collections;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class CourseManager : MonoBehaviour
 {
@@ -13,6 +14,13 @@ public class CourseManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI waypointsText;
     [SerializeField] private TextMeshProUGUI lapsText;
     [SerializeField] private TextMeshProUGUI countdownText;
+
+    [Header("Waypoint Marker Settings")]
+    private Camera mainCamera;
+    [SerializeField] private Image waypointMarker;
+    [SerializeField] private float screenEdgePadding = 50f;
+    [SerializeField] private float waypointScaleMult = 1.2f;
+    [SerializeField] private float waypointScaleDuration = 0.5f;
 
     private CourseTime courseTimer;
 
@@ -47,11 +55,15 @@ public class CourseManager : MonoBehaviour
         countdownText.text = null;
         countdownText.DOFade(0f, 0f);
 
+        waypointMarker.DOFade(0f, 0f);
+
         foreach (WaypointRing waypoint in courseWaypoints)
         {
             waypoint.SetRingState(false);
             waypoint.OnRingPassed += UpdateCourseStatus;
         }
+
+        mainCamera = Camera.main;
 
         InitializeCourse(); // Remove later
     }
@@ -77,6 +89,8 @@ public class CourseManager : MonoBehaviour
             courseTimer.SetCourseFromFloat(courseTimerFloat);
             timerText.text = courseTimer.ChronoToString();
         }
+
+        UpdateWaypointMarker();
     }
 
     public void InitializeCourse()
@@ -113,6 +127,27 @@ public class CourseManager : MonoBehaviour
         lapsText.text = $"{currentLap}/{lapAmounts}";
     }
 
+    private void UpdateWaypointMarker()
+    {
+        if (currentWaypoint >= courseWaypoints.Length)
+        {
+            return;
+        }
+
+        Transform target = courseWaypoints[currentWaypoint].transform;
+        Vector3 screenPos = mainCamera.WorldToScreenPoint(target.position);
+
+        if (screenPos.z < 0)
+        {
+            screenPos *= -1;
+        }
+
+        screenPos.x = Mathf.Clamp(screenPos.x, screenEdgePadding, Screen.width - screenEdgePadding);
+        screenPos.y = Mathf.Clamp(screenPos.y, screenEdgePadding, Screen.height - screenEdgePadding);
+
+        waypointMarker.rectTransform.position = screenPos;
+    }
+
     private void SetNextRingState()
     {
         courseWaypoints[currentWaypoint].SetRingState(true);
@@ -142,5 +177,7 @@ public class CourseManager : MonoBehaviour
 
         courseStarted = true;
         SetNextRingState();
+        waypointMarker.DOFade(0.8f, 0.5f);
+        waypointMarker.rectTransform.DOScale(waypointScaleMult, waypointScaleDuration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
     }
 }

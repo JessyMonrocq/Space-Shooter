@@ -6938,6 +6938,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8458417067218412647, guid: 07c7e1725ca25d349bf258d84bb51d76, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8733013719045294803, guid: 07c7e1725ca25d349bf258d84bb51d76, type: 3}
       propertyPath: courseTime.minutes
       value: 2

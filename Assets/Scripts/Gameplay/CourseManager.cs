@@ -1,6 +1,7 @@
 using DG.Tweening;
 using System.Collections;
 using TMPro;
+using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -64,8 +65,6 @@ public class CourseManager : MonoBehaviour
         }
 
         mainCamera = Camera.main;
-
-        InitializeCourse(); // Remove later
     }
 
     private void OnDestroy()
@@ -111,6 +110,7 @@ public class CourseManager : MonoBehaviour
                 // Course ends;
                 Debug.Log("Course finished");
                 courseStarted = false;
+                waypointMarker.DOFade(0f, 0.5f);
             }
             else
             {
@@ -129,7 +129,7 @@ public class CourseManager : MonoBehaviour
 
     private void UpdateWaypointMarker()
     {
-        if (currentWaypoint >= courseWaypoints.Length)
+        if (currentWaypoint >= numberOfWaypoints)
         {
             return;
         }
@@ -137,15 +137,22 @@ public class CourseManager : MonoBehaviour
         Transform target = courseWaypoints[currentWaypoint].transform;
         Vector3 screenPos = mainCamera.WorldToScreenPoint(target.position);
 
-        if (screenPos.z < 0)
+        bool isBehind = screenPos.z < 0;
+        bool isOffScreen = isBehind || screenPos.x < 0 || screenPos.x > Screen.width || screenPos.y < 0 || screenPos.y > Screen.height;
+
+        if (isOffScreen)
         {
-            screenPos *= -1;
+            if (isBehind)
+            {
+                screenPos *= -1;
+            }
+
+            screenPos.x = Mathf.Clamp(screenPos.x, screenEdgePadding, Screen.width - screenEdgePadding);
+            screenPos.y = Mathf.Clamp(screenPos.y, screenEdgePadding, Screen.height - screenEdgePadding);
         }
 
-        screenPos.x = Mathf.Clamp(screenPos.x, screenEdgePadding, Screen.width - screenEdgePadding);
-        screenPos.y = Mathf.Clamp(screenPos.y, screenEdgePadding, Screen.height - screenEdgePadding);
-
-        waypointMarker.rectTransform.position = screenPos;
+        Vector3 markerPosition = new Vector3(screenPos.x, screenPos.y, 0f);
+        waypointMarker.rectTransform.position = markerPosition;
     }
 
     private void SetNextRingState()
@@ -179,5 +186,7 @@ public class CourseManager : MonoBehaviour
         SetNextRingState();
         waypointMarker.DOFade(0.8f, 0.5f);
         waypointMarker.rectTransform.DOScale(waypointScaleMult, waypointScaleDuration).SetEase(Ease.InOutSine).SetLoops(-1, LoopType.Yoyo);
+
+        InputManager.Instance.SetSpaceshipInputState(true);
     }
 }

@@ -19,6 +19,10 @@ public class SpaceshipManager : MonoBehaviour
         spaceshipController.SpaceshipCamera = spaceshipCamera;
         
         spaceshipController.SpaceshipReferencePrefab = spaceshipReferencePrefab;
+    }
+
+    public void InitializeSpaceship()
+    {
         spaceshipController.InitializeSpaceship();
     }
 }

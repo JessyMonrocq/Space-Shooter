@@ -30,7 +30,8 @@ public class SpaceshipMovement : MonoBehaviour
     public enum MovementState
     {
         FlightMode,
-        BoostMode
+        BoostMode,
+        FightMode
     }
 
     public float CurrentSpeed { get { return currentSpeed; } }
@@ -130,6 +131,27 @@ public class SpaceshipMovement : MonoBehaviour
         dodgeDuration = spaceshipStats.dodgeDuration;
     }
 
+    public void SetFightMode(bool state)
+    {
+        if (movementState == MovementState.BoostMode && state)
+        {
+            SetBoostMode(false);
+            movementState = MovementState.FightMode;
+            return;
+        }
+
+        if (movementState == MovementState.FlightMode && state)
+        {
+            movementState = MovementState.FightMode;
+            return;
+        }
+
+        if (!state)
+        {
+            movementState = MovementState.FlightMode;
+        }
+    }
+
     public void SetBoostMode(bool state)
     {
         if (movementState == MovementState.FlightMode && state)
@@ -224,7 +246,7 @@ public class SpaceshipMovement : MonoBehaviour
 
     private void ApplyTranslationForces()
     {
-        // Thrust : FlightMode
+        // Forward Thrust
         if (movementState == MovementState.FlightMode)
         {
             float thrustInputClamp = Mathf.Clamp(thrustInput, -backwardThrustReduction, 1f);
@@ -239,10 +261,11 @@ public class SpaceshipMovement : MonoBehaviour
                 glide = thrust;
             }
         }
-        // Thrust : BoostMode
-        else
+        else if (movementState == MovementState.BoostMode)
         {
-            spaceshipRB.AddRelativeForce(Vector3.forward * boostThrustMultiplier * thrust * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            {
+                spaceshipRB.AddRelativeForce(Vector3.forward * boostThrustMultiplier * thrust * Time.fixedDeltaTime, ForceMode.VelocityChange);
+            }
         }
 
         if (!isDodging)

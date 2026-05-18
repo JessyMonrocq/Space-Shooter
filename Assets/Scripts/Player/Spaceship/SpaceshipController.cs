@@ -10,6 +10,7 @@ public class SpaceshipController : MonoBehaviour
     [SerializeField] private SpaceshipWeapons spaceshipWeapons;
     [SerializeField] private SpaceshipHUD spaceshipHUD;
     [SerializeField] private SpaceshipVFX spaceshipVFX;
+    [SerializeField] private SpaceshipFOF spaceshipFOF;
 
     [Header("Others")]
     [SerializeField] private GameObject spaceshipReferenceParent;
@@ -31,6 +32,10 @@ public class SpaceshipController : MonoBehaviour
         spaceshipBoost.OnSpaceshipDodge += spaceshipMovement.Dodge;
 
         spaceshipIntegrity.OnSpaceshipImpact += spaceshipBoost.InterruptBoost;
+
+        spaceshipFOF.OnFightModeActivated += spaceshipMovement.SetFightMode;
+        spaceshipFOF.OnFightModeActivated += spaceshipBoost.SetFightMode;
+        spaceshipFOF.OnFightModeActivated += spaceshipWeapons.SetWeaponsState;
     }
 
     private void OnDestroy()
@@ -40,6 +45,9 @@ public class SpaceshipController : MonoBehaviour
         spaceshipBoost.OnSpaceshipDodge -= spaceshipMovement.Dodge;
 
         spaceshipIntegrity.OnSpaceshipImpact -= spaceshipBoost.InterruptBoost;
+
+        spaceshipFOF.OnFightModeActivated -= spaceshipMovement.SetFightMode;
+        spaceshipFOF.OnFightModeActivated -= spaceshipWeapons.SetWeaponsState;
     }
 
     private void Update()

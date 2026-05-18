@@ -36,7 +36,7 @@ public abstract class WeaponBase : MonoBehaviour
     protected void Start()
     {
         weaponState = WeaponState.Inactive;
-        weaponModel.transform.position = weaponInactivePosition;
+        transform.localPosition = weaponInactivePosition;
 
         currentAmmunicationCount = maxAmmunitionCount;
         weaponFireRateTimer = weaponFireRate;
@@ -71,8 +71,8 @@ public abstract class WeaponBase : MonoBehaviour
     private IEnumerator WeaponPositionCoroutine(bool isActive)
     {
         Vector3 finalPos = isActive ? weaponActivePosition : weaponInactivePosition;
-        weaponModel.transform.DOKill();
-        yield return weaponModel.transform.DOMove(finalPos, activationDuration).SetEase(Ease.Linear).WaitForCompletion();
+        transform.DOKill();
+        yield return transform.DOLocalMove(finalPos, activationDuration).SetEase(Ease.Linear).WaitForCompletion();
 
         canShoot = isActive;
         weaponState = isActive ? WeaponState.Active : WeaponState.Inactive;

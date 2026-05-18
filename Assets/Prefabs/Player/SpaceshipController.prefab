@@ -170,11 +170,12 @@ GameObject:
   - component: {fileID: 7014474744444104413}
   - component: {fileID: 2915070685939292554}
   - component: {fileID: 8959570743445006322}
+  - component: {fileID: 7956739703505840237}
   - component: {fileID: 7521189018694233219}
   - component: {fileID: 1169549870250825343}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: SpaceshipController
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -211,8 +212,10 @@ MonoBehaviour:
   spaceshipMovement: {fileID: 9108206588495319129}
   spaceshipBoost: {fileID: 2203237552061900511}
   spaceshipIntegrity: {fileID: 5282514046870798146}
+  spaceshipWeapons: {fileID: 7014474744444104413}
   spaceshipHUD: {fileID: 2915070685939292554}
   spaceshipVFX: {fileID: 8959570743445006322}
+  spaceshipFOF: {fileID: 7956739703505840237}
   spaceshipReferenceParent: {fileID: 4632579416993663095}
   SpaceshipReferencePrefab: {fileID: 0}
 --- !u!114 &9108206588495319129
@@ -290,6 +293,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f06b40581dde24db8feea1b000d0cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipVFX
+--- !u!114 &7956739703505840237
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334639625619475842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8115b3931765a354aa59a6ee31282480, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceshipFOF
 --- !u!54 &7521189018694233219
 Rigidbody:
   m_ObjectHideFlags: 0

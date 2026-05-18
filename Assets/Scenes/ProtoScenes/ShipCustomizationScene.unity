@@ -1780,6 +1780,7 @@ MonoBehaviour:
   spaceshipMovement: {fileID: 0}
   spaceshipBoost: {fileID: 0}
   spaceshipIntegrity: {fileID: 0}
+  spaceshipWeapons: {fileID: 0}
   spaceshipHUD: {fileID: 0}
   spaceshipVFX: {fileID: 0}
   spaceshipReferenceParent: {fileID: 0}
@@ -3313,63 +3314,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 07c7e1725ca25d349bf258d84bb51d76, type: 3}
---- !u!1001 &8524472406378914214
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1.047
-      objectReference: {fileID: 0}
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 1.536
-      objectReference: {fileID: 0}
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3079827179990151904, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5488751551985818776, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-      propertyPath: m_Name
-      value: Projectile (Missile 01)
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
@@ -3385,4 +3329,3 @@ SceneRoots:
   - {fileID: 1047104668}
   - {fileID: 3804283233838208607}
   - {fileID: 3601050644481144387}
-  - {fileID: 8524472406378914214}

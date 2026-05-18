@@ -89,7 +89,7 @@ MonoBehaviour:
   weaponFireRate: 0.5
   weaponMaxDistance: 500
   weaponSpeed: 100
-  activationDuration: 1
+  activationDuration: 0.5
   weaponCooldownDuration: 2
   weaponRechargeRate: 2
 --- !u!1 &4126002295711372752

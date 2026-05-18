@@ -32,6 +32,8 @@ public class SpaceshipBoost : MonoBehaviour
     private bool isBoosting;
     private bool canBoost;
     private bool canDodge;
+
+    private bool fightModeActive;
     #endregion
 
     #region Unity Methods
@@ -44,6 +46,7 @@ public class SpaceshipBoost : MonoBehaviour
         isBoosting = false;
         canBoost = true;
         canDodge = true;
+        fightModeActive = false;
 
         InputManager.Instance.SpaceshipBoost.started += OnBoostStarted;
         InputManager.Instance.SpaceshipDodge.started += OnDodgeStarted;
@@ -85,11 +88,26 @@ public class SpaceshipBoost : MonoBehaviour
             OnSpaceshipBoost?.Invoke(isBoosting);
         }
     }
+
+    public void SetFightMode(bool state)
+    {
+        fightModeActive = state;
+
+        if (isBoosting && state)
+        {
+            InterruptBoost();
+        }
+    }
     #endregion
 
     #region Private Methods
     private void OnBoostStarted(InputAction.CallbackContext context)
     {
+        if (fightModeActive)
+        {
+            return;
+        }
+
         if (canBoost && !isBoosting)
         {
             isBoosting = true;

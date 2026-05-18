@@ -44,10 +44,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 3756810636116645424}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19a1974a3523c3140ba50a94c8fcb974, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d86f10a3e4569949bc4137391723286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipReference
-  spaceshipName: 
+  spaceshipName: Stealth 4
   spaceshipStats: {fileID: 11400000, guid: 42360f06b86d21044a97a702ae17ec4f, type: 2}
   collisionMesh: {fileID: 4300000, guid: 7b8f448bf2971e4489ef758a2999b766, type: 3}
   meshRenderer: {fileID: 3779907101378774290}
@@ -57,6 +57,11 @@ MonoBehaviour:
   - {fileID: 2287806674977859114}
   - {fileID: 6362903629129483719}
   - {fileID: 4900067745592738849}
+  primaryWeapon: {fileID: 0}
+  secondaryWeapon: {fileID: 0}
+  idleAnimAmplitude: 0.15
+  idleAnimFrequency: 1.5
+  smoothTime: 0.2
 --- !u!33 &3770362793904763432
 MeshFilter:
   m_ObjectHideFlags: 0

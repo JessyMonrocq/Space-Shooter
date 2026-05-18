@@ -15,45 +15,45 @@ MonoBehaviour:
   SpaceshipList:
   - CategoryName: Stealth
     CategoryList:
-    - SpaceshipReference: {fileID: 8619035141459512771, guid: 64a18da9e5287b94aac2e406d56302ef, type: 3}
+    - SpaceshipModel: {fileID: 8619035141459512771, guid: 64a18da9e5287b94aac2e406d56302ef, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 6174375895852737972, guid: 3dc8448a723d77d439464bfd2e77fa7a, type: 3}
+    - SpaceshipModel: {fileID: 6174375895852737972, guid: 3dc8448a723d77d439464bfd2e77fa7a, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 5353417318357997694, guid: e43337d3bc0f7f84994a3d0562548b10, type: 3}
+    - SpaceshipModel: {fileID: 5353417318357997694, guid: e43337d3bc0f7f84994a3d0562548b10, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 3834215992602234428, guid: 2a3c245bde0aa834a854fa3cfe3717db, type: 3}
+    - SpaceshipModel: {fileID: 3834215992602234428, guid: 2a3c245bde0aa834a854fa3cfe3717db, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 590200348403026410, guid: ac90a6abba998774295548ec0ac17aa0, type: 3}
+    - SpaceshipModel: {fileID: 590200348403026410, guid: ac90a6abba998774295548ec0ac17aa0, type: 3}
       IsUnlocked: 0
   - CategoryName: Fighter
     CategoryList:
-    - SpaceshipReference: {fileID: 970636369900432217, guid: 904333ae8107a914594277db3f30672d, type: 3}
+    - SpaceshipModel: {fileID: 970636369900432217, guid: 904333ae8107a914594277db3f30672d, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 4060198427372247560, guid: 7e6d3847811e5f24fb240a27d9ed787a, type: 3}
+    - SpaceshipModel: {fileID: 4060198427372247560, guid: 7e6d3847811e5f24fb240a27d9ed787a, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 7433795046290907488, guid: 0bb3fe243742c474285eab1864b652be, type: 3}
+    - SpaceshipModel: {fileID: 7433795046290907488, guid: 0bb3fe243742c474285eab1864b652be, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 5418638597111900076, guid: 15750a651872a9048affd144060f33f4, type: 3}
+    - SpaceshipModel: {fileID: 5418638597111900076, guid: 15750a651872a9048affd144060f33f4, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 3518034280015380984, guid: 762e379fadccbce4c90709c0b2262b02, type: 3}
+    - SpaceshipModel: {fileID: 3518034280015380984, guid: 762e379fadccbce4c90709c0b2262b02, type: 3}
       IsUnlocked: 0
   - CategoryName: Heavy Fighter
     CategoryList:
-    - SpaceshipReference: {fileID: 7664609665421793532, guid: 815eb9c6917e8ad49891cb5f2c2c6602, type: 3}
+    - SpaceshipModel: {fileID: 7664609665421793532, guid: 815eb9c6917e8ad49891cb5f2c2c6602, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 4174106343612642955, guid: 28b67d323d240634f890426cfe58d41c, type: 3}
+    - SpaceshipModel: {fileID: 8182694382449525023, guid: b6ef70c03a529614e9013448ce2ef64b, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 5418638597111900076, guid: 15750a651872a9048affd144060f33f4, type: 3}
+    - SpaceshipModel: {fileID: 4174106343612642955, guid: 28b67d323d240634f890426cfe58d41c, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 1087993094965283966, guid: 4ca7d736467b8244695a541d199f6483, type: 3}
+    - SpaceshipModel: {fileID: 1087993094965283966, guid: 4ca7d736467b8244695a541d199f6483, type: 3}
       IsUnlocked: 0
   - CategoryName: Bomber
     CategoryList:
-    - SpaceshipReference: {fileID: 5448554017242690566, guid: 9e92a5d09b1b02c4a98a2364d3fcaa66, type: 3}
+    - SpaceshipModel: {fileID: 5448554017242690566, guid: 9e92a5d09b1b02c4a98a2364d3fcaa66, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 5957347118738221046, guid: 65dcf9baf0ef501499471283e44e32b1, type: 3}
+    - SpaceshipModel: {fileID: 5957347118738221046, guid: 65dcf9baf0ef501499471283e44e32b1, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 5482813238120716552, guid: 964d60298f0ccd64ebf7ef8905eba92b, type: 3}
+    - SpaceshipModel: {fileID: 5482813238120716552, guid: 964d60298f0ccd64ebf7ef8905eba92b, type: 3}
       IsUnlocked: 0
-    - SpaceshipReference: {fileID: 7764095476610865594, guid: 342f13f521f34a245ba7bb3c63b3ecf1, type: 3}
+    - SpaceshipModel: {fileID: 7764095476610865594, guid: 342f13f521f34a245ba7bb3c63b3ecf1, type: 3}
       IsUnlocked: 0

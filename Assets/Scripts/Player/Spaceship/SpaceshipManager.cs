@@ -4,7 +4,7 @@ using UnityEngine;
 public class SpaceshipManager : MonoBehaviour
 {
     [SerializeField] private SpaceshipController spaceshipControllerPrefab;
-    [SerializeField] private SpaceshipReference spaceshipReferencePrefab;
+    [SerializeField] private SpaceshipModel spaceshipReferencePrefab;
     [SerializeField] private SpaceshipCamera spaceshipCamera;
     [SerializeField] private Transform spaceshipSpawnPoint;
 

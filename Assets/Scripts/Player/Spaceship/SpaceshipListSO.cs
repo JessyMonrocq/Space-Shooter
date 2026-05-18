@@ -5,7 +5,7 @@ using UnityEngine;
 [Serializable]
 public class SpaceshipRef
 {
-    [SerializeField] private SpaceshipReference SpaceshipReference;
+    [SerializeField] private SpaceshipModel SpaceshipModel;
     [SerializeField] private bool IsUnlocked;
 }
 

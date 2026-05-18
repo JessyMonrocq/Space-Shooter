@@ -44,10 +44,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 963736262883273251}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19a1974a3523c3140ba50a94c8fcb974, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d86f10a3e4569949bc4137391723286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipReference
-  spaceshipName: 
+  spaceshipName: Heavy Fighter 1
   spaceshipStats: {fileID: 11400000, guid: fc4cf6be2c2b81b47830238fad9a0cc3, type: 2}
   collisionMesh: {fileID: 4300000, guid: 1fe8c2468e4147b4bb40d39333eeb7bc, type: 3}
   meshRenderer: {fileID: 939930895797474287}
@@ -56,6 +56,11 @@ MonoBehaviour:
   - {fileID: 3539129044686967416}
   - {fileID: 3586652268985662062}
   - {fileID: 3249896969807135707}
+  primaryWeapon: {fileID: 0}
+  secondaryWeapon: {fileID: 0}
+  idleAnimAmplitude: 0.15
+  idleAnimFrequency: 1.5
+  smoothTime: 0.2
 --- !u!33 &946104986789656357
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -81,10 +81,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5463194845756706792}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19a1974a3523c3140ba50a94c8fcb974, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d86f10a3e4569949bc4137391723286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipReference
-  spaceshipName: 
+  spaceshipName: FIghter 2
   spaceshipStats: {fileID: 11400000, guid: fb5d6835fae3b8948b251ac5da105720, type: 2}
   collisionMesh: {fileID: 4300000, guid: d8004ebbc859d8a4aa82c160e9391368, type: 3}
   meshRenderer: {fileID: 5441639724892279296}
@@ -93,6 +93,11 @@ MonoBehaviour:
   - {fileID: 6770028454021426731}
   - {fileID: 5811307507210854694}
   - {fileID: 4851969575956270258}
+  primaryWeapon: {fileID: 0}
+  secondaryWeapon: {fileID: 0}
+  idleAnimAmplitude: 0.15
+  idleAnimFrequency: 1.5
+  smoothTime: 0.2
 --- !u!33 &5450033339976707774
 MeshFilter:
   m_ObjectHideFlags: 0

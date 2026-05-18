@@ -44,10 +44,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 112696695831382391}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 19a1974a3523c3140ba50a94c8fcb974, type: 3}
+  m_Script: {fileID: 11500000, guid: 3d86f10a3e4569949bc4137391723286, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipReference
-  spaceshipName: 
+  spaceshipName: Bomber 1
   spaceshipStats: {fileID: 11400000, guid: e8a7c77cdaa8bcb4fabcb1b9ae6e9373, type: 2}
   collisionMesh: {fileID: 4300000, guid: a5870fc2456d0d54687c8967cbe4c71b, type: 3}
   meshRenderer: {fileID: 126362438945922181}
@@ -57,6 +57,11 @@ MonoBehaviour:
   - {fileID: 4423802562714074343}
   - {fileID: 1284114192984903406}
   - {fileID: 2585545711913430334}
+  primaryWeapon: {fileID: 0}
+  secondaryWeapon: {fileID: 0}
+  idleAnimAmplitude: 0.15
+  idleAnimFrequency: 1.5
+  smoothTime: 0.2
 --- !u!33 &136463971523280553
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -642,7 +647,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4394956682814354, guid: 4a298e46d0e7c4c409d88415ebb4d047, type: 3}
       propertyPath: m_LocalScale.y
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 4394956682814354, guid: 4a298e46d0e7c4c409d88415ebb4d047, type: 3}
       propertyPath: m_LocalScale.z

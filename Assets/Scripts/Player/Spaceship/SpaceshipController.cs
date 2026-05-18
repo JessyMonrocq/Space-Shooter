@@ -7,6 +7,7 @@ public class SpaceshipController : MonoBehaviour
     [SerializeField] private SpaceshipMovement spaceshipMovement;
     [SerializeField] private SpaceshipBoost spaceshipBoost;
     [SerializeField] private SpaceshipIntegrity spaceshipIntegrity;
+    [SerializeField] private SpaceshipWeapons spaceshipWeapons;
     [SerializeField] private SpaceshipHUD spaceshipHUD;
     [SerializeField] private SpaceshipVFX spaceshipVFX;
 
@@ -16,10 +17,10 @@ public class SpaceshipController : MonoBehaviour
     [HideInInspector]
     public SpaceshipCamera SpaceshipCamera { get => spaceshipCamera; set => spaceshipCamera = value; }
     [HideInInspector]
-    public SpaceshipReference SpaceshipReferencePrefab;
+    public SpaceshipModel SpaceshipReferencePrefab;
 
     private SpaceshipCamera spaceshipCamera;
-    private SpaceshipReference spaceshipReference;
+    private SpaceshipModel spaceshipReference;
     private SpaceshipStatsSO spaceshipStats;
     #endregion
 
@@ -57,7 +58,7 @@ public class SpaceshipController : MonoBehaviour
     public void InitializeSpaceship()
     {
         spaceshipStats = SpaceshipReferencePrefab.SpaceshipStats;
-        if (spaceshipReferenceParent.GetComponentInChildren<SpaceshipReference>() != null)
+        if (spaceshipReferenceParent.GetComponentInChildren<SpaceshipModel>() != null)
         {
             foreach (Transform child in spaceshipReferenceParent.transform)
             {
@@ -70,6 +71,7 @@ public class SpaceshipController : MonoBehaviour
         spaceshipMovement.InitializeMovementValues(spaceshipStats);
         spaceshipBoost.InitializeBoostValues(spaceshipStats);
         spaceshipIntegrity.InitializeIntegrityValues(spaceshipStats);
+        spaceshipWeapons.InitializeSpaceshipWeapons(spaceshipReference);
         spaceshipHUD.InitializeHUDValues(spaceshipStats);
         spaceshipVFX.InitializeVFXValues(spaceshipStats);
         spaceshipVFX.InitializeBoostParticles(spaceshipReference.ThrusterParticleSystem);

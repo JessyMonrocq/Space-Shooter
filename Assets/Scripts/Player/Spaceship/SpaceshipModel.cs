@@ -2,7 +2,7 @@ using UnityEngine;
 
 [RequireComponent(typeof(Mesh))]
 [RequireComponent(typeof(MeshRenderer))]
-public class SpaceshipReference : MonoBehaviour
+public class SpaceshipModel : MonoBehaviour
 {
     [Header("Spaceship References")]
     [SerializeField] private string spaceshipName;
@@ -16,6 +16,13 @@ public class SpaceshipReference : MonoBehaviour
     public Mesh CollisionMesh { get { return collisionMesh; } }
     public MeshRenderer MeshRenderer { get { return meshRenderer; } }
     public ParticleSystem[] ThrusterParticleSystem { get { return thrusterParticleSystems; } }
+
+    [Header("Spaceship Weapons References")]
+    [SerializeField] private WeaponBase primaryWeapon;
+    [SerializeField] private WeaponBase secondaryWeapon;
+
+    public WeaponBase PrimaryWeapon { get { return primaryWeapon; } }
+    public WeaponBase SecondaryWeapon { get {return secondaryWeapon; } }
 
     [Header("Spaceship Idle Animation")]
     [SerializeField] private float idleAnimAmplitude = 0.15f;

@@ -167,6 +167,7 @@ GameObject:
   - component: {fileID: 9108206588495319129}
   - component: {fileID: 2203237552061900511}
   - component: {fileID: 5282514046870798146}
+  - component: {fileID: 7014474744444104413}
   - component: {fileID: 2915070685939292554}
   - component: {fileID: 8959570743445006322}
   - component: {fileID: 7521189018694233219}
@@ -250,6 +251,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a43a2ec0a0af7e34482f14023fa97308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipIntegrity
+--- !u!114 &7014474744444104413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334639625619475842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 940b48665b3c53b438b1919499326b76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceshipWeapons
 --- !u!114 &2915070685939292554
 MonoBehaviour:
   m_ObjectHideFlags: 0

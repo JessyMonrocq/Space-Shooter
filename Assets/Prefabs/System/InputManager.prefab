@@ -52,3 +52,6 @@ MonoBehaviour:
   spaceshipRollAction: {fileID: -1285293555315646902, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipBoostAction: {fileID: 3263668022202308127, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipDodgeAction: {fileID: 7861336252319333245, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipPrimaryWeapon: {fileID: -8046892001136712573, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipSecondaryWeapon: {fileID: 696173347198944374, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipFightOrFlight: {fileID: 3897704714381754794, guid: 052faaac586de48259a63d0c4782560b, type: 3}

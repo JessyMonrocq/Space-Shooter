@@ -68,19 +68,6 @@ public class SpaceshipStatsSO : ScriptableObject
     public float dodgeCooldownDuration = 1f;
 
     [Space(30)]
-    [Header("Weapons Settings")]
-    [Tooltip("Weapons Fire Rate : defines the weapons rate of fire (projectiles/seconds)")]
-    public float weaponsFireRate = 1f;
-    [Tooltip("Weapons Damage : defines the damage of a single projectile")]
-    public int weaponsDamage = 1;
-    [Tooltip("Weapons Max Ammo : defines the weapons ammunitions max capacity")]
-    public int weaponsMaxAmmo = 100;
-    [Tooltip("Weapons Cooldown Duration : defines how long until the weapon can reload (seconds)")]
-    public float weaponsCooldownDuration = 1f;
-    [Tooltip("Weapons Reload Speed : defines the reloading speed of the weapons (ammunition/seconds)")]
-    public float weaponsReloadSpeed = 1f;
-
-    [Space(30)]
     [Header("Health Settings")]
     [Tooltip("Shield Max Capacity : defines the shield max capacity/energy")]
     public int shieldMaxCapacity = 50;

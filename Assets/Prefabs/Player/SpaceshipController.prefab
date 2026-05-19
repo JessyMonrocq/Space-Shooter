@@ -48,7 +48,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2833582110888713025}
   m_Layer: 0
-  m_Name: Reference
+  m_Name: Model
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -216,7 +216,7 @@ MonoBehaviour:
   spaceshipHUD: {fileID: 2915070685939292554}
   spaceshipVFX: {fileID: 8959570743445006322}
   spaceshipFOF: {fileID: 7956739703505840237}
-  spaceshipReferenceParent: {fileID: 4632579416993663095}
+  spaceshipModelParent: {fileID: 4632579416993663095}
   SpaceshipReferencePrefab: {fileID: 0}
 --- !u!114 &9108206588495319129
 MonoBehaviour:

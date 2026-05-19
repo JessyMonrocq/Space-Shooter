@@ -1,3 +1,4 @@
+using System.Threading;
 using UnityEngine;
 
 public class HitscanWeapon : WeaponBase
@@ -8,6 +9,7 @@ public class HitscanWeapon : WeaponBase
     [SerializeField] private float weaponRechargeRate;
 
     private float weaponCooldownTimer;
+    private float rechargeTimer;
     private bool isShooting;
     #endregion
 
@@ -15,6 +17,7 @@ public class HitscanWeapon : WeaponBase
     private void Awake()
     {
         weaponCooldownTimer = weaponCooldownDuration;
+        rechargeTimer = 0f;
         isShooting = false;
     }
 
@@ -32,15 +35,7 @@ public class HitscanWeapon : WeaponBase
                 }
             }
 
-            if (currentAmmunicationCount < maxAmmunitionCount && !isShooting)
-            {
-                weaponCooldownTimer += Time.deltaTime;
-                if (weaponCooldownTimer >= weaponCooldownDuration)
-                {
-                    currentAmmunicationCount += (int)(weaponRechargeRate * Time.deltaTime);
-                    currentAmmunicationCount = Mathf.Min(currentAmmunicationCount, maxAmmunitionCount);
-                }
-            }
+            RechargeWeapon();
         }
     }
     #endregion
@@ -56,17 +51,38 @@ public class HitscanWeapon : WeaponBase
             {
                 canShoot = false;
                 isShooting = true;
+                weaponCooldownTimer = 0f;
+                rechargeTimer = 0f;
 
                 // TODO : Change forward direction by Raycast from shootingPoint to SpaceshipForwarrd at maxDistance !!!
                 Physics.Raycast(weaponShootingPoint.position, weaponShootingPoint.forward, out RaycastHit hit, weaponMaxDistance);
-                weaponShootVFX.Play();
+                weaponShootVFX.Emit(1);
 
                 currentAmmunicationCount--;
-
             }
             else
             {
                 isShooting = false;
+            }
+        }
+    }
+    #endregion
+
+    #region Private Methods
+    private void RechargeWeapon()
+    {
+        if (currentAmmunicationCount < maxAmmunitionCount && !isShooting)
+        {
+            weaponCooldownTimer += Time.deltaTime;
+            if (weaponCooldownTimer >= weaponCooldownDuration)
+            {
+                rechargeTimer += Time.deltaTime;
+
+                while (rechargeTimer >= 1f / weaponRechargeRate)
+                {
+                    currentAmmunicationCount++;
+                    rechargeTimer -= 1f / weaponRechargeRate;
+                }
             }
         }
     }

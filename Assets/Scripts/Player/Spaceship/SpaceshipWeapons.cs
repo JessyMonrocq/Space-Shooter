@@ -6,56 +6,110 @@ public class SpaceshipWeapons : MonoBehaviour
     #region Inspector Fields
     private WeaponBase primaryWeapon;
     private WeaponBase secondaryWeapon;
+
+    private bool primaryWeaponPerformed;
+    private bool secondaryWeaponPerformed;
+
+    private bool fightMode;
     #endregion
 
     #region Unity Methods
+    private void Awake()
+    {
+        primaryWeaponPerformed = false;
+        secondaryWeaponPerformed = false;
+
+        fightMode = false;
+    }
+
     private void Start()
     {
-        InputManager.Instance.SpaceshipPrimaryWeapon.started += OnPrimaryWeaponStarted;
         InputManager.Instance.SpaceshipPrimaryWeapon.performed += OnPrimaryWeaponPerformed;
-        InputManager.Instance.SpaceshipSecondaryWeapon.started += OnSecondaryWeaponStarted;
+        InputManager.Instance.SpaceshipPrimaryWeapon.canceled += OnPrimaryWeaponCanceled;
         InputManager.Instance.SpaceshipSecondaryWeapon.performed += OnSecondaryWeaponPerformed;
+        InputManager.Instance.SpaceshipPrimaryWeapon.canceled += OnSecondaryWeaponCanceled;
     }
 
     private void OnDestroy()
     {
-        InputManager.Instance.SpaceshipPrimaryWeapon.started -= OnPrimaryWeaponStarted;
         InputManager.Instance.SpaceshipPrimaryWeapon.performed -= OnPrimaryWeaponPerformed;
-        InputManager.Instance.SpaceshipSecondaryWeapon.started -= OnSecondaryWeaponStarted;
+        InputManager.Instance.SpaceshipPrimaryWeapon.canceled -= OnPrimaryWeaponCanceled;
         InputManager.Instance.SpaceshipSecondaryWeapon.performed -= OnSecondaryWeaponPerformed;
+        InputManager.Instance.SpaceshipPrimaryWeapon.canceled -= OnSecondaryWeaponCanceled;
+    }
+
+    private void Update()
+    {
+        if (primaryWeaponPerformed)
+        {
+            primaryWeapon.Shoot();
+        }
+
+        if (secondaryWeaponPerformed)
+        {
+            secondaryWeapon.Shoot();
+        }
     }
     #endregion
 
     #region Input Callbacks
-    private void OnPrimaryWeaponStarted(InputAction.CallbackContext context)
-    {
-        if (primaryWeapon != null && primaryWeapon.GetComponent<ProjectileWeapon>())
-        {
-            primaryWeapon.Shoot();
-        }
-    }
-
     private void OnPrimaryWeaponPerformed(InputAction.CallbackContext context)
     {
-        if (primaryWeapon != null && primaryWeapon.GetComponent<HitscanWeapon>())
+        if (primaryWeapon == null || !fightMode)
+        {
+            return;
+        }
+
+        if (primaryWeapon.GetComponent<HitscanWeapon>())
+        {
+            primaryWeaponPerformed = true;
+        }
+        else if (primaryWeapon.GetComponent<ProjectileWeapon>())
         {
             primaryWeapon.Shoot();
         }
     }
 
-    private void OnSecondaryWeaponStarted(InputAction.CallbackContext context)
+    private void OnPrimaryWeaponCanceled(InputAction.CallbackContext context)
     {
-        if (secondaryWeapon != null && secondaryWeapon.GetComponent<ProjectileWeapon>())
+        if (primaryWeapon == null || !fightMode)
         {
-            secondaryWeapon.Shoot();
+            return;
+        }
+
+        if (primaryWeapon.GetComponent<HitscanWeapon>())
+        {
+            primaryWeaponPerformed = false;
         }
     }
 
     private void OnSecondaryWeaponPerformed(InputAction.CallbackContext context)
     {
-        if (secondaryWeapon != null && secondaryWeapon.GetComponent<HitscanWeapon>())
+        if (secondaryWeapon == null || !fightMode)
+        {
+            return;
+        }
+
+        if (secondaryWeapon.GetComponent<HitscanWeapon>())
+        {
+            secondaryWeaponPerformed = true;
+        }
+        else if (secondaryWeapon.GetComponent<ProjectileWeapon>())
         {
             secondaryWeapon.Shoot();
+        }
+    }
+
+    private void OnSecondaryWeaponCanceled(InputAction.CallbackContext context)
+    {
+        if (secondaryWeapon == null || !fightMode)
+        {
+            return;
+        }
+
+        if (secondaryWeapon.GetComponent<HitscanWeapon>())
+        {
+            secondaryWeaponPerformed = false;
         }
     }
     #endregion
@@ -70,7 +124,15 @@ public class SpaceshipWeapons : MonoBehaviour
         secondaryWeapon.SetWeaponState(WeaponBase.WeaponState.Inactive);
     }
 
-    public void SetWeaponsState(bool state)
+    public void SetFightMode(bool fightMode)
+    {
+        this.fightMode = fightMode;
+        SetWeaponsState(fightMode);
+    }
+    #endregion
+
+    #region Private Methods
+    private void SetWeaponsState(bool state)
     {
         if (state)
         {
@@ -81,6 +143,9 @@ public class SpaceshipWeapons : MonoBehaviour
         {
             primaryWeapon.SetWeaponState(WeaponBase.WeaponState.Inactive);
             secondaryWeapon.SetWeaponState(WeaponBase.WeaponState.Inactive);
+
+            primaryWeaponPerformed = false;
+            secondaryWeaponPerformed = false;
         }
     }
     #endregion

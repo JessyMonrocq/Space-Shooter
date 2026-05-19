@@ -13,7 +13,7 @@ public class SpaceshipController : MonoBehaviour
     [SerializeField] private SpaceshipFOF spaceshipFOF;
 
     [Header("Others")]
-    [SerializeField] private GameObject spaceshipReferenceParent;
+    [SerializeField] private GameObject spaceshipModelParent;
 
     [HideInInspector]
     public SpaceshipCamera SpaceshipCamera { get => spaceshipCamera; set => spaceshipCamera = value; }
@@ -35,7 +35,7 @@ public class SpaceshipController : MonoBehaviour
 
         spaceshipFOF.OnFightModeActivated += spaceshipMovement.SetFightMode;
         spaceshipFOF.OnFightModeActivated += spaceshipBoost.SetFightMode;
-        spaceshipFOF.OnFightModeActivated += spaceshipWeapons.SetWeaponsState;
+        spaceshipFOF.OnFightModeActivated += spaceshipWeapons.SetFightMode;
     }
 
     private void OnDestroy()
@@ -47,7 +47,8 @@ public class SpaceshipController : MonoBehaviour
         spaceshipIntegrity.OnSpaceshipImpact -= spaceshipBoost.InterruptBoost;
 
         spaceshipFOF.OnFightModeActivated -= spaceshipMovement.SetFightMode;
-        spaceshipFOF.OnFightModeActivated -= spaceshipWeapons.SetWeaponsState;
+        spaceshipFOF.OnFightModeActivated -= spaceshipBoost.SetFightMode;
+        spaceshipFOF.OnFightModeActivated -= spaceshipWeapons.SetFightMode;
     }
 
     private void Update()
@@ -66,15 +67,15 @@ public class SpaceshipController : MonoBehaviour
     public void InitializeSpaceship()
     {
         spaceshipStats = SpaceshipReferencePrefab.SpaceshipStats;
-        if (spaceshipReferenceParent.GetComponentInChildren<SpaceshipModel>() != null)
+        if (spaceshipModelParent.GetComponentInChildren<SpaceshipModel>() != null)
         {
-            foreach (Transform child in spaceshipReferenceParent.transform)
+            foreach (Transform child in spaceshipModelParent.transform)
             {
                 Destroy(child.gameObject);
             }
         }
 
-        spaceshipReference = Instantiate(SpaceshipReferencePrefab, spaceshipReferenceParent.transform);
+        spaceshipReference = Instantiate(SpaceshipReferencePrefab, spaceshipModelParent.transform);
 
         spaceshipMovement.InitializeMovementValues(spaceshipStats);
         spaceshipBoost.InitializeBoostValues(spaceshipStats);

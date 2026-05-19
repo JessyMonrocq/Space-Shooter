@@ -137,12 +137,14 @@ public class SpaceshipMovement : MonoBehaviour
         {
             SetBoostMode(false);
             movementState = MovementState.FightMode;
+            glide = 0f;
             return;
         }
 
         if (movementState == MovementState.FlightMode && state)
         {
             movementState = MovementState.FightMode;
+            glide = 0f;
             return;
         }
 

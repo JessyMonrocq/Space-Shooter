@@ -48,14 +48,14 @@ public class SpaceshipBoost : MonoBehaviour
         canDodge = true;
         fightModeActive = false;
 
-        InputManager.Instance.SpaceshipBoost.started += OnBoostStarted;
-        InputManager.Instance.SpaceshipDodge.started += OnDodgeStarted;
+        InputManager.Instance.SpaceshipBoost.performed += OnBoostPerformed;
+        InputManager.Instance.SpaceshipDodge.performed += OnDodgePerformed;
     }
 
     private void OnDestroy()
     {
-        InputManager.Instance.SpaceshipBoost.started -= OnBoostStarted;
-        InputManager.Instance.SpaceshipDodge.started -= OnDodgeStarted;
+        InputManager.Instance.SpaceshipBoost.performed -= OnBoostPerformed;
+        InputManager.Instance.SpaceshipDodge.performed -= OnDodgePerformed;
     }
 
     private void Update()
@@ -101,7 +101,7 @@ public class SpaceshipBoost : MonoBehaviour
     #endregion
 
     #region Private Methods
-    private void OnBoostStarted(InputAction.CallbackContext context)
+    private void OnBoostPerformed(InputAction.CallbackContext context)
     {
         if (fightModeActive)
         {
@@ -122,7 +122,7 @@ public class SpaceshipBoost : MonoBehaviour
         OnSpaceshipBoost?.Invoke(isBoosting);
     }
 
-    private void OnDodgeStarted(InputAction.CallbackContext context)
+    private void OnDodgePerformed(InputAction.CallbackContext context)
     {
         if (!canDodge)
         {

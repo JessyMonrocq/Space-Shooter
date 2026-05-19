@@ -5,27 +5,21 @@ using UnityEngine.InputSystem;
 
 public class SpaceshipFOF : MonoBehaviour
 {
+    #region Inspector Fields
     public event Action<bool> OnFightModeActivated;
-
-    public enum FOFState
-    {
-        Fight,
-        Flight
-    }
-
     public bool FOFAvailable { get {  return fofAvailable; } set { fofAvailable = value; } }
 
-    private FOFState fofState;
-
     private float transitionDuration = 1f;
+    private bool fightMode;
     private bool fofAvailable;
     private bool transitionStarted;
+    #endregion
 
+    #region Unity Methods
     private void Awake()
     {
-        fofState = FOFState.Flight;
-
         fofAvailable = true;
+        fightMode = false;
         transitionStarted = false;
     }
 
@@ -38,7 +32,9 @@ public class SpaceshipFOF : MonoBehaviour
     {
         InputManager.Instance.SpaceshipFightOrFlight.started -= OnSpaceshipFightOrFlightStarted;
     }
+    #endregion
 
+    #region Private Methods
     private void OnSpaceshipFightOrFlightStarted(InputAction.CallbackContext context)
     {
         if (fofAvailable && !transitionStarted)
@@ -47,24 +43,16 @@ public class SpaceshipFOF : MonoBehaviour
             StartCoroutine(TransitionCoroutine());
         }
     }
+    #endregion
 
+    #region Coroutines Methods
     private IEnumerator TransitionCoroutine()
     {
-        switch (fofState)
-        {
-            case FOFState.Fight:
-                fofState = FOFState.Flight;
-                break;
-            case FOFState.Flight:
-                fofState = FOFState.Fight;
-                break;
-        }
-
-        Debug.Log("FOF State : " + fofState);
-
-        bool fightMode = fofState == FOFState.Fight;
+        fightMode = !fightMode;
         OnFightModeActivated?.Invoke(fightMode);
+        
         yield return new WaitForSeconds(transitionDuration);
         transitionStarted = false;
     }
+    #endregion
 }

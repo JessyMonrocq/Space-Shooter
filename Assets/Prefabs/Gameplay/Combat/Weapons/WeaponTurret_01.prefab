@@ -86,9 +86,9 @@ MonoBehaviour:
   weaponShootVFX: {fileID: 3497868499955161052}
   weaponDamage: 1
   maxAmmunitionCount: 50
-  weaponFireRate: 0.5
+  weaponFireRate: 0.25
   weaponMaxDistance: 500
-  weaponSpeed: 100
+  weaponSpeed: 250
   activationDuration: 0.5
   weaponCooldownDuration: 2
   weaponRechargeRate: 2
@@ -304,14 +304,6 @@ PrefabInstance:
     - target: {fileID: 4027941581798566, guid: 67e1ff92b7d8d3441933f5fa8b359912, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 198933866736967478, guid: 67e1ff92b7d8d3441933f5fa8b359912, type: 3}
-      propertyPath: lengthInSec
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 198933866736967478, guid: 67e1ff92b7d8d3441933f5fa8b359912, type: 3}
-      propertyPath: InitialModule.maxNumParticles
-      value: 100
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

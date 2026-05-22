@@ -19,6 +19,8 @@ public class HitscanWeapon : WeaponBase
         weaponCooldownTimer = weaponCooldownDuration;
         rechargeTimer = 0f;
         isShooting = false;
+
+        weaponShootVFX.startSpeed = weaponSpeed;
     }
 
     private void Update()
@@ -34,9 +36,9 @@ public class HitscanWeapon : WeaponBase
                     weaponFireRateTimer = 0;
                 }
             }
-
-            RechargeWeapon();
         }
+
+        RechargeWeapon();
     }
     #endregion
 

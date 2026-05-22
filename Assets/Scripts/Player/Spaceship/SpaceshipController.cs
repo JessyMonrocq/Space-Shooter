@@ -21,7 +21,7 @@ public class SpaceshipController : MonoBehaviour
     public SpaceshipModel SpaceshipReferencePrefab;
 
     private SpaceshipCamera spaceshipCamera;
-    private SpaceshipModel spaceshipReference;
+    private SpaceshipModel spaceshipModel;
     private SpaceshipStatsSO spaceshipStats;
     #endregion
 
@@ -36,6 +36,7 @@ public class SpaceshipController : MonoBehaviour
         spaceshipFOF.OnFightModeActivated += spaceshipMovement.SetFightMode;
         spaceshipFOF.OnFightModeActivated += spaceshipBoost.SetFightMode;
         spaceshipFOF.OnFightModeActivated += spaceshipWeapons.SetFightMode;
+        spaceshipFOF.OnFightModeActivated += spaceshipHUD.DisplayAmmoGroup;
     }
 
     private void OnDestroy()
@@ -49,6 +50,7 @@ public class SpaceshipController : MonoBehaviour
         spaceshipFOF.OnFightModeActivated -= spaceshipMovement.SetFightMode;
         spaceshipFOF.OnFightModeActivated -= spaceshipBoost.SetFightMode;
         spaceshipFOF.OnFightModeActivated -= spaceshipWeapons.SetFightMode;
+        spaceshipFOF.OnFightModeActivated -= spaceshipHUD.DisplayAmmoGroup;
     }
 
     private void Update()
@@ -56,10 +58,12 @@ public class SpaceshipController : MonoBehaviour
         spaceshipHUD.CurrentShield = spaceshipIntegrity.CurrentShield;
         spaceshipHUD.CurrentHealth = spaceshipIntegrity.CurrentHealth;
         spaceshipHUD.CurrentEnergy = spaceshipBoost.CurrentBoostEnergy;
+        spaceshipHUD.CurrentPrimaryAmmo = spaceshipModel.PrimaryWeapon.WeaponCurrentAmmunition;
+        spaceshipHUD.CurrentSecondaryAmmo = spaceshipModel.SecondaryWeapon.WeaponCurrentAmmunition;
 
         spaceshipVFX.CurrentSpeed = spaceshipMovement.CurrentSpeed;
 
-        spaceshipReference.IsIdle = spaceshipMovement.CurrentSpeed <= 0.1f;
+        spaceshipModel.IsIdle = spaceshipMovement.CurrentSpeed <= 0.1f;
     }
     #endregion
 
@@ -75,15 +79,15 @@ public class SpaceshipController : MonoBehaviour
             }
         }
 
-        spaceshipReference = Instantiate(SpaceshipReferencePrefab, spaceshipModelParent.transform);
+        spaceshipModel = Instantiate(SpaceshipReferencePrefab, spaceshipModelParent.transform);
 
         spaceshipMovement.InitializeMovementValues(spaceshipStats);
         spaceshipBoost.InitializeBoostValues(spaceshipStats);
         spaceshipIntegrity.InitializeIntegrityValues(spaceshipStats);
-        spaceshipWeapons.InitializeSpaceshipWeapons(spaceshipReference);
-        spaceshipHUD.InitializeHUDValues(spaceshipStats);
+        spaceshipWeapons.InitializeSpaceshipWeapons(spaceshipModel);
+        spaceshipHUD.InitializeHUDValues(spaceshipStats, spaceshipModel);
         spaceshipVFX.InitializeVFXValues(spaceshipStats);
-        spaceshipVFX.InitializeBoostParticles(spaceshipReference.ThrusterParticleSystem);
+        spaceshipVFX.InitializeBoostParticles(spaceshipModel.ThrusterParticleSystem);
 
         spaceshipCamera.InitializeCameraValues(spaceshipStats);
         spaceshipCamera.SetCameraTarget(transform);

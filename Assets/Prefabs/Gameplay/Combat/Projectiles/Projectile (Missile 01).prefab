@@ -43,7 +43,7 @@ GameObject:
   - component: {fileID: 3079827179990151904}
   - component: {fileID: 4281843383068621815}
   - component: {fileID: 2316979123760666154}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: Projectile (Missile 01)
   m_TagString: Projectile
   m_Icon: {fileID: 0}
@@ -104,7 +104,7 @@ Rigidbody:
   m_ImplicitTensor: 1
   m_UseGravity: 0
   m_IsKinematic: 0
-  m_Interpolate: 1
+  m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 1
 --- !u!1 &7870317244329378630
@@ -151,17 +151,21 @@ PrefabInstance:
       propertyPath: m_Name
       value: SM_Prop_Missile_01
       objectReference: {fileID: 0}
+    - target: {fileID: 1550517015285282, guid: e221d3ddf51167c4db44235d8c68ee36, type: 3}
+      propertyPath: m_Layer
+      value: 12
+      objectReference: {fileID: 0}
     - target: {fileID: 4637046966039350, guid: e221d3ddf51167c4db44235d8c68ee36, type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4637046966039350, guid: e221d3ddf51167c4db44235d8c68ee36, type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4637046966039350, guid: e221d3ddf51167c4db44235d8c68ee36, type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.75
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4637046966039350, guid: e221d3ddf51167c4db44235d8c68ee36, type: 3}
       propertyPath: m_LocalPosition.x
@@ -229,6 +233,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: FX_Exhaust_Trail
       objectReference: {fileID: 0}
+    - target: {fileID: 1598324380993774, guid: 766892bf51b6fd44396c2262dbb644be, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4021296802695634, guid: 766892bf51b6fd44396c2262dbb644be, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -268,6 +276,22 @@ PrefabInstance:
     - target: {fileID: 4021296802695634, guid: 766892bf51b6fd44396c2262dbb644be, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 198876262804619478, guid: 766892bf51b6fd44396c2262dbb644be, type: 3}
+      propertyPath: lengthInSec
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 198876262804619478, guid: 766892bf51b6fd44396c2262dbb644be, type: 3}
+      propertyPath: InitialModule.startSize.scalar
+      value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 198876262804619478, guid: 766892bf51b6fd44396c2262dbb644be, type: 3}
+      propertyPath: InitialModule.startSpeed.scalar
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 198876262804619478, guid: 766892bf51b6fd44396c2262dbb644be, type: 3}
+      propertyPath: InitialModule.startSize.minScalar
+      value: 0.2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

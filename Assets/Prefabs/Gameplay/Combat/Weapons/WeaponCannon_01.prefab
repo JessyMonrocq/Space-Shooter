@@ -56,12 +56,9 @@ MonoBehaviour:
   maxAmmunitionCount: 15
   weaponFireRate: 2
   weaponMaxDistance: 500
-  weaponSpeed: 50
+  weaponSpeed: 250
   activationDuration: 0.5
   projectilePrefab: {fileID: 4281843383068621815, guid: bcdc8163aa3d06c498c7af0e4a7c95c4, type: 3}
-  projectileLayer:
-    serializedVersion: 2
-    m_Bits: 4096
 --- !u!1 &2448745511947476377
 GameObject:
   m_ObjectHideFlags: 0

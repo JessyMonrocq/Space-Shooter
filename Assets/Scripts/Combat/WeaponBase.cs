@@ -27,6 +27,9 @@ public abstract class WeaponBase : MonoBehaviour
         Disabled
     }
 
+    public float WeaponMaxAmmunition { get { return maxAmmunitionCount; } }
+    public float WeaponCurrentAmmunition { get { return currentAmmunicationCount; } }
+
     protected WeaponState weaponState;
 
     protected int currentAmmunicationCount;

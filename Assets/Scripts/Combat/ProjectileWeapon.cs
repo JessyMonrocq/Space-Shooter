@@ -7,7 +7,6 @@ public class ProjectileWeapon : WeaponBase
     #region Inspector Fields
     [Header("Projectile Settings")]
     [SerializeField] private Projectile projectilePrefab;
-    [SerializeField] private LayerMask projectileLayer;
 
     private IObjectPool<Projectile> projectilePool;
     private Transform poolParent;
@@ -68,7 +67,6 @@ public class ProjectileWeapon : WeaponBase
     {
         Projectile projectileInstance = Instantiate(projectilePrefab);
         projectileInstance.transform.SetParent(poolParent);
-        projectileInstance.gameObject.layer = Mathf.RoundToInt(Mathf.Log(projectileLayer.value, 2));
         projectileInstance.ProjectilePool = projectilePool;
         return projectileInstance;
     }

@@ -54,6 +54,7 @@ MonoBehaviour:
   thrusterParticleSystems:
   - {fileID: 5172718918769235622}
   - {fileID: 9103046792139069630}
+  starStreaksEffect: {fileID: 7789497156319531498}
   primaryWeapon: {fileID: 0}
   secondaryWeapon: {fileID: 0}
   idleAnimAmplitude: 0.15
@@ -149,6 +150,7 @@ Transform:
   - {fileID: 8972786515552272502}
   - {fileID: 876798653265424039}
   - {fileID: 2543947539101184127}
+  - {fileID: 7983355445929711926}
   m_Father: {fileID: 2702059484776876019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &881371673066699297
@@ -361,6 +363,73 @@ Transform:
 ParticleSystem:
   m_CorrespondingSourceObject: {fileID: 198547944166065258, guid: 41eac07628561874e8fd3c1649c10b47, type: 3}
   m_PrefabInstance: {fileID: 4974316218678366924}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1001 &7251714244908360658
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 1741718074380814198}
+    m_Modifications:
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 180
+      objectReference: {fileID: 0}
+    - target: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 756070424982281374, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+      propertyPath: m_Name
+      value: Warp_Dots
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+--- !u!198 &7789497156319531498 stripped
+ParticleSystem:
+  m_CorrespondingSourceObject: {fileID: 628984197699105336, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+  m_PrefabInstance: {fileID: 7251714244908360658}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7983355445929711926 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 750360429438778084, guid: f5063cdfc2718d046b5fb7571ae2fe0b, type: 3}
+  m_PrefabInstance: {fileID: 7251714244908360658}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &8977335000421784788
 PrefabInstance:

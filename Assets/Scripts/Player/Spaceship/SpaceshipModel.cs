@@ -10,12 +10,14 @@ public class SpaceshipModel : MonoBehaviour
     [SerializeField] private Mesh collisionMesh;
     [SerializeField] private MeshRenderer meshRenderer;
     [SerializeField] private ParticleSystem[] thrusterParticleSystems;
+    [SerializeField] private ParticleSystem starStreaksEffect;
 
     public string SpaceshipName { get { return spaceshipName; } }
     public SpaceshipStatsSO SpaceshipStats { get { return spaceshipStats; } }
     public Mesh CollisionMesh { get { return collisionMesh; } }
     public MeshRenderer MeshRenderer { get { return meshRenderer; } }
     public ParticleSystem[] ThrusterParticleSystem { get { return thrusterParticleSystems; } }
+    public ParticleSystem WarpSpeedEffect { get { return starStreaksEffect; } }
 
     [Header("Spaceship Weapons References")]
     [SerializeField] private WeaponBase primaryWeapon;

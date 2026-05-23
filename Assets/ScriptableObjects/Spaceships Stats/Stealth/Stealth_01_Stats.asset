@@ -37,11 +37,6 @@ MonoBehaviour:
   dodgeDuration: 0.25
   dodgeEnergyConsumption: 25
   dodgeCooldownDuration: 1
-  weaponsFireRate: 1
-  weaponsDamage: 1
-  weaponsMaxAmmo: 100
-  weaponsCooldownDuration: 1
-  weaponsReloadSpeed: 1
   shieldMaxCapacity: 100
   shieldCooldown: 1
   shieldRechargeRate: 1
@@ -50,7 +45,7 @@ MonoBehaviour:
   collisionDamageToHullMultiplier: 0.5
   collisionCooldownDuration: 1
   cameraPositionOffset: {x: 0, y: 5, z: -25}
-  cameraPositionDampTime: 0.1
+  cameraPositionDampTime: 0.075
   cameraRotationDampSmoothness: 8
   defaultNoiseSettings: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
   boostNoiseSettings: {fileID: 11400000, guid: 69ce8388f6785dd4c8c39915efece2f4, type: 2}

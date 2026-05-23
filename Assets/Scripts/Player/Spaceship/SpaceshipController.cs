@@ -86,9 +86,7 @@ public class SpaceshipController : MonoBehaviour
         spaceshipIntegrity.InitializeIntegrityValues(spaceshipStats);
         spaceshipWeapons.InitializeSpaceshipWeapons(spaceshipModel);
         spaceshipHUD.InitializeHUDValues(spaceshipStats, spaceshipModel);
-        spaceshipVFX.InitializeVFXValues(spaceshipStats);
-        spaceshipVFX.InitializeBoostParticles(spaceshipModel.ThrusterParticleSystem);
-
+        spaceshipVFX.InitializeVFXValues(spaceshipStats, spaceshipModel);
         spaceshipCamera.InitializeCameraValues(spaceshipStats);
         spaceshipCamera.SetCameraTarget(transform);
 

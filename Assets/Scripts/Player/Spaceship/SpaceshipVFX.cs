@@ -37,7 +37,7 @@ public class SpaceshipVFX : MonoBehaviour
         boostParticleMultiplier = currentSpeed / maxSpeed;
 
         HandleThrusterVFX();
-        HandleStarStreakVFX();
+        //HandleStarStreakVFX();
     }
     #endregion
 
@@ -63,9 +63,16 @@ public class SpaceshipVFX : MonoBehaviour
         isReady = true;
     }
 
-    public void InitializeVFXParticles(SpaceshipModel spaceshipModel)
+    public void HandleStarStreakVFX(bool isBoosting)
     {
-
+        if (isBoosting)
+        {
+            starStreakEffect.Play();
+        }
+        else
+        {
+            starStreakEffect.Stop();
+        }
     }
     #endregion
 

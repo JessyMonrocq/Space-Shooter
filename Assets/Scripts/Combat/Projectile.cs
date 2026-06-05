@@ -34,6 +34,8 @@ public class Projectile : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        collision.gameObject.GetComponent<HealthComponent>()?.TakeDamage(projectileDamage);
+
         Deactivate();
     }
     #endregion

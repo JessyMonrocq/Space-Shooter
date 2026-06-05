@@ -3,6 +3,8 @@ using UnityEngine;
 public class SpaceshipController : MonoBehaviour
 {
     #region Inspector Fields
+    public static SpaceshipController Instance;
+
     [Header("Spaceship Scripts References")]
     [SerializeField] private SpaceshipMovement spaceshipMovement;
     [SerializeField] private SpaceshipBoost spaceshipBoost;
@@ -28,7 +30,17 @@ public class SpaceshipController : MonoBehaviour
     #region Unity Methods
     private void Awake()
     {
+        if (Instance != null && Instance != this)
+        {
+            Destroy(this.gameObject);
+        }
+        else
+        {
+            Instance = this;
+        }
+
         spaceshipBoost.OnSpaceshipBoost += spaceshipMovement.SetBoostMode;
+        spaceshipBoost.OnSpaceshipBoost += spaceshipVFX.HandleStarStreakVFX;
         spaceshipBoost.OnSpaceshipDodge += spaceshipMovement.Dodge;
 
         spaceshipIntegrity.OnSpaceshipImpact += spaceshipBoost.InterruptBoost;
@@ -43,6 +55,7 @@ public class SpaceshipController : MonoBehaviour
     {
         spaceshipBoost.OnSpaceshipBoost -= spaceshipMovement.SetBoostMode;
         spaceshipBoost.OnSpaceshipBoost -= spaceshipCamera.SetBoostMode;
+        spaceshipBoost.OnSpaceshipBoost -= spaceshipVFX.HandleStarStreakVFX;
         spaceshipBoost.OnSpaceshipDodge -= spaceshipMovement.Dodge;
 
         spaceshipIntegrity.OnSpaceshipImpact -= spaceshipBoost.InterruptBoost;

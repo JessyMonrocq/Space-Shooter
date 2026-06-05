@@ -216,7 +216,15 @@ public class SpaceshipMovement : MonoBehaviour
 
     private void ReadInputValues()
     {
-        thrustInput = InputManager.Instance.SpaceshipForwardMove.ReadValue<float>();
+        if (movementState == MovementState.FightMode)
+        {
+            thrustInput = 0f;
+        }
+        else
+        {
+            thrustInput = InputManager.Instance.SpaceshipForwardMove.ReadValue<float>();
+        }
+
         horizontalThrustInput = InputManager.Instance.SpaceshipHorizontalMove.ReadValue<float>();
         verticalThrustInput = InputManager.Instance.SpaceshipVerticalMove.ReadValue<float>();
         pitchInput = InputManager.Instance.SpaceshipPitch.ReadValue<float>();
@@ -233,8 +241,8 @@ public class SpaceshipMovement : MonoBehaviour
         }
         else
         {
-            bool isFlightMode = movementState == MovementState.FlightMode;
-            currentThrust = thrust * (isFlightMode ? Mathf.Abs(thrustInput) : 1f);
+            bool useThrustInput = (movementState == MovementState.FlightMode || movementState == MovementState.FightMode);
+            currentThrust = thrust * (useThrustInput ? Mathf.Abs(thrustInput) : 1f);
         }
 
         targetInertiaTorqueDampener = 1f / (1f + (currentThrust * inertiaTorqueDampenerMultiplier / 100f));

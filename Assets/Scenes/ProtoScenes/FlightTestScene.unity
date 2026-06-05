@@ -3845,6 +3845,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
   courseManager: {fileID: 1898830117}
   spaceshipManager: {fileID: 7685453373300564685}
+  InitializeCourse: 1
 --- !u!1001 &1110681133
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7783,6 +7784,63 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4760527597374216, guid: 91f739cfcee797a4cbaabbb8316c23f9, type: 3}
   m_PrefabInstance: {fileID: 2131986113}
   m_PrefabAsset: {fileID: 0}
+--- !u!1001 &2188390145288533276
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 62
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -191
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1350277393419004668, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7490574359568971629, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
+      propertyPath: m_Name
+      value: FragileAsteroid
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 3672ba6abd6e6ee4ba935d42b15e59a9, type: 3}
 --- !u!1001 &7227335890889879449
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7939,3 +7997,4 @@ SceneRoots:
   - {fileID: 7685453373300564684}
   - {fileID: 1898830116}
   - {fileID: 662388543}
+  - {fileID: 2188390145288533276}

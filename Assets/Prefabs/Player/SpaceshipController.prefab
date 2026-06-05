@@ -385,6 +385,7 @@ MonoBehaviour:
   ammoGroup: {fileID: 7194141723511765160}
   primaryAmmo: {fileID: 4869782737593592209}
   secondaryAmmo: {fileID: 2886727214959776622}
+  ammoDisplayDuration: 0.33
 --- !u!114 &8959570743445006322
 MonoBehaviour:
   m_ObjectHideFlags: 0

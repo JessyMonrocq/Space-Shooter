@@ -88,10 +88,14 @@ MonoBehaviour:
   maxAmmunitionCount: 50
   weaponFireRate: 0.25
   weaponMaxDistance: 500
-  weaponSpeed: 250
+  weaponSpeed: 400
   activationDuration: 0.5
   weaponCooldownDuration: 2
   weaponRechargeRate: 2
+  weaponLaserMaterial: {fileID: 2100000, guid: a6e1f4658d10dc1488e738567c543732, type: 2}
+  hitLayerMask:
+    serializedVersion: 2
+    m_Bits: 2049
 --- !u!1 &4126002295711372752
 GameObject:
   m_ObjectHideFlags: 0

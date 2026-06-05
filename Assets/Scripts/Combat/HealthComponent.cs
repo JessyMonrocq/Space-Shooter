@@ -1,12 +1,16 @@
+using System;
 using UnityEngine;
 
 public class HealthComponent : MonoBehaviour, IDamageable
 {
+    public event Action<int, int, int> OnShieldDamageTaken;
+    public event Action<int, int, int> OnHealthDamageTaken;
+
     [Header("Health Component Settings")]
-    private int shieldMaxCapacity;
-    private float shieldCooldown;
-    private float shieldRechargeRate;
-    private int hullMaxHP;
+    [SerializeField] private int maxShield;
+    [SerializeField] private float shieldCooldown;
+    [SerializeField] private float shieldRechargeRate;
+    [SerializeField] private int maxHealth;
 
     public int MaxShield { get; set; }
     public int CurrentShield { get; set; }
@@ -16,8 +20,8 @@ public class HealthComponent : MonoBehaviour, IDamageable
 
     protected virtual void Start()
     {
-        CurrentShield = shieldMaxCapacity;
-        CurrentHealth = hullMaxHP;
+        CurrentShield = maxShield;
+        CurrentHealth = maxHealth;
     }
 
     public void TakeDamage(int ammount)
@@ -31,10 +35,14 @@ public class HealthComponent : MonoBehaviour, IDamageable
         {
             CurrentShield -= ammount;
             CurrentShield = Mathf.Max(CurrentShield, 0);
+
+            OnShieldDamageTaken.Invoke(ammount, CurrentShield, maxShield);
         } else
         {
             CurrentHealth -= ammount;
             CurrentHealth = Mathf.Max(CurrentHealth, 0);
+
+            OnHealthDamageTaken.Invoke(ammount, CurrentHealth, maxHealth);
         }
 
         if (CurrentHealth <= 0)
@@ -51,7 +59,7 @@ public class HealthComponent : MonoBehaviour, IDamageable
         }
 
         CurrentShield += ammount;
-        CurrentShield = Mathf.Min(CurrentShield, shieldMaxCapacity);
+        CurrentShield = Mathf.Min(CurrentShield, maxShield);
     }
 
     public void Heal(int ammount)
@@ -62,7 +70,7 @@ public class HealthComponent : MonoBehaviour, IDamageable
         }
 
         CurrentHealth += ammount;
-        CurrentHealth = Mathf.Min(CurrentHealth, hullMaxHP);
+        CurrentHealth = Mathf.Min(CurrentHealth, maxHealth);
     }
 
     protected virtual void OnDeath()

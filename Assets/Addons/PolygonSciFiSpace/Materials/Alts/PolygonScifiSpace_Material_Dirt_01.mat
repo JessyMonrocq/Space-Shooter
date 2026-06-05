@@ -115,7 +115,7 @@ Material:
     - __dirty: 0
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
-    - _EmissionColor: {r: 0.77205884, g: 0.42009085, b: 0.42009085, a: 1}
+    - _EmissionColor: {r: 0.77205884, g: 0.42009082, b: 0.42009082, a: 1}
   m_BuildTextureStacks: []
   m_AllowLocking: 1
 --- !u!114 &6247078584315457782

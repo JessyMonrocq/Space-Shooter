@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -14,6 +16,7 @@ public class SpaceshipHUD : MonoBehaviour
     [SerializeField] private CanvasGroup ammoGroup;
     [SerializeField] private CircleSlider primaryAmmo;
     [SerializeField] private CircleSlider secondaryAmmo;
+    [SerializeField] private float ammoDisplayDuration;
 
     public float CurrentShield { set { currentShield = value; } }
     public float CurrentHealth { set { currentHealth = value; } }
@@ -66,7 +69,9 @@ public class SpaceshipHUD : MonoBehaviour
 
     public void DisplayAmmoGroup(bool state)
     {
-        ammoGroup.alpha = state ? 1 : 0;
+        ammoGroup.DOKill();
+        float endValue = state ? 1 : 0;
+        ammoGroup.DOFade(endValue, ammoDisplayDuration).SetEase(Ease.InOutSine);
     }
 
     public void InitializeHUDValues(SpaceshipStatsSO spaceshipStats, SpaceshipModel spaceshipModel)

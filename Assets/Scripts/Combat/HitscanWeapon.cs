@@ -1,4 +1,3 @@
-using System.Threading;
 using UnityEngine;
 
 public class HitscanWeapon : WeaponBase
@@ -7,9 +6,12 @@ public class HitscanWeapon : WeaponBase
     [Header("Hitscan Settings")]
     [SerializeField] private float weaponCooldownDuration;
     [SerializeField] private float weaponRechargeRate;
+    [SerializeField] private Material weaponLaserMaterial;
+    [SerializeField] private LayerMask hitLayerMask;
 
     private float weaponCooldownTimer;
     private float rechargeTimer;
+    private float weaponRange;
     private bool isShooting;
     #endregion
 
@@ -18,9 +20,11 @@ public class HitscanWeapon : WeaponBase
     {
         weaponCooldownTimer = weaponCooldownDuration;
         rechargeTimer = 0f;
+        weaponRange = weaponSpeed * weaponShootVFX.startLifetime;
         isShooting = false;
 
         weaponShootVFX.startSpeed = weaponSpeed;
+        weaponShootVFX.GetComponent<Renderer>().material = weaponLaserMaterial;
     }
 
     private void Update()
@@ -47,26 +51,40 @@ public class HitscanWeapon : WeaponBase
     {
         base.Shoot();
 
-        if (weaponState == WeaponState.Active)
+        if (weaponState != WeaponState.Active)
         {
-            if (canShoot && currentAmmunicationCount > 0)
-            {
-                canShoot = false;
-                isShooting = true;
-                weaponCooldownTimer = 0f;
-                rechargeTimer = 0f;
-
-                // TODO : Change forward direction by Raycast from shootingPoint to SpaceshipForwarrd at maxDistance !!!
-                Physics.Raycast(weaponShootingPoint.position, weaponShootingPoint.forward, out RaycastHit hit, weaponMaxDistance);
-                weaponShootVFX.Emit(1);
-
-                currentAmmunicationCount--;
-            }
-            else
-            {
-                isShooting = false;
-            }
+            return;
         }
+
+        if (!canShoot || currentAmmunicationCount <= 0)
+        {
+            isShooting = false;
+            return;
+        }
+
+        canShoot = false;
+        isShooting = true;
+        weaponCooldownTimer = 0f;
+        rechargeTimer = 0f;
+
+        RaycastHit hit;
+        Vector3 targetPoint;
+
+        if (Physics.Raycast(weaponShootingPoint.transform.position, weaponShootingPoint.transform.forward, out hit, weaponRange, hitLayerMask))
+        {
+            targetPoint = hit.point;
+            hit.collider.GetComponent<HealthComponent>()?.TakeDamage(weaponDamage);
+        } 
+        else
+        {
+            targetPoint = weaponShootingPoint.transform.position + weaponShootingPoint.transform.forward * weaponRange;
+        }
+
+        float distance = Vector3.Distance(weaponShootingPoint.transform.position, targetPoint);
+        weaponShootVFX.startLifetime = distance / weaponSpeed;
+        weaponShootVFX.Emit(1);
+
+        currentAmmunicationCount--;
     }
     #endregion
 

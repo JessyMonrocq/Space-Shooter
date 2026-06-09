@@ -3,7 +3,7 @@ using UnityEngine;
 public class SpaceshipController : MonoBehaviour
 {
     #region Inspector Fields
-    public static SpaceshipController Instance;
+    public static SpaceshipController Instance { get; private set; }
 
     [Header("Spaceship Scripts References")]
     [SerializeField] private SpaceshipMovement spaceshipMovement;
@@ -13,14 +13,15 @@ public class SpaceshipController : MonoBehaviour
     [SerializeField] private SpaceshipHUD spaceshipHUD;
     [SerializeField] private SpaceshipVFX spaceshipVFX;
     [SerializeField] private SpaceshipFOF spaceshipFOF;
+    [SerializeField] private SpaceshipCargo spaceshipCargo;
+    [SerializeField] private SpaceshipMenu spaceshipMenu;
 
     [Header("Others")]
     [SerializeField] private GameObject spaceshipModelParent;
+    [SerializeField] private MeshCollider spaceshipMeshCollider;
 
-    [HideInInspector]
-    public SpaceshipCamera SpaceshipCamera { get => spaceshipCamera; set => spaceshipCamera = value; }
-    [HideInInspector]
-    public SpaceshipModel SpaceshipReferencePrefab;
+    [HideInInspector] public SpaceshipCamera SpaceshipCamera { get => spaceshipCamera; set => spaceshipCamera = value; }
+    [HideInInspector] public SpaceshipModel SpaceshipReferencePrefab;
 
     private SpaceshipCamera spaceshipCamera;
     private SpaceshipModel spaceshipModel;
@@ -33,50 +34,53 @@ public class SpaceshipController : MonoBehaviour
         if (Instance != null && Instance != this)
         {
             Destroy(this.gameObject);
+            return;
         }
         else
         {
             Instance = this;
         }
-
-        spaceshipBoost.OnSpaceshipBoost += spaceshipMovement.SetBoostMode;
-        spaceshipBoost.OnSpaceshipBoost += spaceshipVFX.HandleStarStreakVFX;
-        spaceshipBoost.OnSpaceshipDodge += spaceshipMovement.Dodge;
-
-        spaceshipIntegrity.OnSpaceshipImpact += spaceshipBoost.InterruptBoost;
-
-        spaceshipFOF.OnFightModeActivated += spaceshipMovement.SetFightMode;
-        spaceshipFOF.OnFightModeActivated += spaceshipBoost.SetFightMode;
-        spaceshipFOF.OnFightModeActivated += spaceshipWeapons.SetFightMode;
-        spaceshipFOF.OnFightModeActivated += spaceshipHUD.DisplayAmmoGroup;
     }
 
     private void OnDestroy()
     {
-        spaceshipBoost.OnSpaceshipBoost -= spaceshipMovement.SetBoostMode;
-        spaceshipBoost.OnSpaceshipBoost -= spaceshipCamera.SetBoostMode;
-        spaceshipBoost.OnSpaceshipBoost -= spaceshipVFX.HandleStarStreakVFX;
-        spaceshipBoost.OnSpaceshipDodge -= spaceshipMovement.Dodge;
-
-        spaceshipIntegrity.OnSpaceshipImpact -= spaceshipBoost.InterruptBoost;
-
-        spaceshipFOF.OnFightModeActivated -= spaceshipMovement.SetFightMode;
-        spaceshipFOF.OnFightModeActivated -= spaceshipBoost.SetFightMode;
-        spaceshipFOF.OnFightModeActivated -= spaceshipWeapons.SetFightMode;
-        spaceshipFOF.OnFightModeActivated -= spaceshipHUD.DisplayAmmoGroup;
+        UnsubscribeEvents();
     }
 
     private void Update()
     {
-        spaceshipHUD.CurrentShield = spaceshipIntegrity.CurrentShield;
-        spaceshipHUD.CurrentHealth = spaceshipIntegrity.CurrentHealth;
-        spaceshipHUD.CurrentEnergy = spaceshipBoost.CurrentBoostEnergy;
-        spaceshipHUD.CurrentPrimaryAmmo = spaceshipModel.PrimaryWeapon.WeaponCurrentAmmunition;
-        spaceshipHUD.CurrentSecondaryAmmo = spaceshipModel.SecondaryWeapon.WeaponCurrentAmmunition;
+        if (spaceshipHUD != null && spaceshipIntegrity != null)
+        {
+            spaceshipHUD.CurrentShield = spaceshipIntegrity.CurrentShield;
+            spaceshipHUD.CurrentHealth = spaceshipIntegrity.CurrentHealth;
+        }
 
-        spaceshipVFX.CurrentSpeed = spaceshipMovement.CurrentSpeed;
+        if (spaceshipHUD != null && spaceshipBoost != null)
+        {
+            spaceshipHUD.CurrentEnergy = spaceshipBoost.CurrentBoostEnergy;
+        }
 
-        spaceshipModel.IsIdle = spaceshipMovement.CurrentSpeed <= 0.1f;
+        if (spaceshipModel.UsesWeapons)
+        {
+            if (spaceshipModel.PrimaryWeapon != null)
+            {
+                spaceshipHUD.CurrentPrimaryAmmo = spaceshipModel.PrimaryWeapon.WeaponCurrentAmmunition;
+            }
+            if (spaceshipModel.SecondaryWeapon != null)
+            {
+                spaceshipHUD.CurrentSecondaryAmmo = spaceshipModel.SecondaryWeapon.WeaponCurrentAmmunition;
+            }
+        }
+
+        if (spaceshipVFX != null && spaceshipMovement != null)
+        {
+            spaceshipVFX.CurrentSpeed = spaceshipMovement.CurrentSpeed;
+        }
+
+        if (spaceshipModel != null && spaceshipMovement != null)
+        {
+            spaceshipModel.IsIdle = spaceshipMovement.CurrentSpeed <= 0.1f;
+        }
     }
     #endregion
 
@@ -100,10 +104,46 @@ public class SpaceshipController : MonoBehaviour
         spaceshipWeapons.InitializeSpaceshipWeapons(spaceshipModel);
         spaceshipHUD.InitializeHUDValues(spaceshipStats, spaceshipModel);
         spaceshipVFX.InitializeVFXValues(spaceshipStats, spaceshipModel);
+        spaceshipFOF.InitializeFOFValues(spaceshipModel);
         spaceshipCamera.InitializeCameraValues(spaceshipStats);
         spaceshipCamera.SetCameraTarget(transform);
+        spaceshipCargo.InitializeCargoValues(spaceshipStats, spaceshipModel);
 
+        spaceshipMeshCollider.sharedMesh = spaceshipModel.CollisionMesh;
+
+        SubscribeEvents();
+    }
+    #endregion
+
+    #region Private Methods
+    private void SubscribeEvents()
+    {
+        spaceshipBoost.OnSpaceshipBoost += spaceshipMovement.SetBoostMode;
+        spaceshipBoost.OnSpaceshipBoost += spaceshipVFX.HandleStarStreakVFX;
+        spaceshipBoost.OnSpaceshipDodge += spaceshipMovement.Dodge;
         spaceshipBoost.OnSpaceshipBoost += spaceshipCamera.SetBoostMode;
+
+        spaceshipIntegrity.OnSpaceshipImpact += spaceshipBoost.InterruptBoost;
+
+        spaceshipFOF.OnFightModeActivated += spaceshipMovement.SetFightMode;
+        spaceshipFOF.OnFightModeActivated += spaceshipBoost.SetFightMode;
+        spaceshipFOF.OnFightModeActivated += spaceshipWeapons.SetFightMode;
+        spaceshipFOF.OnFightModeActivated += spaceshipHUD.DisplayAmmoGroup;
+    }
+
+    private void UnsubscribeEvents()
+    {
+        spaceshipBoost.OnSpaceshipBoost -= spaceshipMovement.SetBoostMode;
+        spaceshipBoost.OnSpaceshipBoost -= spaceshipVFX.HandleStarStreakVFX;
+        spaceshipBoost.OnSpaceshipDodge -= spaceshipMovement.Dodge;
+        spaceshipBoost.OnSpaceshipBoost -= spaceshipCamera.SetBoostMode;
+
+        spaceshipIntegrity.OnSpaceshipImpact -= spaceshipBoost.InterruptBoost;
+
+        spaceshipFOF.OnFightModeActivated -= spaceshipMovement.SetFightMode;
+        spaceshipFOF.OnFightModeActivated -= spaceshipBoost.SetFightMode;
+        spaceshipFOF.OnFightModeActivated -= spaceshipWeapons.SetFightMode;
+        spaceshipFOF.OnFightModeActivated -= spaceshipHUD.DisplayAmmoGroup;
     }
     #endregion
 }

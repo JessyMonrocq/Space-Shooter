@@ -119,6 +119,41 @@ Transform:
   - {fileID: 7575369730857381542}
   m_Father: {fileID: 5022289400832823497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4872984415775299147
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 8668424209798715491}
+  m_Layer: 5
+  m_Name: Menu
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &8668424209798715491
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4872984415775299147}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 2615887778233808528}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4973773139483728246
 GameObject:
   m_ObjectHideFlags: 0
@@ -150,6 +185,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2246683171923802415}
+  - {fileID: 8668424209798715491}
   m_Father: {fileID: 5022289400832823497}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -271,6 +307,8 @@ GameObject:
   - component: {fileID: 2915070685939292554}
   - component: {fileID: 8959570743445006322}
   - component: {fileID: 7956739703505840237}
+  - component: {fileID: 9189904859905213781}
+  - component: {fileID: 1296036066218184521}
   - component: {fileID: 7521189018694233219}
   - component: {fileID: 1169549870250825343}
   m_Layer: 10
@@ -316,7 +354,10 @@ MonoBehaviour:
   spaceshipHUD: {fileID: 2915070685939292554}
   spaceshipVFX: {fileID: 8959570743445006322}
   spaceshipFOF: {fileID: 7956739703505840237}
+  spaceshipCargo: {fileID: 9189904859905213781}
+  spaceshipMenu: {fileID: 1296036066218184521}
   spaceshipModelParent: {fileID: 4632579416993663095}
+  spaceshipMeshCollider: {fileID: 1169549870250825343}
   SpaceshipReferencePrefab: {fileID: 0}
 --- !u!114 &9108206588495319129
 MonoBehaviour:
@@ -354,6 +395,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a43a2ec0a0af7e34482f14023fa97308, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipIntegrity
+  maxShield: 0
+  shieldCooldown: 0
+  shieldRechargeRate: 0
+  maxHealth: 0
 --- !u!114 &7014474744444104413
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -410,6 +455,30 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8115b3931765a354aa59a6ee31282480, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SpaceshipFOF
+--- !u!114 &9189904859905213781
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334639625619475842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8523aa83586b334e9d2f09790e41e72, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceshipCargo
+--- !u!114 &1296036066218184521
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8334639625619475842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d19b8a73a2f7e5f4aa66e5867eb7c909, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SpaceshipMenu
 --- !u!54 &7521189018694233219
 Rigidbody:
   m_ObjectHideFlags: 0

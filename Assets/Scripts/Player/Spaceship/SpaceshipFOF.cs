@@ -34,6 +34,13 @@ public class SpaceshipFOF : MonoBehaviour
     }
     #endregion
 
+    #region Public Methods
+    public void InitializeFOFValues(SpaceshipModel spaceshipModel)
+    {
+        fofAvailable = spaceshipModel.UsesWeapons;
+    }
+    #endregion
+
     #region Private Methods
     private void OnSpaceshipFightOrFlightStarted(InputAction.CallbackContext context)
     {

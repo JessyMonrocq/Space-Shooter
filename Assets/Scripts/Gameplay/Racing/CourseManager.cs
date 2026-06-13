@@ -17,11 +17,11 @@ public class CourseManager : MonoBehaviour
     [SerializeField] private TextMeshProUGUI countdownText;
 
     [Header("Waypoint Marker Settings")]
-    private Camera mainCamera;
     [SerializeField] private Image waypointMarker;
     [SerializeField] private float screenEdgePadding = 50f;
     [SerializeField] private float waypointScaleMult = 1.2f;
     [SerializeField] private float waypointScaleDuration = 0.5f;
+    private Camera mainCamera;
 
     private CourseTime courseTimer;
 

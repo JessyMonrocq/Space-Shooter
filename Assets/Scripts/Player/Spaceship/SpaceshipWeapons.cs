@@ -115,10 +115,15 @@ public class SpaceshipWeapons : MonoBehaviour
     #endregion
 
     #region Public Methods
-    public void InitializeSpaceshipWeapons(SpaceshipModel spaceshipReference)
+    public void InitializeSpaceshipWeapons(SpaceshipModel spaceshipModel)
     {
-        primaryWeapon = spaceshipReference.PrimaryWeapon;
-        secondaryWeapon = spaceshipReference.SecondaryWeapon;
+        if (!spaceshipModel.UsesWeapons)
+        {
+            return;
+        }
+
+        primaryWeapon = spaceshipModel.PrimaryWeapon;
+        secondaryWeapon = spaceshipModel.SecondaryWeapon;
 
         primaryWeapon.SetWeaponState(WeaponBase.WeaponState.Inactive);
         secondaryWeapon.SetWeaponState(WeaponBase.WeaponState.Inactive);

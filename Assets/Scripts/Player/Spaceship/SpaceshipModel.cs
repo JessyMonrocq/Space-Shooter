@@ -20,11 +20,20 @@ public class SpaceshipModel : MonoBehaviour
     public ParticleSystem WarpSpeedEffect { get { return starStreaksEffect; } }
 
     [Header("Spaceship Weapons References")]
+    [SerializeField] private bool usesWeapons = true;
     [SerializeField] private WeaponBase primaryWeapon;
     [SerializeField] private WeaponBase secondaryWeapon;
 
+    public bool UsesWeapons { get { return usesWeapons; } }
     public WeaponBase PrimaryWeapon { get { return primaryWeapon; } }
     public WeaponBase SecondaryWeapon { get {return secondaryWeapon; } }
+
+    [Header("Spaceship Tractor Beam References")]
+    [SerializeField] private bool usesTractorBeam = false;
+    [SerializeField] private TractorBeam tractorBeam;
+
+    public bool UsesTractorBeam { get { return usesTractorBeam; } }
+    public TractorBeam TractorBeam { get {return tractorBeam; } }
 
     [Header("Spaceship Idle Animation")]
     [SerializeField] private float idleAnimAmplitude = 0.15f;

@@ -15,6 +15,7 @@ public class SpaceshipController : MonoBehaviour
     [SerializeField] private SpaceshipFOF spaceshipFOF;
     [SerializeField] private SpaceshipCargo spaceshipCargo;
     [SerializeField] private SpaceshipMenu spaceshipMenu;
+    [SerializeField] private SpaceshipUI spaceshipUI;
 
     [Header("Others")]
     [SerializeField] private GameObject spaceshipModelParent;
@@ -129,6 +130,20 @@ public class SpaceshipController : MonoBehaviour
         spaceshipFOF.OnFightModeActivated += spaceshipBoost.SetFightMode;
         spaceshipFOF.OnFightModeActivated += spaceshipWeapons.SetFightMode;
         spaceshipFOF.OnFightModeActivated += spaceshipHUD.DisplayAmmoGroup;
+
+        spaceshipMenu.OnMenu += spaceshipCamera.OnPause;
+        spaceshipMenu.OnMenu += OnMenu;
+    }
+
+    private void OnMenu(bool state)
+    {
+        if (state)
+        {
+            spaceshipUI.OpenInventoryMenu(spaceshipCargo.CargoInventory);
+        } else
+        {
+            spaceshipUI.CloseInventoryMenu();
+        }
     }
 
     private void UnsubscribeEvents()
@@ -144,6 +159,8 @@ public class SpaceshipController : MonoBehaviour
         spaceshipFOF.OnFightModeActivated -= spaceshipBoost.SetFightMode;
         spaceshipFOF.OnFightModeActivated -= spaceshipWeapons.SetFightMode;
         spaceshipFOF.OnFightModeActivated -= spaceshipHUD.DisplayAmmoGroup;
+
+        spaceshipMenu.OnMenu -= spaceshipCamera.OnPause;
     }
     #endregion
 }

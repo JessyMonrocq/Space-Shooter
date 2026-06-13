@@ -114,8 +114,8 @@ public class SpaceshipStatsSO : ScriptableObject
 
     [Space(30)]
     [Header("Cargo Settings")]
-    [Tooltip("Max Cargo Space : defines the spaceship maximum cargo space")]
-    public int maxCargoSpace;
+    [Tooltip("Cargo Max Capacity : defines the spaceship maximum cargo space")]
+    public int cargoMaxCapacity;
 
     //...
 }

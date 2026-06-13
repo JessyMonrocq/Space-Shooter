@@ -3,6 +3,76 @@
     "name": "InputSystem_Actions",
     "maps": [
         {
+            "name": "Game",
+            "id": "601d11a3-ce1c-4d66-ace8-0ea69e501a17",
+            "actions": [
+                {
+                    "name": "Start",
+                    "type": "Button",
+                    "id": "e2c28eb2-64e2-49d9-8135-cb4d68a5ece5",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Select",
+                    "type": "Button",
+                    "id": "cfc0f0a7-e599-453b-85e8-632e8f98de98",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "2c586916-5124-43f8-ab5e-f9808c89e66b",
+                    "path": "<Gamepad>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1322978e-4bb7-4858-8c1b-404e1369d301",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Start",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "1146e2ea-d5c9-4154-8cd4-9adfdcaba5c3",
+                    "path": "<Gamepad>/select",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7e13e57-cd50-4aea-a47b-a93fd76ea0f5",
+                    "path": "<Keyboard>/tab",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Select",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "Spaceship",
             "id": "322508c1-38d0-4dd4-a1a5-30f2ca12a281",
             "actions": [
@@ -73,6 +143,15 @@
                     "name": "Dodge",
                     "type": "Button",
                     "id": "bf202284-42b5-4eb6-b7de-e1503b302cc4",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Interact",
+                    "type": "Button",
+                    "id": "17aea566-d791-4bd0-b698-acee011bdbe2",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -396,7 +475,7 @@
                 {
                     "name": "",
                     "id": "6a5df9f5-9c10-4515-99ea-634ccc65c92a",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
@@ -478,6 +557,28 @@
                     "processors": "",
                     "groups": ";Keyboard&Mouse",
                     "action": "FightOrFlight",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f9ce5ec2-00a9-4db1-a47d-8b78abcb9c56",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Interact",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "98c65c80-71ab-483d-9ab0-be859764cb0a",
+                    "path": "<Keyboard>/f",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Interact",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

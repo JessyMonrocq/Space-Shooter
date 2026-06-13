@@ -6,6 +6,13 @@ public class InputManager : MonoBehaviour
     #region Inspector Fields
     public static InputManager Instance { get; private set; }
 
+    [Header("Game Inputs")]
+    [SerializeField] private InputActionReference startMenu;
+    [SerializeField] private InputActionReference selectMenu;
+
+    public InputAction StartMenu => startMenu.action;
+    public InputAction SelectMenu => selectMenu.action;
+
     [Header("Spaceship Inputs")]
     [SerializeField] private InputActionReference spaceshipForwardMoveAction;
     [SerializeField] private InputActionReference spaceshipHorizontalMoveAction;
@@ -15,9 +22,11 @@ public class InputManager : MonoBehaviour
     [SerializeField] private InputActionReference spaceshipRollAction;
     [SerializeField] private InputActionReference spaceshipBoostAction;
     [SerializeField] private InputActionReference spaceshipDodgeAction;
+    [SerializeField] private InputActionReference spaceshipInteractAction;
     [SerializeField] private InputActionReference spaceshipPrimaryWeapon;
     [SerializeField] private InputActionReference spaceshipSecondaryWeapon;
     [SerializeField] private InputActionReference spaceshipFightOrFlight;
+
 
     public InputAction SpaceshipForwardMove => spaceshipForwardMoveAction.action;
     public InputAction SpaceshipHorizontalMove => spaceshipHorizontalMoveAction.action;
@@ -27,6 +36,7 @@ public class InputManager : MonoBehaviour
     public InputAction SpaceshipRoll => spaceshipRollAction.action;
     public InputAction SpaceshipBoost => spaceshipBoostAction.action;
     public InputAction SpaceshipDodge => spaceshipDodgeAction.action;
+    public InputAction SpaceshipInteract => spaceshipInteractAction.action;
     public InputAction SpaceshipPrimaryWeapon => spaceshipPrimaryWeapon.action;
     public InputAction SpaceshipSecondaryWeapon => spaceshipSecondaryWeapon.action;
     public InputAction SpaceshipFightOrFlight => spaceshipFightOrFlight.action;
@@ -43,6 +53,12 @@ public class InputManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    public void SetGameInputState(bool state)
+    {
+        SetInputState(StartMenu, state);
+        SetInputState(SelectMenu, state);
+    }
+
     public void SetSpaceshipInputState(bool state)
     {
         SetInputState(SpaceshipForwardMove, state);
@@ -53,6 +69,7 @@ public class InputManager : MonoBehaviour
         SetInputState(SpaceshipRoll, state);
         SetInputState(SpaceshipBoost, state);
         SetInputState(SpaceshipDodge, state);
+        SetInputState(SpaceshipInteract, state);
         SetInputState(SpaceshipPrimaryWeapon, state);
         SetInputState(SpaceshipSecondaryWeapon, state);
         SetInputState(SpaceshipFightOrFlight, state);

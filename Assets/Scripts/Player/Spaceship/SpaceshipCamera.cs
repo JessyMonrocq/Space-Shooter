@@ -1,3 +1,5 @@
+using DG.Tweening;
+using System.Collections;
 using Unity.Cinemachine;
 using UnityEngine;
 
@@ -21,6 +23,7 @@ public class SpaceshipCamera : MonoBehaviour
     private float boostNoiseFrequency = 1.0f;
 
     private bool isReady;
+    private bool isBoosting;
 
     private Vector3 currentVelocity;
     #endregion
@@ -29,6 +32,7 @@ public class SpaceshipCamera : MonoBehaviour
     private void Awake()
     {
         isReady = false;
+        isBoosting = false;
     }
 
     private void LateUpdate()
@@ -75,9 +79,17 @@ public class SpaceshipCamera : MonoBehaviour
 
     public void SetBoostMode(bool isBoosting)
     {
+        this.isBoosting = isBoosting;
+
         noiseComponent.NoiseProfile = isBoosting ? boostNoiseSettings : defaultNoiseSettings;
         noiseComponent.AmplitudeGain = isBoosting ? boostNoiseAmplitude : defaultNoiseAmplitude;
         noiseComponent.FrequencyGain = isBoosting ? boostNoiseFrequency : defaultNoiseFrequency;
+    }
+
+    public void OnPause(bool pause)
+    {
+        noiseComponent.AmplitudeGain = pause ? 0f : (isBoosting ? boostNoiseAmplitude : defaultNoiseAmplitude);
+        noiseComponent.FrequencyGain = pause ? 0f : (isBoosting ? boostNoiseFrequency : defaultNoiseFrequency);
     }
     #endregion
 }

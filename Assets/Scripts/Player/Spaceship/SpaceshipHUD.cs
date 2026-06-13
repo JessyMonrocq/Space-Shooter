@@ -80,7 +80,10 @@ public class SpaceshipHUD : MonoBehaviour
         maxHealth = spaceshipStats.hullMaxHP;
         maxEnergy = spaceshipStats.boostEnergyCapacity;
 
-        maxPrimaryAmmo = spaceshipModel.PrimaryWeapon.WeaponMaxAmmunition;
-        maxSecondaryAmmo = spaceshipModel.SecondaryWeapon.WeaponMaxAmmunition;
+        if (spaceshipModel.UsesWeapons)
+        {
+            maxPrimaryAmmo = spaceshipModel.PrimaryWeapon.WeaponMaxAmmunition;
+            maxSecondaryAmmo = spaceshipModel.SecondaryWeapon.WeaponMaxAmmunition;
+        }
     }
 }

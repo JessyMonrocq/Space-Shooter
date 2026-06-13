@@ -44,6 +44,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdbcd94b9f768ac49b5dfcf9182c8cba, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InputManager
+  startMenu: {fileID: -248540958863491323, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  selectMenu: {fileID: -7107779021552195413, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipForwardMoveAction: {fileID: -1856329886089158745, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipHorizontalMoveAction: {fileID: -6349072104690065100, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipVerticalMoveAction: {fileID: -1981895563696206236, guid: 052faaac586de48259a63d0c4782560b, type: 3}
@@ -52,6 +54,7 @@ MonoBehaviour:
   spaceshipRollAction: {fileID: -1285293555315646902, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipBoostAction: {fileID: 3263668022202308127, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipDodgeAction: {fileID: 7861336252319333245, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  spaceshipInteractAction: {fileID: -3771321546846327418, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipPrimaryWeapon: {fileID: -8046892001136712573, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipSecondaryWeapon: {fileID: 696173347198944374, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   spaceshipFightOrFlight: {fileID: 3897704714381754794, guid: 052faaac586de48259a63d0c4782560b, type: 3}

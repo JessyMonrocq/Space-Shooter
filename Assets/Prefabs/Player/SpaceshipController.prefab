@@ -342,6 +342,7 @@ MonoBehaviour:
   spaceshipUI: {fileID: 4271290523112081285}
   spaceshipModelParent: {fileID: 4632579416993663095}
   spaceshipMeshCollider: {fileID: 1169549870250825343}
+  spaceshipTractorBeam: {fileID: 0}
   SpaceshipReferencePrefab: {fileID: 0}
 --- !u!114 &9108206588495319129
 MonoBehaviour:

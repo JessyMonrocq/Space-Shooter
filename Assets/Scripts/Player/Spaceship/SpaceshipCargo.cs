@@ -1,17 +1,22 @@
+using System;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class SpaceshipCargo : MonoBehaviour
 {
-    private int cargoMaxCapacity;
+    #region Inspector Fields
+    public event Action<GameObject> OnItemAdded;
 
     public List<ComponentStack> CargoInventory { get { return cargoInventory; } }
-
     private List<ComponentStack> cargoInventory;
+
+    private int cargoMaxCapacity;
     private int currentCargoSpaceUsage;
     private ComponentItem currentDetectedItem;
+    #endregion
 
+    #region Unity Methods
     private void Start()
     {
         currentDetectedItem = null;
@@ -23,7 +28,9 @@ public class SpaceshipCargo : MonoBehaviour
     {
         InputManager.Instance.SpaceshipInteract.performed -= OnInteractPerformed;
     }
+    #endregion
 
+    #region Public Methods
     public void InitializeCargoValues(SpaceshipStatsSO spaceshipStats, SpaceshipModel spaceshipModel)
     {
         cargoMaxCapacity = spaceshipStats.cargoMaxCapacity;
@@ -36,7 +43,9 @@ public class SpaceshipCargo : MonoBehaviour
             spaceshipModel.TractorBeam.OnItemDetected += OnItemDetected;
         }
     }
+    #endregion
 
+    #region Private Methods
     private void OnInteractPerformed(InputAction.CallbackContext context)
     {
         AddItemToCargo();
@@ -46,7 +55,6 @@ public class SpaceshipCargo : MonoBehaviour
     {
         if (currentCargoSpaceUsage < cargoMaxCapacity && currentDetectedItem != null)
         {
-
             if (currentDetectedItem.AssignedComponent.ComponentSize + currentCargoSpaceUsage <= cargoMaxCapacity)
             {
                 currentCargoSpaceUsage += currentDetectedItem.AssignedComponent.ComponentSize;
@@ -60,7 +68,7 @@ public class SpaceshipCargo : MonoBehaviour
     private void CheckCargoForItem(ComponentSO item)
     {
         bool itemFound = false;
-        foreach(ComponentStack stack in cargoInventory)
+        foreach (ComponentStack stack in cargoInventory)
         {
             if (stack.component.name == item.name)
             {
@@ -77,9 +85,20 @@ public class SpaceshipCargo : MonoBehaviour
         }
     }
 
-    private void OnItemDetected(GameObject detectedItem, bool isDetected)
+    private void OnItemDetected(GameObject detectedItem)
     {
-        detectedItem.GetComponent<ComponentItem>().SetIconDisplay(isDetected);
-        currentDetectedItem = isDetected ? detectedItem.GetComponent<ComponentItem>() : null;
+        if (detectedItem != currentDetectedItem && currentDetectedItem != null)
+        {
+            currentDetectedItem.SetIconDisplay(false);
+        }
+
+        if (detectedItem == null)
+        {
+            currentDetectedItem = null;
+            return;
+        }
+        currentDetectedItem = detectedItem.GetComponent<ComponentItem>();
+        currentDetectedItem.SetIconDisplay(true);
     }
 }
+#endregion

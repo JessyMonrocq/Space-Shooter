@@ -35,6 +35,14 @@ public class InventoryItem : MonoBehaviour
         icon.sprite = stack.component.ComponentIcon;
         amount.text = stack.amount.ToString();
     }
+
+    public void ResetItemValues()
+    {
+        OnItemClick = null;
+        componentStackRef = null;
+        icon.sprite = null;
+        amount.text = string.Empty;
+    }
     #endregion
 
     #region Pooling Methods

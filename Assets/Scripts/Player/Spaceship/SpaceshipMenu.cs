@@ -6,63 +6,57 @@ public class SpaceshipMenu : MonoBehaviour
 {
     public event Action<bool> OnMenu;
 
-    private bool isPaused;
-    private bool isPausing;
-    private bool isSelectMenu;
-    private bool isStartMenu;
+    private enum Menu
+    {
+        Start,
+        Select
+    }
+
+    private Menu currentMenu;
 
     private void Start()
     {
-        InputManager.Instance.SelectMenu.performed += SetSpaceshipMenu;
-
-        isPaused = false;
-        isPausing = false;
-        isStartMenu = false;
-        isSelectMenu = false;
+        InputManager.Instance.SelectMenu.performed += SetSelectMenu;
+        InputManager.Instance.StartMenu.performed += SetStartMenu;
     }
 
-    private void SetSpaceshipMenu(InputAction.CallbackContext context)
+    private void SetSelectMenu(InputAction.CallbackContext context)
     {
-        if (isPausing)
+        if (SpaceshipGameManager.Instance.CurrentGameState == SpaceshipGameManager.GameState.Play)
         {
-            return;
+            SpaceshipGameManager.Instance.OnPause += DisplaySelectMenu;
+
+            InputManager.Instance.SetGameInputState(false);
+            SpaceshipGameManager.Instance.PauseGame(true);
+            currentMenu = Menu.Select;
         }
-
-        if (!isPaused)
+        else if (SpaceshipGameManager.Instance.CurrentGameState == SpaceshipGameManager.GameState.Pause && currentMenu == Menu.Select)
         {
-            isPaused = true;
-            isPausing = true;
-            isSelectMenu = true;
+            SpaceshipGameManager.Instance.OnResume += (() => InputManager.Instance.SetGameInputState(true)); 
 
-            InputManager.Instance.SetSpaceshipInputState(false);
-            PauseGame.Instance.OnPause += DisplayMenu;
-            PauseGame.Instance.PauseCurrentGame(true);
-        }
-        else if (isPaused && isSelectMenu)
-        {
-            isPaused = false;
-            isPausing = true;
-            isSelectMenu = false;
-
-            InputManager.Instance.SetSpaceshipInputState(true);
-            PauseGame.Instance.OnResume += HideMenu;
-            PauseGame.Instance.PauseCurrentGame(false);
+            HideSelectMenu();
+            InputManager.Instance.SetGameInputState(false);
+            SpaceshipGameManager.Instance.PauseGame(false);
         }
     }
 
-    private void DisplayMenu()
+    private void SetStartMenu(InputAction.CallbackContext context)
     {
-        PauseGame.Instance.OnPause -= DisplayMenu;
+        // ...
+    }
+
+    private void DisplaySelectMenu()
+    {
+        SpaceshipGameManager.Instance.OnPause -= DisplaySelectMenu;
         Cursor.lockState = CursorLockMode.None;
+        InputManager.Instance.SetGameInputState(true);
         OnMenu?.Invoke(true);
-        isPausing = false;
     }
 
-    private void HideMenu()
+    private void HideSelectMenu()
     {
-        PauseGame.Instance.OnPause -= DisplayMenu;
+        SpaceshipGameManager.Instance.OnPause -= DisplaySelectMenu;
         Cursor.lockState = CursorLockMode.Locked;
         OnMenu?.Invoke(false);
-        isPausing = false;
     }
 }

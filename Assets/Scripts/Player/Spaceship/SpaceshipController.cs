@@ -27,6 +27,7 @@ public class SpaceshipController : MonoBehaviour
     private SpaceshipCamera spaceshipCamera;
     private SpaceshipModel spaceshipModel;
     private SpaceshipStatsSO spaceshipStats;
+    private TractorBeam spaceshipTractorBeam;
     #endregion
 
     #region Unity Methods
@@ -111,6 +112,10 @@ public class SpaceshipController : MonoBehaviour
         spaceshipCargo.InitializeCargoValues(spaceshipStats, spaceshipModel);
 
         spaceshipMeshCollider.sharedMesh = spaceshipModel.CollisionMesh;
+        if (spaceshipModel.UsesTractorBeam)
+        {
+            spaceshipTractorBeam = spaceshipModel.TractorBeam;
+        }
 
         SubscribeEvents();
     }
@@ -140,7 +145,8 @@ public class SpaceshipController : MonoBehaviour
         if (state)
         {
             spaceshipUI.OpenInventoryMenu(spaceshipCargo.CargoInventory);
-        } else
+        }
+        else
         {
             spaceshipUI.CloseInventoryMenu();
         }

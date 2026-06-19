@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 using UnityEngine.Pool;
@@ -43,7 +42,8 @@ public class SpaceshipInventoryUI : MonoBehaviour
 
         for (int i = 0; i < poolDefaultCapacity; i++)
         {
-            activeInventoryItems.Add(inventoryItemPool.Get());
+            var it = inventoryItemPool.Get();
+            inventoryItemPool.Release(it);
         }
 
         poolCurrentCapacity = poolDefaultCapacity;
@@ -61,7 +61,8 @@ public class SpaceshipInventoryUI : MonoBehaviour
             int additionalItemsCount = inventory.Count - poolCurrentCapacity;
             for (int i = 0; i < additionalItemsCount; i++)
             {
-                activeInventoryItems.Add(inventoryItemPool.Get());
+                var it = inventoryItemPool.Get();
+                inventoryItemPool.Release(it);
             }
 
             poolCurrentCapacity += additionalItemsCount;
@@ -69,8 +70,10 @@ public class SpaceshipInventoryUI : MonoBehaviour
 
         foreach (InventoryItem item in activeInventoryItems)
         {
+            item.ResetItemValues();
             inventoryItemPool.Release(item);
         }
+        activeInventoryItems.Clear();
 
         if (inventory.Count == 0)
         {
@@ -86,11 +89,13 @@ public class SpaceshipInventoryUI : MonoBehaviour
         {
             InventoryItem item = inventoryItemPool.Get();
             item.InitializeItemValues(inventory[i]);
-        }
 
-        foreach (InventoryItem item in activeInventoryItems)
-        {
-            item.OnItemClick += () => UpdateDetailsPanel(item.ComponentStackRef.component, item.ComponentStackRef.amount);
+            // ajouter à l'ensemble des items actifs
+            activeInventoryItems.Add(item);
+
+            // capturer la référence locale pour éviter les pièges de fermeture
+            var captured = item;
+            captured.OnItemClick += () => UpdateDetailsPanel(captured.ComponentStackRef.component, captured.ComponentStackRef.amount);
         }
 
         inventoryDetailsPanelCG.alpha = 0f;
@@ -130,6 +135,7 @@ public class SpaceshipInventoryUI : MonoBehaviour
 
     private void OnReleaseFromPool(InventoryItem pooledItem)
     {
+        pooledItem.ResetItemValues();
         pooledItem.gameObject.SetActive(false);
     }
 

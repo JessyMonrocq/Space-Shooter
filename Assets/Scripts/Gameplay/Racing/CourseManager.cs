@@ -35,7 +35,37 @@ public class CourseManager : MonoBehaviour
 
     private bool courseStarted;
 
-    private void Start()
+    private void OnDestroy()
+    {
+        foreach (WaypointRing waypoint in courseWaypoints)
+        {
+            if (waypoint != null)
+            {
+                continue;
+            }
+            waypoint.SetRingState(false);
+            waypoint.OnRingPassed -= UpdateCourseStatus;
+        }
+    }
+
+    private void Update()
+    {
+        if (courseStarted)
+        {
+            courseTimerFloat += Time.deltaTime;
+            courseTimer.SetCourseFromFloat(courseTimerFloat);
+            timerText.text = courseTimer.ChronoToString();
+        }
+
+        UpdateWaypointMarker();
+    }
+
+    public void StartCourse()
+    {
+        StartCoroutine(CourseCountdownCoroutine());
+    }
+
+    public void InitializeCourse()
     {
         courseTimerFloat = 0f;
 
@@ -65,36 +95,6 @@ public class CourseManager : MonoBehaviour
         }
 
         mainCamera = Camera.main;
-    }
-
-    private void OnDestroy()
-    {
-        foreach (WaypointRing waypoint in courseWaypoints)
-        {
-            if (waypoint != null)
-            {
-                continue;
-            }
-            waypoint.SetRingState(false);
-            waypoint.OnRingPassed -= UpdateCourseStatus;
-        }
-    }
-
-    private void Update()
-    {
-        if (courseStarted)
-        {
-            courseTimerFloat += Time.deltaTime;
-            courseTimer.SetCourseFromFloat(courseTimerFloat);
-            timerText.text = courseTimer.ChronoToString();
-        }
-
-        UpdateWaypointMarker();
-    }
-
-    public void InitializeCourse()
-    {
-        StartCoroutine(CourseCountdownCoroutine());
     }
 
     private void UpdateCourseStatus()

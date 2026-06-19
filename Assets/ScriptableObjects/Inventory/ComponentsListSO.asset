@@ -12,4 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89bd1e37796acf145b4dab8cc873dadf, type: 3}
   m_Name: ComponentsListSO
   m_EditorClassIdentifier: Assembly-CSharp::ComponentsListSO
-  componentsSOList: []
+  componentsSOList:
+  - {fileID: 11400000, guid: ea09c8464c74c314a883d6ee9241a8c9, type: 2}
+  - {fileID: 11400000, guid: 4be9103a401ceab43a0a2192ea6deae1, type: 2}
+  - {fileID: 11400000, guid: 64f235c3cc7ab634986737eee93164b0, type: 2}
+  - {fileID: 11400000, guid: d1c030081bd239f42b2eeb966a5b5df8, type: 2}
